@@ -1,7 +1,7 @@
 # Contributing
-[issues]: https://github.com/technote-space/gh-actions-template/issues
-[fork]: https://github.com/technote-space/gh-actions-template/fork
-[pr]: https://github.com/technote-space/gh-actions-template/compare
+[issues]: https://github.com/technote-space/npm-version-checker/issues
+[fork]: https://github.com/technote-space/npm-version-checker/fork
+[pr]: https://github.com/technote-space/npm-version-checker/compare
 [eslint]: https://eslint.org/
 [jest]: https://jestjs.io/
 [code-of-conduct]: CODE_OF_CONDUCT.md

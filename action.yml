@@ -1,6 +1,6 @@
 # https://help.github.com/ja/articles/metadata-syntax-for-github-actions
 name: GitHub Actions Template
-description: Template for GitHub actions.
+description: GitHub Action to check package version before publish.
 author: technote-space
 inputs:
   GITHUB_TOKEN:

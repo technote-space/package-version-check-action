@@ -1,11 +1,11 @@
-# GitHub Actions Template
+# npm Version Checker
 
-[![Build Status](https://github.com/technote-space/gh-actions-template/workflows/Build/badge.svg)](https://github.com/technote-space/gh-actions-template/actions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/gh-actions-template/badge.svg?branch=master)](https://coveralls.io/github/technote-space/gh-actions-template?branch=master)
-[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/gh-actions-template/badge)](https://www.codefactor.io/repository/github/technote-space/gh-actions-template)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/gh-actions-template/blob/master/LICENSE)
+[![Build Status](https://github.com/technote-space/npm-version-checker/workflows/Build/badge.svg)](https://github.com/technote-space/npm-version-checker/actions)
+[![Coverage Status](https://coveralls.io/repos/github/technote-space/npm-version-checker/badge.svg?branch=master)](https://coveralls.io/github/technote-space/npm-version-checker?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/npm-version-checker/badge)](https://www.codefactor.io/repository/github/technote-space/npm-version-checker)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/npm-version-checker/blob/master/LICENSE)
 
-Template for GitHub actions.
+GitHub Action to check package version before publish.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
