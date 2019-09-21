@@ -1,0 +1,84 @@
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+    tags:
+      - "!*"
+
+name: Build
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 3
+      - name: Install Package dependencies
+        run: yarn install
+      - name: Check code style
+        run: yarn lint
+      - uses: 8398a7/action-slack@v1
+        with:
+          type: failure
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()
+
+  jest:
+    name: Jest
+    needs: eslint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['8', '10', '11', '12']
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 3
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install Package dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn cover
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel: true
+      - uses: 8398a7/action-slack@v1
+        with:
+          type: failure
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()
+
+  coverallsFinished:
+    name: Coveralls Finished
+    needs: jest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.github_token }}
+          parallel-finished: true
+
+  slack:
+    name: Slack
+    needs: coverallsFinished
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 8398a7/action-slack@v1
+        with:
+          type: success
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

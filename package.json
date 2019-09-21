@@ -1,0 +1,48 @@
+{
+  "name": "@technote-space/gh-actions-template",
+  "version": "0.0.1",
+  "description": "Template for GitHub actions.",
+  "author": "Technote <technote.space@gmail.com> (https://technote.space)",
+  "license": "MIT",
+  "keywords": [
+    "github",
+    "github actions"
+  ],
+  "homepage": "https://github.com/technote-space/gh-actions-template",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/technote-space/gh-actions-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/technote-space/gh-actions-template/issues"
+  },
+  "main": "lib/main.js",
+  "dependencies": {
+    "@actions/core": "^1.1.1",
+    "@actions/github": "^1.1.0",
+    "@technote-space/filter-github-action": "^0.0.1",
+    "@technote-space/github-action-helper": "^0.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.5",
+    "@typescript-eslint/eslint-plugin": "^2.3.0",
+    "@typescript-eslint/parser": "^2.3.0",
+    "eslint": "^6.4.0",
+    "jest": "^24.9.0",
+    "jest-circus": "^24.9.0",
+    "nock": "^11.3.5",
+    "ts-jest": "^24.1.0",
+    "typescript": "^3.6.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "setup": "bash bin/setup.sh && rm -rdf bin",
+    "build": "tsc",
+    "test": "yarn lint && yarn cover",
+    "lint": "eslint src/**/**/*.ts && eslint __tests__/**/**/*.ts",
+    "cover": "jest --coverage"
+  }
+}
