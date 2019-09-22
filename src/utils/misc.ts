@@ -4,9 +4,9 @@ import { getInput } from '@actions/core' ;
 import { Utils } from '@technote-space/github-action-helper';
 import { ReplaceResult } from 'replace-in-file';
 import colors from 'colors/safe';
-import { DEFAULT_COMMIT_MESSAGE, DEFAULT_PACKAGE_NAME } from '../constant';
+import { DEFAULT_COMMIT_MESSAGE, DEFAULT_PACKAGE_NAME, DEFAULT_TEST_TAG_PREFIX } from '../constant';
 
-const {getWorkspace} = Utils;
+const {getWorkspace, escapeRegExp} = Utils;
 
 const normalizeVersion = (version: string): string => version.replace(/^v/, '');
 
@@ -20,9 +20,17 @@ export const getPackageData = (): object => JSON.parse(fs.readFileSync(getPackag
 
 export const getPackageVersion = (): string => getPackageData()['version'];
 
-export const isRequiredUpdate = (packageVersion: string, tagVersion: string): boolean => normalizeVersion(packageVersion) !== normalizeVersion(tagVersion);
+export const getTestTagPrefix = (): string => getInput('TEST_TAG_PREFIX') || DEFAULT_TEST_TAG_PREFIX;
 
-export const getPackageVersionToUpdate = (tagVersion: string): string => normalizeVersion(tagVersion);
+const getTestTagPrefixRegExp = (): RegExp => new RegExp('^' + escapeRegExp(getTestTagPrefix()));
+
+export const isTestTag = (tagName: string): boolean => !!getTestTagPrefix() && getTestTagPrefixRegExp().test(tagName);
+
+export const getTestTag = (tagName: string): string => tagName.replace(getTestTagPrefixRegExp(), '');
+
+export const getPackageVersionToUpdate = (tagVersion: string): string => normalizeVersion(isTestTag(tagVersion) ? getTestTag(tagVersion) : tagVersion);
+
+export const isRequiredUpdate = (packageVersion: string, tagVersion: string): boolean => normalizeVersion(packageVersion) !== getPackageVersionToUpdate(tagVersion);
 
 export const getReplaceResultMessages = (results: ReplaceResult[]): string[] => results.map(result => `${result.hasChanged ? colors.green('✔') : colors.red('✖')} ${result.file}`);
 

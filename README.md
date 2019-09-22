@@ -75,6 +75,11 @@ default: `'package.json'`
 Package directory.  
 default: `''`
 
+### TEST_TAG_PREFIX
+Prefix for test tag.  
+default: `''`  
+e.g. `'test/'`
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)

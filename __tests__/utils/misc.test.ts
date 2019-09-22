@@ -8,6 +8,8 @@ import {
 	getPackagePath,
 	getPackageData,
 	getPackageVersion,
+	isTestTag,
+	getTestTag,
 	isRequiredUpdate,
 	getPackageVersionToUpdate,
 	getReplaceResultMessages,
@@ -115,6 +117,29 @@ describe('getPackageVersion', () => {
 	});
 });
 
+describe('isTestTag', () => {
+	testEnv();
+
+	it('should return true', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+		expect(isTestTag('test/v1.2.3')).toBe(true);
+	});
+
+	it('should return false', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+		expect(isTestTag('v1.2.3')).toBe(false);
+	});
+});
+
+describe('getTestTag', () => {
+	testEnv();
+
+	it('should get test tag', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+		expect(getTestTag('test/v1.2.3')).toBe('v1.2.3');
+	});
+});
+
 describe('isRequiredUpdate', () => {
 	it('should return false', () => {
 		expect(isRequiredUpdate('0.0.1', '0.0.1')).toBeFalsy();
@@ -131,9 +156,18 @@ describe('isRequiredUpdate', () => {
 });
 
 describe('getPackageVersionToUpdate', () => {
+	testEnv();
+
 	it('should get version', () => {
 		expect(getPackageVersionToUpdate('1.2.3')).toBe('1.2.3');
 		expect(getPackageVersionToUpdate('v1.2.3')).toBe('1.2.3');
+	});
+
+	it('should get version', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+
+		expect(getPackageVersionToUpdate('test/1.2.3')).toBe('1.2.3');
+		expect(getPackageVersionToUpdate('test/v1.2.3')).toBe('1.2.3');
 	});
 });
 
