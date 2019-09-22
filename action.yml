@@ -15,6 +15,9 @@ inputs:
   PACKAGE_DIR:
     description: Package directory.
     default: ''
+  TEST_TAG_PREFIX:
+    description: Tag name prefix for test
+    default: ''
 branding:
   icon: 'package'
   color: 'orange'
