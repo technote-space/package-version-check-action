@@ -10,6 +10,7 @@ import {
 	getPackageVersion,
 	isTestTag,
 	getTestTag,
+	isValidTagName,
 	isRequiredUpdate,
 	getPackageVersionToUpdate,
 	getReplaceResultMessages,
@@ -137,6 +138,36 @@ describe('getTestTag', () => {
 	it('should get test tag', () => {
 		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
 		expect(getTestTag('test/v1.2.3')).toBe('v1.2.3');
+	});
+});
+
+describe('isValidTagName', () => {
+	testEnv();
+
+	it('should return true 1', () => {
+		expect(isValidTagName('1.2.3')).toBeTruthy();
+		expect(isValidTagName('v1.2.3')).toBeTruthy();
+	});
+
+	it('should return true 2', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+		expect(isValidTagName('test/1.2.3')).toBeTruthy();
+		expect(isValidTagName('test/v1.2.3')).toBeTruthy();
+	});
+
+	it('should return false 1', () => {
+		expect(isValidTagName('test/1.2.3')).toBeFalsy();
+		expect(isValidTagName('test/v1.2.3')).toBeFalsy();
+		expect(isValidTagName('.2.3')).toBeFalsy();
+		expect(isValidTagName('abc')).toBeFalsy();
+		expect(isValidTagName('')).toBeFalsy();
+	});
+
+	it('should return false 2', () => {
+		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
+		expect(isValidTagName('.2.3')).toBeFalsy();
+		expect(isValidTagName('abc')).toBeFalsy();
+		expect(isValidTagName('')).toBeFalsy();
 	});
 });
 

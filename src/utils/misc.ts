@@ -6,7 +6,7 @@ import { ReplaceResult } from 'replace-in-file';
 import colors from 'colors/safe';
 import { DEFAULT_COMMIT_MESSAGE, DEFAULT_PACKAGE_NAME, DEFAULT_TEST_TAG_PREFIX } from '../constant';
 
-const {getWorkspace, escapeRegExp} = Utils;
+const {getWorkspace, escapeRegExp, isSemanticVersioningTagName} = Utils;
 
 const normalizeVersion = (version: string): string => version.replace(/^v/, '');
 
@@ -28,9 +28,11 @@ export const isTestTag = (tagName: string): boolean => !!getTestTagPrefix() && g
 
 export const getTestTag = (tagName: string): string => tagName.replace(getTestTagPrefixRegExp(), '');
 
-export const getPackageVersionToUpdate = (tagVersion: string): string => normalizeVersion(isTestTag(tagVersion) ? getTestTag(tagVersion) : tagVersion);
+export const getPackageVersionToUpdate = (tagName: string): string => normalizeVersion(isTestTag(tagName) ? getTestTag(tagName) : tagName);
 
-export const isRequiredUpdate = (packageVersion: string, tagVersion: string): boolean => normalizeVersion(packageVersion) !== getPackageVersionToUpdate(tagVersion);
+export const isRequiredUpdate = (packageVersion: string, tagName: string): boolean => normalizeVersion(packageVersion) !== getPackageVersionToUpdate(tagName);
+
+export const isValidTagName = (tagName: string): boolean => isSemanticVersioningTagName(getPackageVersionToUpdate(tagName));
 
 export const getReplaceResultMessages = (results: ReplaceResult[]): string[] => results.map(result => `${result.hasChanged ? colors.green('✔') : colors.red('✖')} ${result.file}`);
 
