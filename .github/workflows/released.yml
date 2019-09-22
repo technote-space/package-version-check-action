@@ -9,6 +9,13 @@ jobs:
     name: Release GitHub Actions
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 3
+      - name: Check package version
+        uses: technote-space/ga-package-version-checker@test/v0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release GitHub Actions
         uses: technote-space/release-github-actions@test/v1
         with:
