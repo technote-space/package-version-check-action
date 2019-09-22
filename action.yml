@@ -1,0 +1,23 @@
+# https://help.github.com/ja/articles/metadata-syntax-for-github-actions
+name: Package Version Checker
+description: GitHub Action to check package version before publish.
+author: technote-space
+inputs:
+  GITHUB_TOKEN:
+    description: Secret GitHub API token to use for making API requests.
+    required: true
+  COMMIT_MESSAGE:
+    description: Commit message of update package version commit.
+    default: 'feat: Update package version'
+  PACKAGE_NAME:
+    description: Package file name.
+    default: 'package.json'
+  PACKAGE_DIR:
+    description: Package directory.
+    default: ''
+branding:
+  icon: 'package'
+  color: 'orange'
+runs:
+  using: node12
+  main: lib/main.js
