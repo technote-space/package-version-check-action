@@ -23,9 +23,9 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-## Screenshots
+## スクリーンショット
 
-## Installation
+## インストール
 1. Setup workflow
    e.g. `.github/workflows/release.yml`
    ```yaml
@@ -62,7 +62,7 @@
              args: publish
    ```
 
-## Options
+## オプション
 ### COMMIT_MESSAGE
 パッケージバージョン更新用コミットのメッセージ  
 default: `'feat: Update package version'`
