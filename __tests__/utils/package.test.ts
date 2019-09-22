@@ -12,10 +12,35 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 	{file: 'test2', hasChanged: false},
 ])));
 
+let exists = true;
+beforeAll(() => {
+	// eslint-disable-next-line @typescript-eslint/no-var-requires
+	const fs = require('fs');
+	jest.spyOn(fs, 'existsSync').mockImplementation(() => exists);
+
+	jest.spyOn(process.stdout, 'write').mockImplementation(jest.fn());
+});
+
+afterAll(() => {
+	jest.restoreAllMocks();
+});
+
 describe('updatePackageVersion', () => {
 	testEnv();
 
-	it('should return false', async() => {
+	it('should return false 1', async() => {
+		exists = false;
+		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+
+		expect(await updatePackageVersion(getContext({
+			eventName: 'push',
+			ref: 'refs/tags/v0.0.1',
+		}))).toBeFalsy();
+		exists = true;
+	});
+
+	it('should return false 2', async() => {
 		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
