@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Action to check package version before publish.
+パッケージ公開前にパッケージのバージョンをチェックする GitHub Action
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -61,15 +61,15 @@ GitHub Action to check package version before publish.
 
 ## Options
 ### COMMIT_MESSAGE
-Commit message of update package version commit.  
+パッケージバージョン更新用コミットのメッセージ  
 default: `'feat: Update package version'`
 
 ### PACKAGE_NAME
-Package file name.  
+パッケージファイル名  
 default: `'package.json'`
 
 ### PACKAGE_DIR
-Package directory.  
+パッケージファイルが置かれたディレクトリ  
 default: `''`
 
 ## Author

@@ -3,7 +3,7 @@ import { setFailed, getInput } from '@actions/core';
 import { context, GitHub } from '@actions/github';
 import { isTargetEvent } from '@technote-space/filter-github-action';
 import { Logger, Utils } from '@technote-space/github-action-helper';
-import { getPayload } from './utils/misc';
+import { updatePackageVersion, commit } from './utils/package';
 import { TARGET_EVENTS } from './constant';
 
 const {showActionInfo} = Utils;
@@ -21,10 +21,9 @@ async function run(): Promise<void> {
 			return;
 		}
 
-		const octokit = new GitHub(getInput('GITHUB_TOKEN', {required: true}));
-		console.log(octokit);
-		console.log(getPayload(context));
-
+		if (await updatePackageVersion(context)) {
+			await commit(new GitHub(getInput('GITHUB_TOKEN', {required: true})), context);
+		}
 	} catch (error) {
 		setFailed(error.message);
 	}
