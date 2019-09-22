@@ -13,9 +13,12 @@ GitHub Action to check package version before publish.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Setup](#setup)
-  - [yarn](#yarn)
-  - [npm](#npm)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Options](#options)
+  - [COMMIT_MESSAGE](#commit_message)
+  - [PACKAGE_NAME](#package_name)
+  - [PACKAGE_DIR](#package_dir)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
