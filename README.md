@@ -86,6 +86,10 @@ Prefix for test tag.
 default: `''`  
 e.g. `'test/'`
 
+## Addition
+### Commit
+Commit is only valid when pushing to default branch.
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)

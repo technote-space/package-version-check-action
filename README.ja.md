@@ -86,6 +86,10 @@ default: `''`
 default: `''`  
 例：`'test/'`
 
+## 補足
+### コミット
+コミットはデフォルトブランチへのプッシュ時のみ有効です。
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)
