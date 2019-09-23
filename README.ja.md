@@ -23,6 +23,7 @@
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
+  - [Tags](#tags)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->

@@ -23,6 +23,7 @@ GitHub Action to check package version before publish.
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Addition](#addition)
   - [Commit](#commit)
+  - [Tags](#tags)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
