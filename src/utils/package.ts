@@ -36,7 +36,6 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 		return false;
 	}
 
-	logger.startProcess('Updating package version');
 	const version = getPackageVersionToUpdate(tagName);
 	logger.displayStdout(getReplaceResultMessages(await replace({
 		files: path,
