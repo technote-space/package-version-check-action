@@ -23,6 +23,7 @@
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
+  - [Tags](#tags)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -91,6 +92,15 @@ default: `''`
 ## 補足
 ### コミット
 コミットはデフォルトブランチへのプッシュ時のみ有効です。
+
+### Tags
+タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
+以下のタグが作成されます。
+- 指定されたタグ名
+- メジャーバージョンのタグ名 (指定されたタグ名から生成)
+  - 例：`v1`
+- マイナーバージョンのタグ名 (指定されたタグ名から生成)
+  - 例：`v1.2`
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
