@@ -16,11 +16,13 @@
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
-  - [IS_VALID_COMMIT](#is_valid_commit)
+  - [COMMIT_DISABLED](#commit_disabled)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+- [補足](#%E8%A3%9C%E8%B6%B3)
+  - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
