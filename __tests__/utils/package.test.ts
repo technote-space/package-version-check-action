@@ -123,7 +123,7 @@ describe('commit', () => {
 
 		expect(mockStdout).toBeCalledTimes(5);
 		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch --contains test | cut -b 3-' + EOL);
+		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch -a --contains test | cut -b 3-' + EOL);
 		expect(mockStdout.mock.calls[2][0]).toBe('  >> develop' + EOL);
 		expect(mockStdout.mock.calls[3][0]).toBe('  >> feature/test' + EOL);
 		expect(mockStdout.mock.calls[4][0]).toBe('> This is not default branch.' + EOL);
@@ -161,7 +161,7 @@ describe('commit', () => {
 		expect(fn).toBeCalledTimes(1);
 		expect(mockStdout).toBeCalledTimes(5);
 		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch --contains test | cut -b 3-' + EOL);
+		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch -a --contains test | cut -b 3-' + EOL);
 		expect(mockStdout.mock.calls[2][0]).toBe('  >> master' + EOL);
 		expect(mockStdout.mock.calls[3][0]).toBe('  >> feature/test' + EOL);
 		expect(mockStdout.mock.calls[4][0]).toBe('##[warning]Branch [master] is protected.' + EOL);
