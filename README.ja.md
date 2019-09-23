@@ -64,6 +64,10 @@
    ```
 
 ## オプション
+### IS_VALID_COMMIT
+コミットが有効かどうか  
+default: `''`
+
 ### COMMIT_MESSAGE
 パッケージバージョン更新用コミットのメッセージ  
 default: `'feat: Update package version'`

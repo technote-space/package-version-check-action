@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { Context } from '@actions/github/lib/context';
 import { getInput } from '@actions/core' ;
 import { Utils } from '@technote-space/github-action-helper';
 import { ReplaceResult } from 'replace-in-file';
@@ -36,3 +37,7 @@ export const isValidTagName = (tagName: string): boolean => isSemanticVersioning
 export const getReplaceResultMessages = (results: ReplaceResult[]): string[] => results.map(result => `${result.hasChanged ? '✔' : '✖'} ${result.file}`);
 
 export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE') || DEFAULT_COMMIT_MESSAGE;
+
+export const isValidCommit = (): boolean => !!getInput('IS_VALID_COMMIT');
+
+export const getDefaultBranch = (context: Context): string | undefined => context.payload.repository ? context.payload.repository.default_branch : undefined;

@@ -64,6 +64,10 @@ GitHub Action to check package version before publish.
    ```
 
 ## Options
+### IS_VALID_COMMIT
+Whether commit is valid.  
+default: `''`
+
 ### COMMIT_MESSAGE
 Commit message of update package version commit.  
 default: `'feat: Update package version'`

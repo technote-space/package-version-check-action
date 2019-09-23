@@ -12,21 +12,27 @@ import {
 	getPackageVersionToUpdate,
 	getReplaceResultMessages,
 	getCommitMessage,
+	getDefaultBranch,
+	isValidCommit,
 } from './misc';
+import { getBranchesByTag } from './command';
 
 const {getTagName} = Utils;
 const logger = new Logger();
-const helper = new ApiHelper(logger);
 
 export const updatePackageVersion = async(context: Context): Promise<boolean> => {
+	logger.startProcess('Updating package version...');
+
 	const path = getPackagePath();
 	if (!fs.existsSync(path)) {
 		logger.warn('File [package.json] not found.');
+		logger.warn('Please checkout before call this GitHub Action.');
 		return false;
 	}
 
 	const tagName = getTagName(context);
 	if (!isRequiredUpdate(getPackageVersion(), tagName)) {
+		logger.info('No update required.');
 		return false;
 	}
 
@@ -41,4 +47,26 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 	return true;
 };
 
-export const commit = async(octokit: GitHub, context: Context): Promise<boolean> => await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()], octokit, context);
+export const commit = async(octokit: GitHub, context: Context): Promise<boolean> => {
+	logger.startProcess('Committing...');
+
+	if (!isValidCommit()) {
+		logger.info('Commit is invalid.');
+		return true;
+	}
+
+	const branch = getDefaultBranch(context);
+	if (undefined === branch) {
+		logger.warn('Failed to get default branch name.');
+		return false;
+	}
+
+	const tagName = getTagName(context);
+	if (!(await getBranchesByTag(tagName)).includes(branch)) {
+		logger.info('This is not default branch.');
+		return false;
+	}
+
+	const helper = new ApiHelper(logger, {branch: branch, refForUpdate: `heads/${branch}`});
+	return await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()], octokit, context);
+};

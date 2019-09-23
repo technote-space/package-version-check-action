@@ -6,6 +6,9 @@ inputs:
   GITHUB_TOKEN:
     description: Secret GitHub API token to use for making API requests.
     required: true
+  IS_VALID_COMMIT:
+    description: Whether commit is valid.
+    default: ''
   COMMIT_MESSAGE:
     description: Commit message of update package version commit.
     default: 'feat: Update package version'
