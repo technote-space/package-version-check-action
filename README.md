@@ -16,11 +16,13 @@ GitHub Action to check package version before publish.
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Options](#options)
-  - [IS_VALID_COMMIT](#is_valid_commit)
+  - [COMMIT_DISABLED](#commit_disabled)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+- [Addition](#addition)
+  - [Commit](#commit)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -65,7 +67,7 @@ GitHub Action to check package version before publish.
    ```
 
 ## Options
-### IS_VALID_COMMIT
+### COMMIT_DISABLED
 Whether commit is valid.  
 default: `''`
 
@@ -85,6 +87,10 @@ default: `''`
 Prefix for test tag.  
 default: `''`  
 e.g. `'test/'`
+
+## Addition
+### Commit
+Commit is only valid when pushing to default branch.
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
