@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/ga-package-version-checker",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "GitHub Action to check package version before publish.",
   "author": "Technote <technote.space@gmail.com> (https://technote.space)",
   "license": "MIT",
