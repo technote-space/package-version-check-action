@@ -29,6 +29,10 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## スクリーンショット
+1. `GitHub Action` 実行中  
+   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+1. package.json のバージョンを更新  
+   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
 1. Setup workflow
@@ -69,7 +73,7 @@
 
 ## オプション
 ### COMMIT_DISABLED
-コミットが有効かどうか  
+コミットが無効かどうか  
 default: `''`
 
 ### COMMIT_MESSAGE
@@ -88,6 +92,12 @@ default: `''`
 テスト用タグのプリフィックス  
 default: `''`  
 例：`'test/'`
+
+## Action イベント詳細
+### 対象イベント
+- push: *
+  - tags
+    - semantic versioning tag (例：`v1.2.3`)
 
 ## 補足
 ### コミット
