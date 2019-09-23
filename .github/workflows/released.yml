@@ -16,6 +16,7 @@ jobs:
         uses: technote-space/ga-package-version-checker@test/v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TEST_TAG_PREFIX: test/
       - name: Release GitHub Actions
         uses: technote-space/release-github-actions@test/v1
         with:
