@@ -92,6 +92,15 @@ default: `''`
 ### コミット
 コミットはデフォルトブランチへのプッシュ時のみ有効です。
 
+### Tags
+タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
+以下のタグが作成されます。
+- 指定されたタグ名
+- メジャーバージョンのタグ名 (指定されたタグ名から生成)
+  - 例：`v1`
+- マイナーバージョンのタグ名 (指定されたタグ名から生成)
+  - 例：`v1.2`
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)
