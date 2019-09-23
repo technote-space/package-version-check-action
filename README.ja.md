@@ -21,6 +21,8 @@
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+- [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
+  - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
   - [Tags](#tags)
@@ -29,6 +31,10 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## スクリーンショット
+1. `GitHub Action` 実行中  
+   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+1. package.json のバージョンを更新  
+   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
 1. Setup workflow
@@ -69,7 +75,7 @@
 
 ## オプション
 ### COMMIT_DISABLED
-コミットが有効かどうか  
+コミットが無効かどうか  
 default: `''`
 
 ### COMMIT_MESSAGE
@@ -88,6 +94,12 @@ default: `''`
 テスト用タグのプリフィックス  
 default: `''`  
 例：`'test/'`
+
+## Action イベント詳細
+### 対象イベント
+- push: *
+  - tags
+    - semantic versioning tag (例：`v1.2.3`)
 
 ## 補足
 ### コミット

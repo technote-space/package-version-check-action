@@ -21,6 +21,8 @@ GitHub Action to check package version before publish.
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+- [Action event details](#action-event-details)
+  - [Target events](#target-events)
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
@@ -29,6 +31,10 @@ GitHub Action to check package version before publish.
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Screenshots
+1. Running `GitHub Action`  
+   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+1. Updated version of package.json  
+   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## Installation
 1. Setup workflow
@@ -69,7 +75,7 @@ GitHub Action to check package version before publish.
 
 ## Options
 ### COMMIT_DISABLED
-Whether commit is valid.  
+Whether commit is disabled.  
 default: `''`
 
 ### COMMIT_MESSAGE
@@ -88,6 +94,12 @@ default: `''`
 Prefix for test tag.  
 default: `''`  
 e.g. `'test/'`
+
+## Action event details
+### Target events
+- push: *
+  - tags
+    - semantic versioning tag (e.g. `v1.2.3`)
 
 ## Addition
 ### Commit
