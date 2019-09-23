@@ -65,7 +65,7 @@ GitHub Action to check package version before publish.
    ```
 
 ## Options
-### IS_VALID_COMMIT
+### COMMIT_DISABLED
 Whether commit is valid.  
 default: `''`
 

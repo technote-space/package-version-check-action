@@ -13,7 +13,7 @@ import {
 	getReplaceResultMessages,
 	getCommitMessage,
 	getDefaultBranch,
-	isValidCommit,
+	isCommitDisabled,
 } from './misc';
 import { getBranchesByTag } from './command';
 
@@ -50,8 +50,8 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 export const commit = async(octokit: GitHub, context: Context): Promise<boolean> => {
 	logger.startProcess('Committing...');
 
-	if (!isValidCommit()) {
-		logger.info('Commit is invalid.');
+	if (isCommitDisabled()) {
+		logger.info('Commit is disabled.');
 		return true;
 	}
 

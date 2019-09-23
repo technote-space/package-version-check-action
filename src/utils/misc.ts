@@ -6,7 +6,7 @@ import { Utils } from '@technote-space/github-action-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { DEFAULT_COMMIT_MESSAGE, DEFAULT_PACKAGE_NAME, DEFAULT_TEST_TAG_PREFIX } from '../constant';
 
-const {getWorkspace, escapeRegExp, isSemanticVersioningTagName} = Utils;
+const {getWorkspace, escapeRegExp, isSemanticVersioningTagName, getBoolValue} = Utils;
 
 const normalizeVersion = (version: string): string => version.replace(/^v/, '');
 
@@ -38,6 +38,6 @@ export const getReplaceResultMessages = (results: ReplaceResult[]): string[] => 
 
 export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE') || DEFAULT_COMMIT_MESSAGE;
 
-export const isValidCommit = (): boolean => !!getInput('IS_VALID_COMMIT');
+export const isCommitDisabled = (): boolean => getBoolValue(getInput('COMMIT_DISABLED'));
 
 export const getDefaultBranch = (context: Context): string | undefined => context.payload.repository ? context.payload.repository.default_branch : undefined;

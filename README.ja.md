@@ -65,7 +65,7 @@
    ```
 
 ## オプション
-### IS_VALID_COMMIT
+### COMMIT_DISABLED
 コミットが有効かどうか  
 default: `''`
 

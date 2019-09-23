@@ -70,7 +70,7 @@ describe('commit', () => {
 	disableNetConnect(nock);
 
 	it('should do nothing', async() => {
-		process.env.INPUT_IS_VALID_COMMIT = '';
+		process.env.INPUT_COMMIT_DISABLED = '1';
 		const mockStdout = jest.spyOn(global.mockStdout, 'write');
 
 		expect(await commit(new GitHub(''), getContext({
@@ -83,11 +83,11 @@ describe('commit', () => {
 
 		expect(mockStdout).toBeCalledTimes(2);
 		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('> Commit is invalid.' + EOL);
+		expect(mockStdout.mock.calls[1][0]).toBe('> Commit is disabled.' + EOL);
 	});
 
 	it('should return false 1', async() => {
-		process.env.INPUT_IS_VALID_COMMIT = '1';
+		process.env.INPUT_COMMIT_DISABLED = '';
 		const mockStdout = jest.spyOn(global.mockStdout, 'write');
 
 		expect(await commit(new GitHub(''), getContext({
@@ -104,7 +104,7 @@ describe('commit', () => {
 	});
 
 	it('should return false 2', async() => {
-		process.env.INPUT_IS_VALID_COMMIT = '1';
+		process.env.INPUT_COMMIT_DISABLED = '0';
 		global.mockChildProcess.stdout = 'develop\nfeature/test\n';
 		const mockStdout = jest.spyOn(global.mockStdout, 'write');
 
@@ -130,7 +130,7 @@ describe('commit', () => {
 	});
 
 	it('should call helper commit', async() => {
-		process.env.INPUT_IS_VALID_COMMIT = '1';
+		process.env.INPUT_COMMIT_DISABLED = 'false';
 		global.mockChildProcess.stdout = 'master\nfeature/test\n';
 		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
