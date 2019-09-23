@@ -16,6 +16,7 @@
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
+  - [IS_VALID_COMMIT](#is_valid_commit)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
@@ -64,6 +65,10 @@
    ```
 
 ## オプション
+### IS_VALID_COMMIT
+コミットが有効かどうか  
+default: `''`
+
 ### COMMIT_MESSAGE
 パッケージバージョン更新用コミットのメッセージ  
 default: `'feat: Update package version'`

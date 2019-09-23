@@ -16,6 +16,7 @@ GitHub Action to check package version before publish.
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Options](#options)
+  - [IS_VALID_COMMIT](#is_valid_commit)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
@@ -64,6 +65,10 @@ GitHub Action to check package version before publish.
    ```
 
 ## Options
+### IS_VALID_COMMIT
+Whether commit is valid.  
+default: `''`
+
 ### COMMIT_MESSAGE
 Commit message of update package version commit.  
 default: `'feat: Update package version'`
