@@ -1,12 +1,10 @@
 /* eslint-disable no-magic-numbers */
 import nock from 'nock';
 import path from 'path';
-import { EOL } from 'os';
 import { Logger } from '@technote-space/github-action-helper';
-import { getContext, testEnv, disableNetConnect, getApiFixture } from '@technote-space/github-action-test-helper';
+import { getContext, testEnv, disableNetConnect, getApiFixture, spyOnStdout, stdoutCalledWith, setChildProcessParams } from '@technote-space/github-action-test-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { GitHub } from '@actions/github/lib/github';
-import global from '../global';
 import { updatePackageVersion, commit } from '../../src/utils/package';
 
 jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
@@ -71,7 +69,7 @@ describe('commit', () => {
 
 	it('should do nothing', async() => {
 		process.env.INPUT_COMMIT_DISABLED = '1';
-		const mockStdout = jest.spyOn(global.mockStdout, 'write');
+		const mockStdout = spyOnStdout();
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -81,14 +79,15 @@ describe('commit', () => {
 			},
 		}))).toBeTruthy();
 
-		expect(mockStdout).toBeCalledTimes(2);
-		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('> Commit is disabled.' + EOL);
+		stdoutCalledWith(mockStdout, [
+			'##[group]Committing...',
+			'> Commit is disabled.',
+		]);
 	});
 
 	it('should return false 1', async() => {
 		process.env.INPUT_COMMIT_DISABLED = '';
-		const mockStdout = jest.spyOn(global.mockStdout, 'write');
+		const mockStdout = spyOnStdout();
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -98,15 +97,16 @@ describe('commit', () => {
 			},
 		}))).toBeFalsy();
 
-		expect(mockStdout).toBeCalledTimes(2);
-		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('##[warning]Failed to get default branch name.' + EOL);
+		stdoutCalledWith(mockStdout, [
+			'##[group]Committing...',
+			'##[warning]Failed to get default branch name.',
+		]);
 	});
 
 	it('should return false 2', async() => {
 		process.env.INPUT_COMMIT_DISABLED = '0';
-		global.mockChildProcess.stdout = 'develop\nfeature/test\n';
-		const mockStdout = jest.spyOn(global.mockStdout, 'write');
+		setChildProcessParams({stdout: 'develop\nfeature/test\n'});
+		const mockStdout = spyOnStdout();
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -121,29 +121,36 @@ describe('commit', () => {
 			},
 		}))).toBeFalsy();
 
-		expect(mockStdout).toBeCalledTimes(5);
-		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch -a --contains test | cut -b 3-' + EOL);
-		expect(mockStdout.mock.calls[2][0]).toBe('  >> develop' + EOL);
-		expect(mockStdout.mock.calls[3][0]).toBe('  >> feature/test' + EOL);
-		expect(mockStdout.mock.calls[4][0]).toBe('> This is not default branch.' + EOL);
+		stdoutCalledWith(mockStdout, [
+			'##[group]Committing...',
+			'[command]git branch -a --contains test | cut -b 3-',
+			'  >> develop',
+			'  >> feature/test',
+			'> This is not default branch.',
+		]);
 	});
 
 	it('should call helper commit', async() => {
 		process.env.INPUT_COMMIT_DISABLED = 'false';
-		global.mockChildProcess.stdout = 'master\nfeature/test\n';
+		setChildProcessParams({stdout: 'master\nfeature/test\n'});
 		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
-		const mockStdout = jest.spyOn(global.mockStdout, 'write');
-		const fn = jest.fn();
+		const mockStdout = spyOnStdout();
 
 		nock('https://api.github.com')
 			.persist()
-			.get('/repos/hello/world/branches/master/protection')
-			.reply(200, () => {
-				fn();
-				return getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.branches.protection');
-			});
+			.post('/repos/hello/world/git/blobs')
+			.reply(201, () => {
+				return getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.blobs');
+			})
+			.get('/repos/hello/world/git/commits/7638417db6d59f3c431d3e1f261cc637155684cd')
+			.reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.commits.get'))
+			.post('/repos/hello/world/git/trees')
+			.reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.trees'))
+			.post('/repos/hello/world/git/commits')
+			.reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.commits'))
+			.patch('/repos/hello/world/git/refs/heads/master')
+			.reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.refs'));
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -151,19 +158,30 @@ describe('commit', () => {
 				owner: 'hello',
 				repo: 'world',
 			},
+			sha: '7638417db6d59f3c431d3e1f261cc637155684cd',
 			payload: {
 				repository: {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBeTruthy();
 
-		expect(fn).toBeCalledTimes(1);
-		expect(mockStdout).toBeCalledTimes(5);
-		expect(mockStdout.mock.calls[0][0]).toBe('##[group]Committing...' + EOL);
-		expect(mockStdout.mock.calls[1][0]).toBe('[command]git branch -a --contains test | cut -b 3-' + EOL);
-		expect(mockStdout.mock.calls[2][0]).toBe('  >> master' + EOL);
-		expect(mockStdout.mock.calls[3][0]).toBe('  >> feature/test' + EOL);
-		expect(mockStdout.mock.calls[4][0]).toBe('##[warning]Branch [master] is protected.' + EOL);
+		stdoutCalledWith(mockStdout, [
+			'##[group]Committing...',
+			'[command]git branch -a --contains test | cut -b 3-',
+			'  >> master',
+			'  >> feature/test',
+			'##[endgroup]',
+			'##[group]Start push to branch [master]',
+			'##[endgroup]',
+			'##[group]Creating blobs...',
+			'##[endgroup]',
+			'##[group]Creating tree...',
+			'##[endgroup]',
+			'##[group]Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
+			'##[endgroup]',
+			'##[group]Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
+			'##[endgroup]',
+		]);
 	});
 });
