@@ -66,6 +66,6 @@ export const commit = async(octokit: GitHub, context: Context): Promise<boolean>
 		return false;
 	}
 
-	const helper = new ApiHelper(logger, {branch: branch, refForUpdate: `heads/${branch}`});
+	const helper = new ApiHelper(logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
 	return await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()], octokit, context);
 };
