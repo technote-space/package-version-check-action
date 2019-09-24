@@ -1,14 +1,14 @@
-import global from '../global';
+import { setChildProcessParams } from '@technote-space/github-action-test-helper';
 import { getBranchesByTag } from '../../src/utils/command';
 
 describe('getBranchesByTag', () => {
 	it('should empty', async() => {
-		global.mockChildProcess.stdout = '';
+		setChildProcessParams({stdout: ''});
 		expect(await getBranchesByTag('')).toEqual([]);
 	});
 
 	it('should get branches', async() => {
-		global.mockChildProcess.stdout = 'develop\nfeature/test\nremotes/origin/master\n';
+		setChildProcessParams({stdout: 'develop\nfeature/test\nremotes/origin/master\n'});
 		expect(await getBranchesByTag('')).toEqual([
 			'develop',
 			'feature/test',
