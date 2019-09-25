@@ -81,7 +81,7 @@ GitHub Action to check package version before publish.
    ```
 
 ### Used when push
-   e.g. `.github/workflows/release.yml`
+   e.g. `.github/workflows/check_version.yml`
    ```yaml
    on: push
    name: Check package version

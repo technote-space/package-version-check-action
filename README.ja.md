@@ -81,7 +81,7 @@
    ```
 
 ### プッシュ時に使用
-   例：`.github/workflows/release.yml`
+   例：`.github/workflows/check_version.yml`
    ```yaml
    on: push
    name: Check package version
