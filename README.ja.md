@@ -44,7 +44,7 @@
 
 ## インストール
 ### リリースプロセスで使用
-   e.g. `.github/workflows/release.yml`
+   例：`.github/workflows/release.yml`
    ```yaml
    on:
      push:
@@ -80,7 +80,7 @@
    ```
 
 ### プッシュ時に使用
-   e.g. `.github/workflows/release.yml`
+   例：`.github/workflows/release.yml`
    ```yaml
    on: push
    name: Check package version
@@ -98,9 +98,15 @@
            uses: technote-space/ga-package-version-checker@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             BRANCH_PREFIX: release/
    ```
 
 ## オプション
+### BRANCH_PREFIX
+ブランチプリフィックス  
+default: `''`  
+例：`release/`
+
 ### COMMIT_DISABLED
 コミットが無効かどうか  
 default: `''`
@@ -127,6 +133,10 @@ default: `''`
 - push: *
   - tags
     - semantic versioning tag (例：`v1.2.3`)
+  - branches
+    - `${BRANCH_PREFIX}${tag}`
+      - tag: semantic versioning tag (例：`v1.2.3`)
+      - 例：branch: `release/v1.2.3`
 
 ## 動機
 package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。

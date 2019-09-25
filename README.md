@@ -98,9 +98,15 @@ GitHub Action to check package version before publish.
            uses: technote-space/ga-package-version-checker@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             BRANCH_PREFIX: release/
    ```
 
 ## Options
+### BRANCH_PREFIX
+Branch name prefix.
+default: `''`  
+e.g. `release/`
+
 ### COMMIT_DISABLED
 Whether commit is disabled.  
 default: `''`
@@ -127,6 +133,10 @@ e.g. `'test/'`
 - push: *
   - tags
     - semantic versioning tag (e.g. `v1.2.3`)
+  - branches
+    - `${BRANCH_PREFIX}${tag}`
+      - tag: semantic versioning tag (e.g. `v1.2.3`)
+      - e.g. branch: `release/v1.2.3`
 
 ## Motivation
 If you forget to update the package.json version, publishing the npm package will fail.  
