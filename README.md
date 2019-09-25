@@ -23,6 +23,7 @@ GitHub Action to check package version before publish.
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
+- [Motivation](#motivation)
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
