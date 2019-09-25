@@ -15,8 +15,8 @@
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
-  - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
   - [プッシュ時に使用](#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E6%99%82%E3%81%AB%E4%BD%BF%E7%94%A8)
+  - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
   - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
@@ -44,6 +44,28 @@
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
+### プッシュ時に使用
+   例：`.github/workflows/check_version.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/ga-package-version-checker@v1
+           with:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             BRANCH_PREFIX: release/
+   ```
+
 ### リリースプロセスで使用
    例：`.github/workflows/release.yml`
    ```yaml
@@ -78,28 +100,6 @@
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
            with:
              args: publish
-   ```
-
-### プッシュ時に使用
-   例：`.github/workflows/check_version.yml`
-   ```yaml
-   on: push
-   name: Check package version
-   jobs:
-     checkVersion:
-       name: Check package version
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
-
-         # Use this GitHub Action
-         - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
-           with:
-             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-             BRANCH_PREFIX: release/
    ```
 
 ## オプション
