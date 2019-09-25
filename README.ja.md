@@ -15,7 +15,10 @@
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
+  - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
+  - [プッシュ時に使用](#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E6%99%82%E3%81%AB%E4%BD%BF%E7%94%A8)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
+  - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
@@ -41,8 +44,8 @@
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
-1. Setup workflow
-   e.g. `.github/workflows/release.yml`
+### リリースプロセスで使用
+   例：`.github/workflows/release.yml`
    ```yaml
    on:
      push:
@@ -77,7 +80,34 @@
              args: publish
    ```
 
+### プッシュ時に使用
+   例：`.github/workflows/check_version.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/ga-package-version-checker@v1
+           with:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             BRANCH_PREFIX: release/
+   ```
+
 ## オプション
+### BRANCH_PREFIX
+ブランチプリフィックス  
+default: `''`  
+例：`release/`
+
 ### COMMIT_DISABLED
 コミットが無効かどうか  
 default: `''`
@@ -104,6 +134,10 @@ default: `''`
 - push: *
   - tags
     - semantic versioning tag (例：`v1.2.3`)
+  - branches
+    - `${BRANCH_PREFIX}${tag}`
+      - tag: semantic versioning tag (例：`v1.2.3`)
+      - 例：branch: `release/v1.2.3`
 
 ## 動機
 package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。
@@ -127,16 +161,10 @@ package.jsonバージョンの更新を忘れると、npmパッケージの公�
 
 ## 補足
 ### コミット
-コミットはデフォルトブランチへのプッシュ時のみ有効です。
+コミットは『タグ付きのデフォルトブランチ(通常はmaster)』または『`${BRANCH_PREFIX}`から始まるブランチ』へのプッシュ時のみ有効です。
 
 ### Tags
 タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
-以下のタグが作成されます。
-- 指定されたタグ名
-- メジャーバージョンのタグ名 (指定されたタグ名から生成)
-  - 例：`v1`
-- マイナーバージョンのタグ名 (指定されたタグ名から生成)
-  - 例：`v1.2`
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
