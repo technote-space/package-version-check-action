@@ -12,6 +12,14 @@ const normalizeVersion = (version: string): string => version.replace(/^v/, '');
 
 export const getPackageDir = (): string => getInput('PACKAGE_DIR') || getWorkspace();
 
+export const getBranchPrefix = (): string => getInput('BRANCH_PREFIX') || '';
+
+const getBranchPrefixRegExp = (): RegExp => new RegExp('^' + escapeRegExp(getBranchPrefix()));
+
+const getVersionFromBranch = (branch: string): string => branch.replace(getBranchPrefixRegExp(), '');
+
+export const isValidBranch = (branch: string): boolean => !!getBranchPrefix() && getBranchPrefixRegExp().test(branch) && isSemanticVersioningTagName(getVersionFromBranch(branch));
+
 export const getPackageFileName = (): string => getInput('PACKAGE_NAME') || DEFAULT_PACKAGE_NAME;
 
 export const getPackagePath = (): string => path.resolve(getPackageDir(), getPackageFileName());
@@ -41,3 +49,12 @@ export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE') || DEFA
 export const isCommitDisabled = (): boolean => getBoolValue(getInput('COMMIT_DISABLED'));
 
 export const getDefaultBranch = (context: Context): string | undefined => context.payload.repository ? context.payload.repository.default_branch : undefined;
+
+export const getTagName = (context: Context): string => {
+	const tagName = Utils.getTagName(context);
+	if (tagName) {
+		return tagName;
+	}
+
+	return getVersionFromBranch(Utils.getBranch(context));
+};

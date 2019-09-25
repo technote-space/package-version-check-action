@@ -6,6 +6,9 @@ inputs:
   GITHUB_TOKEN:
     description: Secret GitHub API token to use for making API requests.
     required: true
+  BRANCH_PREFIX:
+    description: Branch name prefix.
+    default: ''
   COMMIT_DISABLED:
     description: Whether commit is disabled.
     default: ''
