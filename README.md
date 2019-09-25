@@ -18,6 +18,7 @@ GitHub Action to check package version before publish.
   - [Used in the release process](#used-in-the-release-process)
   - [Used when push](#used-when-push)
 - [Options](#options)
+  - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
   - [COMMIT_MESSAGE](#commit_message)
   - [PACKAGE_NAME](#package_name)
