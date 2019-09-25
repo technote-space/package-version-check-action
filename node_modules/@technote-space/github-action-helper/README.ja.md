@@ -43,15 +43,17 @@ logger.displayStdout('stdout1\nstdout2');
 logger.displayStderr('stderr1\nstderr2');
 logger.log();
 logger.info('output info');
+logger.endProcess();
 
-// ##[group]Process name
+// ::group::Process name
 // [command]command
 //   >> stdout1
 //   >> stdout2
-// ##[warning]  >> stderr1
-// ##[warning]  >> stderr2
+// ::warning::  >> stderr1
+// ::warning::  >> stderr2
 // 
 // > output info
+// ::endgroup::
 ```
 
 ### Command
@@ -65,15 +67,17 @@ async function run() {
     logger.log();
     logger.startProcess('Options');
     await command.execAsync({command: 'ls', altCommand: 'alt', quiet: true, suppressError: true, suppressOutput: true});
+    logger.endProcess();
 
-    // ##[group]Simple use
+    // ::group::Simple use
     // [command]ls
     //   >> README.md
     //   >> src
     // 
-    // ##[endgroup]
-    // ##[group]Options
+    // ::endgroup::
+    // ::group::Options
     // [command]alt
+    // ::endgroup::
 }
 
 run();

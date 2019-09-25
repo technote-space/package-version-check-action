@@ -23,6 +23,7 @@
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
+- [動機](#%E5%8B%95%E6%A9%9F)
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
   - [Tags](#tags)
@@ -32,8 +33,11 @@
 
 ## スクリーンショット
 1. `GitHub Action` 実行中  
+
    ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
-1. package.json のバージョンを更新  
+
+1. package.json のバージョンを更新 (ブランチが保護されていない場合)
+  
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
@@ -100,6 +104,26 @@ default: `''`
 - push: *
   - tags
     - semantic versioning tag (例：`v1.2.3`)
+
+## 動機
+package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。
+
+![Failed](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-4.png)
+
+タグのプッシュでアクションを起動していた場合、
+
+1. プッシュしたタグを削除
+1. package.json のバージョンを更新
+1. コミットして再度タグを付与
+1. プッシュ
+
+を再度行う必要があり、非常に面倒です。
+
+この `GitHub Action` は、タグ名に基づいてpackage.jsonのバージョンを自動的に更新します。  
+したがって、package.json のバージョンについて心配する必要はありません。  
+
+また、ブランチが保護されていない場合、このアクションは変更をコミットします。  
+ブランチが保護されている場合、このアクションは package.json のバージョンを更新するだけです。
 
 ## 補足
 ### コミット
