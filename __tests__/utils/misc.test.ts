@@ -15,14 +15,25 @@ import {
 	getPackageVersionToUpdate,
 	getReplaceResultMessages,
 	getCommitMessage,
+	getTagName,
 } from '../../src/utils/misc';
 import { TARGET_EVENTS, DEFAULT_PACKAGE_NAME, DEFAULT_COMMIT_MESSAGE } from '../../src/constant';
 
 describe('isTargetEvent', () => {
-	it('should return true', () => {
+	testEnv();
+
+	it('should return true 1', () => {
 		expect(isTargetEvent(TARGET_EVENTS, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v1.2.3',
+		}))).toBeTruthy();
+	});
+
+	it('should return true 2', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
+		expect(isTargetEvent(TARGET_EVENTS, getContext({
+			eventName: 'push',
+			ref: 'refs/heads/release/v1.2.3',
 		}))).toBeTruthy();
 	});
 
@@ -37,6 +48,22 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/test',
+		}))).toBeFalsy();
+	});
+
+	it('should return false 3', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release';
+		expect(isTargetEvent(TARGET_EVENTS, getContext({
+			eventName: 'push',
+			ref: 'refs/heads/release/v1.2.3',
+		}))).toBeFalsy();
+	});
+
+	it('should return false 4', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release';
+		expect(isTargetEvent(TARGET_EVENTS, getContext({
+			eventName: 'push',
+			ref: 'refs/heads/release/v1.2.3',
 		}))).toBeFalsy();
 	});
 });
@@ -236,5 +263,24 @@ describe('getCommitMessage', () => {
 
 	it('should get default commit message', () => {
 		expect(getCommitMessage()).toBe(DEFAULT_COMMIT_MESSAGE);
+	});
+});
+
+describe('getTagName', () => {
+	testEnv();
+
+	it('should get tag name', () => {
+		expect(getTagName(getContext({
+			eventName: 'push',
+			ref: 'refs/tags/test',
+		}))).toBe('test');
+	});
+
+	it('should get tag name from branch', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
+		expect(getTagName(getContext({
+			eventName: 'push',
+			ref: 'refs/heads/release/v1.2.3',
+		}))).toBe('v1.2.3');
 	});
 });

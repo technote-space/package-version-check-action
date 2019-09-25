@@ -5,7 +5,11 @@ import { Logger } from '@technote-space/github-action-helper';
 import { getContext, testEnv, disableNetConnect, getApiFixture, spyOnStdout, stdoutCalledWith, setChildProcessParams } from '@technote-space/github-action-test-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { GitHub } from '@actions/github/lib/github';
-import { updatePackageVersion, commit } from '../../src/utils/package';
+import {
+	updatePackageVersion,
+	getBranch,
+	commit,
+} from '../../src/utils/package';
 
 jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 	{file: 'test1', hasChanged: true},
@@ -63,6 +67,52 @@ describe('updatePackageVersion', () => {
 	});
 });
 
+describe('getBranch', () => {
+	const logger = new Logger();
+
+	it('should return false 1', async() => {
+		expect(await getBranch(logger, getContext({
+			eventName: 'push',
+			ref: 'refs/tags/test',
+		}))).toBeFalsy();
+	});
+
+	it('should return false 2', async() => {
+		setChildProcessParams({stdout: ''});
+
+		expect(await getBranch(logger, getContext({
+			eventName: 'push',
+			ref: 'refs/tags/test',
+			payload: {
+				repository: {
+					'default_branch': 'master',
+				},
+			},
+		}))).toBeFalsy();
+	});
+
+	it('should get default branch', async() => {
+		setChildProcessParams({stdout: 'remotes/origin/master'});
+
+		expect(await getBranch(logger, getContext({
+			eventName: 'push',
+			ref: 'refs/tags/test',
+			payload: {
+				repository: {
+					'default_branch': 'master',
+				},
+			},
+		}))).toBe('master');
+	});
+
+	it('should get branch', async() => {
+		expect(await getBranch(logger, getContext({
+			eventName: 'push',
+			ref: 'refs/heads/release/v1.2.3',
+		}))).toBe('release/v1.2.3');
+	});
+});
+
 describe('commit', () => {
 	testEnv();
 	disableNetConnect(nock);
@@ -80,7 +130,7 @@ describe('commit', () => {
 		}))).toBeTruthy();
 
 		stdoutCalledWith(mockStdout, [
-			'##[group]Committing...',
+			'::group::Committing...',
 			'> Commit is disabled.',
 		]);
 	});
@@ -98,8 +148,8 @@ describe('commit', () => {
 		}))).toBeFalsy();
 
 		stdoutCalledWith(mockStdout, [
-			'##[group]Committing...',
-			'##[warning]Failed to get default branch name.',
+			'::group::Committing...',
+			'::warning::Failed to get default branch name.',
 		]);
 	});
 
@@ -122,7 +172,7 @@ describe('commit', () => {
 		}))).toBeFalsy();
 
 		stdoutCalledWith(mockStdout, [
-			'##[group]Committing...',
+			'::group::Committing...',
 			'[command]git branch -a --contains test | cut -b 3-',
 			'  >> develop',
 			'  >> feature/test',
@@ -167,21 +217,22 @@ describe('commit', () => {
 		}))).toBeTruthy();
 
 		stdoutCalledWith(mockStdout, [
-			'##[group]Committing...',
+			'::group::Committing...',
 			'[command]git branch -a --contains test | cut -b 3-',
 			'  >> master',
 			'  >> feature/test',
-			'##[endgroup]',
-			'##[group]Start push to branch [master]',
-			'##[endgroup]',
-			'##[group]Creating blobs...',
-			'##[endgroup]',
-			'##[group]Creating tree...',
-			'##[endgroup]',
-			'##[group]Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
-			'##[endgroup]',
-			'##[group]Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
-			'##[endgroup]',
+			'::endgroup::',
+			'::group::Start push to branch [master]',
+			'::endgroup::',
+			'::group::Creating blobs...',
+			'::endgroup::',
+			'::group::Creating tree...',
+			'::endgroup::',
+			'::group::Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
+			'::endgroup::',
+			'::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
+			'::set-env name=GITHUB_SHA,::7638417db6d59f3c431d3e1f261cc637155684cd',
+			'::endgroup::',
 		]);
 	});
 });
