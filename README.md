@@ -104,7 +104,7 @@ GitHub Action to check package version before publish.
 
 ## Options
 ### BRANCH_PREFIX
-Branch name prefix.
+Branch name prefix.  
 default: `''`  
 e.g. `release/`
 
