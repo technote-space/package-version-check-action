@@ -41,7 +41,7 @@
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## インストール
-1. Setup workflow
+### リリースプロセスで使用
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
@@ -75,6 +75,27 @@
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
            with:
              args: publish
+   ```
+
+### プッシュ時に使用
+   e.g. `.github/workflows/release.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/ga-package-version-checker@v1
+           with:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    ```
 
 ## オプション

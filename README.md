@@ -41,7 +41,7 @@ GitHub Action to check package version before publish.
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## Installation
-1. Setup workflow
+### Used in the release process
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
@@ -75,6 +75,27 @@ GitHub Action to check package version before publish.
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
            with:
              args: publish
+   ```
+
+### Used when push
+   e.g. `.github/workflows/release.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/ga-package-version-checker@v1
+           with:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    ```
 
 ## Options
