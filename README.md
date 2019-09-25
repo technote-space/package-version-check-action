@@ -33,8 +33,11 @@ GitHub Action to check package version before publish.
 
 ## Screenshots
 1. Running `GitHub Action`  
+
    ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+
 1. Updated version of package.json and commit (if branch is not protected)  
+
    ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
 
 ## Installation
@@ -106,6 +109,15 @@ e.g. `'test/'`
 If you forget to update the package.json version, publishing the npm package will fail.  
 
 ![Failed](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-4.png)
+
+If you are invoking an action by pushing a tag, you have to do following steps again.
+
+1. Delete pushed tag
+1. Update package.json version
+1. Commit and tag again
+1. Push
+
+This is very troublesome.
 
 This `GitHub Action` updates the version in package.json based on the tag name automatically.  
 So you don't have to worry about the version in package.json.  
