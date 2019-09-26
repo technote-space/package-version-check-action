@@ -1,4 +1,4 @@
-# Package Version Checker
+# Package Version Check Action
 
 [![Build Status](https://github.com/technote-space/package-version-check-action/workflows/Build/badge.svg)](https://github.com/technote-space/package-version-check-action/actions)
 [![Coverage Status](https://coveralls.io/repos/github/technote-space/package-version-check-action/badge.svg?branch=master)](https://coveralls.io/github/technote-space/package-version-check-action?branch=master)

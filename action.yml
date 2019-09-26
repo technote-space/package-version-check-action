@@ -1,5 +1,5 @@
 # https://help.github.com/ja/articles/metadata-syntax-for-github-actions
-name: Package Version Checker
+name: Package Version Check Action
 description: GitHub Action to check package version before publish.
 author: technote-space
 inputs:
