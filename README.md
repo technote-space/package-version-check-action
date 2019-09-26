@@ -1,9 +1,9 @@
-# Package Version Checker
+# Package Version Check Action
 
-[![Build Status](https://github.com/technote-space/ga-package-version-checker/workflows/Build/badge.svg)](https://github.com/technote-space/ga-package-version-checker/actions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/ga-package-version-checker/badge.svg?branch=master)](https://coveralls.io/github/technote-space/ga-package-version-checker?branch=master)
-[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker/badge)](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/ga-package-version-checker/blob/master/LICENSE)
+[![Build Status](https://github.com/technote-space/package-version-check-action/workflows/Build/badge.svg)](https://github.com/technote-space/package-version-check-action/actions)
+[![Coverage Status](https://coveralls.io/repos/github/technote-space/package-version-check-action/badge.svg?branch=master)](https://coveralls.io/github/technote-space/package-version-check-action?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/package-version-check-action/badge)](https://www.codefactor.io/repository/github/technote-space/package-version-check-action)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/package-version-check-action/blob/master/LICENSE)
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
@@ -30,6 +30,7 @@ GitHub Action to check package version before publish.
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
+- [Sample repositories using this Action](#sample-repositories-using-this-action)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -37,11 +38,11 @@ GitHub Action to check package version before publish.
 ## Screenshots
 1. Running `GitHub Action`  
 
-   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+   ![Running](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-1.png)
 
 1. Updated version of package.json and commit (if branch is not protected)  
 
-   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
+   ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
 ## Installation
 ### Used when push
@@ -60,7 +61,7 @@ GitHub Action to check package version before publish.
 
          # Use this GitHub Action
          - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
+           uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
              BRANCH_PREFIX: release/
@@ -86,7 +87,7 @@ GitHub Action to check package version before publish.
 
          # Use this GitHub Action
          - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
+           uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -142,7 +143,7 @@ e.g. `'test/'`
 ## Motivation
 If you forget to update the package.json version, publishing the npm package will fail.  
 
-![Failed](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-4.png)
+![Failed](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-4.png)
 
 If you are invoking an action by pushing a tag, you have to do following steps again.
 
@@ -159,7 +160,7 @@ So you don't have to worry about the version in package.json.
 This action also commits the change if the branch is not protected.  
 If the branch is protected, this action just update the version in package.json.  
 
-![Not commit](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-3.png)
+![Not commit](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-3.png)
 
 ## Addition
 ### Commit
@@ -167,6 +168,22 @@ Commit is valid when pushing to `default branch with tag` or `branch starting wi
 
 ### Tags 
 Tag name format must be [Semantic Versioning](https://semver.org/).  
+
+## Sample repositories using this Action
+- [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
+- [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
+  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
+- [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
+  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
+- [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
+  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
+- [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
+  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  

@@ -1,7 +1,7 @@
 # Contributing
-[issues]: https://github.com/technote-space/ga-package-version-checker/issues
-[fork]: https://github.com/technote-space/ga-package-version-checker/fork
-[pr]: https://github.com/technote-space/ga-package-version-checker/compare
+[issues]: https://github.com/technote-space/package-version-check-action/issues
+[fork]: https://github.com/technote-space/package-version-check-action/fork
+[pr]: https://github.com/technote-space/package-version-check-action/compare
 [eslint]: https://eslint.org/
 [jest]: https://jestjs.io/
 [code-of-conduct]: CODE_OF_CONDUCT.md
