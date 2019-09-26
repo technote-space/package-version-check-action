@@ -1,9 +1,9 @@
 # Package Version Checker
 
-[![Build Status](https://github.com/technote-space/ga-package-version-checker/workflows/Build/badge.svg)](https://github.com/technote-space/ga-package-version-checker/actions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/ga-package-version-checker/badge.svg?branch=master)](https://coveralls.io/github/technote-space/ga-package-version-checker?branch=master)
-[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker/badge)](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/ga-package-version-checker/blob/master/LICENSE)
+[![Build Status](https://github.com/technote-space/package-version-check-action/workflows/Build/badge.svg)](https://github.com/technote-space/package-version-check-action/actions)
+[![Coverage Status](https://coveralls.io/repos/github/technote-space/package-version-check-action/badge.svg?branch=master)](https://coveralls.io/github/technote-space/package-version-check-action?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/package-version-check-action/badge)](https://www.codefactor.io/repository/github/technote-space/package-version-check-action)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/package-version-check-action/blob/master/LICENSE)
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
@@ -37,11 +37,11 @@
 ## スクリーンショット
 1. `GitHub Action` 実行中  
 
-   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+   ![Running](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-1.png)
 
 1. package.json のバージョンを更新 (ブランチが保護されていない場合)
   
-   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
+   ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
 ## インストール
 ### プッシュ時に使用
@@ -60,7 +60,7 @@
 
          # Use this GitHub Action
          - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
+           uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
              BRANCH_PREFIX: release/
@@ -86,7 +86,7 @@
 
          # Use this GitHub Action
          - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
+           uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -142,7 +142,7 @@ default: `''`
 ## 動機
 package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。
 
-![Failed](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-4.png)
+![Failed](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-4.png)
 
 タグのプッシュでアクションを起動していた場合、
 
