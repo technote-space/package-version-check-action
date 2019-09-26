@@ -30,6 +30,7 @@ GitHub Action to check package version before publish.
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
+- [Sample repositories using this Action](#sample-repositories-using-this-action)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
