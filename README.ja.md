@@ -1,9 +1,9 @@
-# Package Version Checker
+# Package Version Check Action
 
-[![Build Status](https://github.com/technote-space/ga-package-version-checker/workflows/Build/badge.svg)](https://github.com/technote-space/ga-package-version-checker/actions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/ga-package-version-checker/badge.svg?branch=master)](https://coveralls.io/github/technote-space/ga-package-version-checker?branch=master)
-[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker/badge)](https://www.codefactor.io/repository/github/technote-space/ga-package-version-checker)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/ga-package-version-checker/blob/master/LICENSE)
+[![Build Status](https://github.com/technote-space/package-version-check-action/workflows/Build/badge.svg)](https://github.com/technote-space/package-version-check-action/actions)
+[![Coverage Status](https://coveralls.io/repos/github/technote-space/package-version-check-action/badge.svg?branch=master)](https://coveralls.io/github/technote-space/package-version-check-action?branch=master)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/package-version-check-action/badge)](https://www.codefactor.io/repository/github/technote-space/package-version-check-action)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/package-version-check-action/blob/master/LICENSE)
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
@@ -15,8 +15,8 @@
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
-  - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
   - [プッシュ時に使用](#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E6%99%82%E3%81%AB%E4%BD%BF%E7%94%A8)
+  - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
   - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
@@ -30,6 +30,7 @@
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
   - [Tags](#tags)
+- [このアクションを使用しているリポジトリの例](#%E3%81%93%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E4%BE%8B)
 - [Author](#author)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -37,13 +38,35 @@
 ## スクリーンショット
 1. `GitHub Action` 実行中  
 
-   ![Running](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-1.png)
+   ![Running](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-1.png)
 
 1. package.json のバージョンを更新 (ブランチが保護されていない場合)
   
-   ![Updated](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-2.png)
+   ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
 ## インストール
+### プッシュ時に使用
+   例：`.github/workflows/check_version.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/package-version-check-action@v1
+           with:
+             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             BRANCH_PREFIX: release/
+   ```
+
 ### リリースプロセスで使用
    例：`.github/workflows/release.yml`
    ```yaml
@@ -64,7 +87,7 @@
 
          # Use this GitHub Action
          - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
+           uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -78,28 +101,6 @@
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
            with:
              args: publish
-   ```
-
-### プッシュ時に使用
-   例：`.github/workflows/check_version.yml`
-   ```yaml
-   on: push
-   name: Check package version
-   jobs:
-     checkVersion:
-       name: Check package version
-       runs-on: ubuntu-latest
-       steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
-
-         # Use this GitHub Action
-         - name: Check package version
-           uses: technote-space/ga-package-version-checker@v1
-           with:
-             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-             BRANCH_PREFIX: release/
    ```
 
 ## オプション
@@ -142,7 +143,7 @@ default: `''`
 ## 動機
 package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。
 
-![Failed](https://raw.githubusercontent.com/technote-space/ga-package-version-checker/images/screenshot-4.png)
+![Failed](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-4.png)
 
 タグのプッシュでアクションを起動していた場合、
 
@@ -165,6 +166,22 @@ package.jsonバージョンの更新を忘れると、npmパッケージの公�
 
 ### Tags
 タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
+
+## このアクションを使用しているリポジトリの例
+- [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
+- [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
+  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
+- [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
+  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
+- [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
+  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
+- [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
+  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  

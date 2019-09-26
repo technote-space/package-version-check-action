@@ -35,6 +35,10 @@ console.log( isTargetEvent( {
 		context => /^refs\/tags\//.test( context.ref ),
 		"rerequested",
 	],
+	'pull_request': [
+		'*',
+	],
+	'project_card': '*',
 } ) );
 ```
 
