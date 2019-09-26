@@ -166,6 +166,22 @@ package.jsonバージョンの更新を忘れると、npmパッケージの公�
 ### Tags
 タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
 
+## このアクションを使用しているリポジトリの例
+- [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
+- [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
+  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
+- [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
+  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
+- [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
+  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
+- [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
+  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
+- [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
+  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
+
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
 [Blog](https://technote.space)
