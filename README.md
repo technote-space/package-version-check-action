@@ -74,6 +74,8 @@ GitHub Action to check package version before publish.
      push:
        tags:
          - 'v*'
+     release:
+       types: [published]
    name: Publish Package
    jobs:
      release:
