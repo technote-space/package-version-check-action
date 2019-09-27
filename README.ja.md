@@ -132,13 +132,23 @@ default: `''`
 
 ## Action イベント詳細
 ### 対象イベント
-- push: *
-  - tags
-    - semantic versioning tag (例：`v1.2.3`)
-  - branches
-    - `${BRANCH_PREFIX}${tag}`
-      - tag: semantic versioning tag (例：`v1.2.3`)
-      - 例：branch: `release/v1.2.3`
+| eventName: action | condition |
+|:---:|:---:|
+|push: *|[condition1](#condition1)|
+|release: published|[condition1](#condition1)|
+|release: rerequested|[condition1](#condition1)|
+|created: *|[condition2](#condition2)|
+### Condition
+#### condition1
+- tags
+  - semantic versioning tag (例：`v1.2.3`)
+- branches
+  - `${BRANCH_PREFIX}${tag}`
+    - tag: semantic versioning tag (例：`v1.2.3`)
+    - 例：branch: `release/v1.2.3`
+#### condition2
+- tags
+  - semantic versioning tag (例：`v1.2.3`)
 
 ## 動機
 package.jsonバージョンの更新を忘れると、npmパッケージの公開は失敗します。
