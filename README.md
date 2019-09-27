@@ -1,7 +1,7 @@
 # Package Version Check Action
 
 [![Build Status](https://github.com/technote-space/package-version-check-action/workflows/Build/badge.svg)](https://github.com/technote-space/package-version-check-action/actions)
-[![Coverage Status](https://coveralls.io/repos/github/technote-space/package-version-check-action/badge.svg?branch=master)](https://coveralls.io/github/technote-space/package-version-check-action?branch=master)
+[![codecov](https://codecov.io/gh/technote-space/package-version-check-action/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/package-version-check-action)
 [![CodeFactor](https://www.codefactor.io/repository/github/technote-space/package-version-check-action/badge)](https://www.codefactor.io/repository/github/technote-space/package-version-check-action)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/package-version-check-action/blob/master/LICENSE)
 
@@ -74,6 +74,8 @@ GitHub Action to check package version before publish.
      push:
        tags:
          - 'v*'
+     release:
+       types: [published]
    name: Publish Package
    jobs:
      release:
