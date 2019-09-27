@@ -3,7 +3,11 @@ on:
     tags:
       - '*'
       - '*/*'
+  release:
+    types: [published]
+
 name: Release
+
 jobs:
   release:
     name: Release GitHub Actions
