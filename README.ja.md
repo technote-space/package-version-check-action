@@ -74,6 +74,8 @@
      push:
        tags:
          - 'v*'
+     release:
+       types: [published]
    name: Publish Package
    jobs:
      release:
