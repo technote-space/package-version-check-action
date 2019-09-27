@@ -138,7 +138,7 @@ e.g. `'test/'`
 |release: published|[condition1](#condition1)|
 |release: rerequested|[condition1](#condition1)|
 |created: *|[condition2](#condition2)|
-### Condition
+### Conditions
 #### condition1
 - tags
   - semantic versioning tag (e.g. `v1.2.3`)
