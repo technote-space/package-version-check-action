@@ -63,6 +63,13 @@ describe('isTargetEvent', () => {
 		}))).toBeTruthy();
 	});
 
+	it('should return true 5', () => {
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'create',
+			ref: 'tags/v1.2.3',
+		}))).toBeTruthy();
+	});
+
 	it('should return false 1', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'pull_request',
@@ -117,6 +124,13 @@ describe('isTargetEvent', () => {
 					'tag_name': 'v1.2.3',
 				},
 			},
+		}))).toBeFalsy();
+	});
+
+	it('should return false 7', () => {
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'create',
+			ref: 'heads/v1.2.3',
 		}))).toBeFalsy();
 	});
 });

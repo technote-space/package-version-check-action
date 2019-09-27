@@ -59,4 +59,8 @@ export const getTagName = (context: Context): string => {
 	return getVersionFromBranch(Utils.getBranch(context));
 };
 
-export const isValidContext = (context: Context): boolean => isValidTagName(Utils.getTagName(context)) || isValidBranch(Utils.getBranch((context)));
+export const isValidTagNameContext = (context: Context): boolean => isValidTagName(Utils.getTagName(context));
+
+export const isValidBranchContext = (context: Context): boolean => isValidBranch(Utils.getBranch(context));
+
+export const isValidContext = (context: Context): boolean => isValidTagNameContext(context) || isValidBranchContext(context);
