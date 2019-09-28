@@ -361,10 +361,10 @@
   dependencies:
     "@actions/github" "^1.1.0"
 
-"@technote-space/github-action-helper@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-0.1.5.tgz#9f5a69db726401d50860d53620be04b2fa50e8e4"
-  integrity sha512-NodHSslKpDH5khgn9OdpCru7pC1w4+Qr/GvjpYxtdSLgz/dmHA43OoOsie3iepMGekAGt4EbG09ZU2IL9c/x0w==
+"@technote-space/github-action-helper@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-0.1.6.tgz#8f11f01051506d1ab0ac02520a70c51d9d845b1e"
+  integrity sha512-bNPg8mPUDo/wm675H2/skmN1XEACiBSn2Ib0qLsFiIpdu8m+1J8Rwq54vtPMAYnVrO78WNZwfGwiTJO0ErCG4Q==
   dependencies:
     "@actions/core" "^1.1.1"
     "@actions/github" "^1.1.0"
@@ -3312,9 +3312,9 @@ rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 react-is@^16.8.4:
-  version "16.9.0"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
-  integrity sha512-tJBzzzIgnnRfEm046qRcURvwQnZVXmuCbscxUO5RWrGTXpon2d4c8mI0D8WE6ydVIm29JiLB6+RslkIvym9Rjw==
+  version "16.10.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.0.tgz#3d6a031e57fff73c3cfa0347feb3e8f40c5141e5"
+  integrity sha512-WRki2sBb7MTpYp7FtDEmSeGKX2vamYyq3rc9o7fKUG+/DHVyJu69NnvJsiSwwhh2Tt8XN40MQHkDBEXwyfxncQ==
 
 read-pkg-up@^4.0.0:
   version "4.0.0"
