@@ -26,6 +26,9 @@ GitHub Action to check package version before publish.
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
+  - [Conditions](#conditions)
+    - [condition1](#condition1)
+    - [condition2](#condition2)
 - [Motivation](#motivation)
 - [Addition](#addition)
   - [Commit](#commit)
@@ -71,9 +74,9 @@ GitHub Action to check package version before publish.
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
-     push:
-       tags:
-         - 'v*'
+    push:
+      tags:
+        - 'v*'
    name: Publish Package
    jobs:
      release:
@@ -102,6 +105,7 @@ GitHub Action to check package version before publish.
            with:
              args: publish
    ```
+[More details of target event](#action-event-details)
 
 ## Options
 ### BRANCH_PREFIX
@@ -132,13 +136,23 @@ e.g. `'test/'`
 
 ## Action event details
 ### Target events
-- push: *
-  - tags
-    - semantic versioning tag (e.g. `v1.2.3`)
-  - branches
-    - `${BRANCH_PREFIX}${tag}`
-      - tag: semantic versioning tag (e.g. `v1.2.3`)
-      - e.g. branch: `release/v1.2.3`
+| eventName: action | condition |
+|:---:|:---:|
+|push: *|[condition1](#condition1)|
+|release: published|[condition1](#condition1)|
+|release: rerequested|[condition1](#condition1)|
+|created: *|[condition2](#condition2)|
+### Conditions
+#### condition1
+- tags
+  - semantic versioning tag (e.g. `v1.2.3`)
+- branches
+  - `${BRANCH_PREFIX}${tag}`
+    - tag: semantic versioning tag (e.g. `v1.2.3`)
+    - e.g. branch: `release/v1.2.3`
+#### condition2
+- tags
+  - semantic versioning tag (e.g. `v1.2.3`)
 
 ## Motivation
 If you forget to update the package.json version, publishing the npm package will fail.  
