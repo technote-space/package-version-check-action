@@ -74,9 +74,9 @@ GitHub Action to check package version before publish.
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
-     push:
-       tags:
-         - 'v*'
+    push:
+      tags:
+        - 'v*'
    name: Publish Package
    jobs:
      release:
@@ -105,6 +105,7 @@ GitHub Action to check package version before publish.
            with:
              args: publish
    ```
+[More details of target event](#action-event-details)
 
 ## Options
 ### BRANCH_PREFIX
