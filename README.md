@@ -26,7 +26,7 @@ GitHub Action to check package version before publish.
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
-  - [Condition](#condition)
+  - [Conditions](#conditions)
     - [condition1](#condition1)
     - [condition2](#condition2)
 - [Motivation](#motivation)

@@ -26,7 +26,7 @@
   - [TEST_TAG_PREFIX](#test_tag_prefix)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
-  - [Condition](#condition)
+  - [Conditions](#conditions)
     - [condition1](#condition1)
     - [condition2](#condition2)
 - [動機](#%E5%8B%95%E6%A9%9F)
