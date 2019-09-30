@@ -2,7 +2,16 @@
 import nock from 'nock';
 import path from 'path';
 import { Logger } from '@technote-space/github-action-helper';
-import { getContext, testEnv, disableNetConnect, getApiFixture, spyOnStdout, stdoutCalledWith, setChildProcessParams } from '@technote-space/github-action-test-helper';
+import {
+	getContext,
+	testEnv,
+	disableNetConnect,
+	getApiFixture,
+	spyOnStdout,
+	stdoutCalledWith,
+	setChildProcessParams,
+	testFs,
+} from '@technote-space/github-action-test-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { GitHub } from '@actions/github/lib/github';
 import {
@@ -16,16 +25,7 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 	{file: 'test2', hasChanged: false},
 ])));
 
-let exists = true;
-beforeAll(() => {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const fs = require('fs');
-	jest.spyOn(fs, 'existsSync').mockImplementation(() => exists);
-});
-
-afterAll(() => {
-	jest.restoreAllMocks();
-});
+const setExists = testFs(true);
 
 beforeEach(() => {
 	Logger.resetForTesting();
@@ -35,7 +35,7 @@ describe('updatePackageVersion', () => {
 	testEnv();
 
 	it('should return false 1', async() => {
-		exists = false;
+		setExists(false);
 		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
@@ -43,7 +43,6 @@ describe('updatePackageVersion', () => {
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
 		}))).toBeFalsy();
-		exists = true;
 	});
 
 	it('should return false 2', async() => {
