@@ -25,7 +25,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 
 	const path = getPackagePath();
 	if (!fs.existsSync(path)) {
-		logger.warn('File [package.json] not found.');
+		logger.warn(`File [${getPackageFileName()}] not found.`);
 		logger.warn('Please checkout before call this GitHub Action.');
 		return false;
 	}
