@@ -178,6 +178,42 @@ package.jsonバージョンの更新を忘れると、npmパッケージの公�
 ### コミット
 コミットは『タグ付きのデフォルトブランチ(通常はmaster)』または『`${BRANCH_PREFIX}`から始まるブランチ』へのプッシュ時のみ有効です。
 
+GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作成する権限がありません。  
+したがって、プッシュによってトリガーされるビルドアクションなどは実行されません。  
+
+![GITHUB_TOKEN](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/no_access_token.png)
+
+これはブランチプロテクションを設定していると問題になる場合があります。  
+
+もしアクションをトリガーしたい場合は代わりに`personal access token`を使用してください。  
+1. public_repo または repo の権限で [Personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) を生成  
+(repo はプライベートリポジトリで必要です)  
+1. [ACCESS_TOKENとして保存](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+1. `GITHUB_TOKEN`の代わりに`ACCESS_TOKEN`を使用  
+   例：`.github/workflows/check_version.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/package-version-check-action@v1
+           with:
+             # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+             BRANCH_PREFIX: release/
+   ```
+
+![ACCESS_TOKEN](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/with_access_token.png)
+
 ### Tags
 タグ名は [Semantic Versioning](https://semver.org/) に従っている必要があります。  
 
