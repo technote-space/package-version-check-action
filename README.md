@@ -7,7 +7,7 @@
 
 *Read this in other languages: [English](README.md), [日本語](README.ja.md).*
 
-GitHub Action to check package version before publish.
+This is a `GitHub Action` to check package version before publish npm.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -179,6 +179,42 @@ If the branch is protected, this action just update the version in package.json.
 ## Addition
 ### Commit
 Commit is valid when pushing to `default branch with tag` or `branch starting with ${BRANCH_PREFIX}`.
+
+The `GITHUB_TOKEN` that is provided as a part of `GitHub Actions` doesn't have authorization to create any successive events.  
+So it won't spawn actions which triggered by push.  
+
+![GITHUB_TOKEN](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/no_access_token.png)
+
+This can be a problem if you have branch protection configured.  
+
+If you want to trigger actions, use a personal access token instead.  
+1. Generate a [personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) with the public_repo or repo scope.  
+(repo is required for private repositories).  
+1. [Save as ACCESS_TOKEN](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+1. Use `ACCESS_TOKEN` instead of `GITHUB_TOKEN`.  
+   e.g. `.github/workflows/check_version.yml`
+   ```yaml
+   on: push
+   name: Check package version
+   jobs:
+     checkVersion:
+       name: Check package version
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v1
+           with:
+             fetch-depth: 3
+
+         # Use this GitHub Action
+         - name: Check package version
+           uses: technote-space/package-version-check-action@v1
+           with:
+             # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+             BRANCH_PREFIX: release/
+   ```
+
+![ACCESS_TOKEN](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/with_access_token.png)
 
 ### Tags 
 Tag name format must be [Semantic Versioning](https://semver.org/).  
