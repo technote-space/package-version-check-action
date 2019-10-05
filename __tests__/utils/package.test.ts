@@ -2,7 +2,16 @@
 import nock from 'nock';
 import path from 'path';
 import { Logger } from '@technote-space/github-action-helper';
-import { getContext, testEnv, disableNetConnect, getApiFixture, spyOnStdout, stdoutCalledWith, setChildProcessParams } from '@technote-space/github-action-test-helper';
+import {
+	getContext,
+	testEnv,
+	disableNetConnect,
+	getApiFixture,
+	spyOnStdout,
+	stdoutCalledWith,
+	setChildProcessParams,
+	testFs,
+} from '@technote-space/github-action-test-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { GitHub } from '@actions/github/lib/github';
 import {
@@ -16,16 +25,7 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 	{file: 'test2', hasChanged: false},
 ])));
 
-let exists = true;
-beforeAll(() => {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	const fs = require('fs');
-	jest.spyOn(fs, 'existsSync').mockImplementation(() => exists);
-});
-
-afterAll(() => {
-	jest.restoreAllMocks();
-});
+const setExists = testFs(true);
 
 beforeEach(() => {
 	Logger.resetForTesting();
@@ -35,7 +35,7 @@ describe('updatePackageVersion', () => {
 	testEnv();
 
 	it('should return false 1', async() => {
-		exists = false;
+		setExists(false);
 		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
@@ -43,7 +43,6 @@ describe('updatePackageVersion', () => {
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
 		}))).toBeFalsy();
-		exists = true;
 	});
 
 	it('should return false 2', async() => {
@@ -199,7 +198,7 @@ describe('commit', () => {
 			.reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.trees'))
 			.post('/repos/hello/world/git/commits')
 			.reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.commits'))
-			.patch('/repos/hello/world/git/refs/heads/master')
+			.patch('/repos/hello/world/git/refs/' + encodeURIComponent('heads/master'))
 			.reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.refs'));
 
 		expect(await commit(new GitHub(''), getContext({
@@ -222,7 +221,7 @@ describe('commit', () => {
 			'  >> master',
 			'  >> feature/test',
 			'::endgroup::',
-			'::group::Start push to branch [master]',
+			'::group::Start push to remote',
 			'::endgroup::',
 			'::group::Creating blobs...',
 			'::endgroup::',
@@ -230,7 +229,7 @@ describe('commit', () => {
 			'::endgroup::',
 			'::group::Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
 			'::endgroup::',
-			'::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
+			'::group::Updating ref... [heads%2Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
 			'::set-env name=GITHUB_SHA,::7638417db6d59f3c431d3e1f261cc637155684cd',
 			'::endgroup::',
 		]);
