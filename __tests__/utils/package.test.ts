@@ -221,8 +221,6 @@ describe('commit', () => {
 			'  >> master',
 			'  >> feature/test',
 			'::endgroup::',
-			'::group::Start push to remote',
-			'::endgroup::',
 			'::group::Creating blobs...',
 			'::endgroup::',
 			'::group::Creating tree...',
