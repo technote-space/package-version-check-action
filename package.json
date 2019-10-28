@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/package-version-check-action",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "description": "GitHub Action to check package version before publish.",
   "author": "Technote <technote.space@gmail.com> (https://technote.space)",
   "license": "MIT",
