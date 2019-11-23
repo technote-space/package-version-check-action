@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Context } from '@actions/github/lib/context';
 import { getInput } from '@actions/core' ;
-import { Utils } from '@technote-space/github-action-helper';
+import { Utils, ContextHelper } from '@technote-space/github-action-helper';
 import { ReplaceResult } from 'replace-in-file';
 import { DEFAULT_COMMIT_MESSAGE, DEFAULT_PACKAGE_NAME, DEFAULT_TEST_TAG_PREFIX } from '../constant';
 
@@ -51,7 +51,7 @@ export const isCommitDisabled = (): boolean => getBoolValue(getInput('COMMIT_DIS
 export const getDefaultBranch = (context: Context): string | undefined => context.payload.repository ? context.payload.repository.default_branch : undefined;
 
 export const getTagName = (context: Context): string => {
-	const tagName = Utils.getTagName(context);
+	const tagName = ContextHelper.getTagName(context);
 	if (tagName) {
 		return tagName;
 	}
@@ -59,7 +59,7 @@ export const getTagName = (context: Context): string => {
 	return getVersionFromBranch(Utils.getBranch(context));
 };
 
-export const isValidTagNameContext = (context: Context): boolean => isValidTagName(Utils.getTagName(context));
+export const isValidTagNameContext = (context: Context): boolean => isValidTagName(ContextHelper.getTagName(context));
 
 export const isValidBranchContext = (context: Context): boolean => isValidBranch(Utils.getBranch(context));
 

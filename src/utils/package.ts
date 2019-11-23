@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { GitHub } from '@actions/github/lib/github';
 import { Context } from '@actions/github/lib/context';
-import { ApiHelper, Logger, Utils } from '@technote-space/github-action-helper';
+import { ApiHelper, Logger, Utils, ContextHelper } from '@technote-space/github-action-helper';
 import replace from 'replace-in-file';
 import {
 	getPackageDir,
@@ -47,7 +47,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 };
 
 export const getBranch = async(logger: Logger, context: Context): Promise<string | false> => {
-	const tagName = Utils.getTagName(context);
+	const tagName = ContextHelper.getTagName(context);
 	if (tagName) {
 		const branch = getDefaultBranch(context);
 		if (undefined === branch) {
