@@ -9,7 +9,7 @@ jobs:
         with:
           fetch-depth: 3
       - name: Check package version
-        uses: technote-space/package-version-check-action@test/v1
+        uses: technote-space/package-version-check-action@gh-actions
         with:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           TEST_TAG_PREFIX: test/
