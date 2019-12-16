@@ -26,17 +26,18 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 ])));
 
 const setExists = testFs(true);
+const rootDir   = path.resolve(__dirname, '..', '..');
 
 beforeEach(() => {
 	Logger.resetForTesting();
 });
 
 describe('updatePackageVersion', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should return false 1', async() => {
 		setExists(false);
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
 		expect(await updatePackageVersion(getContext({
@@ -46,7 +47,7 @@ describe('updatePackageVersion', () => {
 	});
 
 	it('should return false 2', async() => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
 		expect(await updatePackageVersion(getContext({
@@ -56,7 +57,7 @@ describe('updatePackageVersion', () => {
 	});
 
 	it('should return true', async() => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
 		expect(await updatePackageVersion(getContext({
@@ -113,12 +114,12 @@ describe('getBranch', () => {
 });
 
 describe('commit', () => {
-	testEnv();
+	testEnv(rootDir);
 	disableNetConnect(nock);
 
 	it('should do nothing', async() => {
 		process.env.INPUT_COMMIT_DISABLED = '1';
-		const mockStdout = spyOnStdout();
+		const mockStdout                  = spyOnStdout();
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -136,7 +137,7 @@ describe('commit', () => {
 
 	it('should return false 1', async() => {
 		process.env.INPUT_COMMIT_DISABLED = '';
-		const mockStdout = spyOnStdout();
+		const mockStdout                  = spyOnStdout();
 
 		expect(await commit(new GitHub(''), getContext({
 			ref: 'refs/tags/test',
@@ -182,9 +183,9 @@ describe('commit', () => {
 	it('should call helper commit', async() => {
 		process.env.INPUT_COMMIT_DISABLED = 'false';
 		setChildProcessParams({stdout: 'master\nfeature/test\n'});
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
-		const mockStdout = spyOnStdout();
+		const mockStdout               = spyOnStdout();
 
 		nock('https://api.github.com')
 			.persist()
