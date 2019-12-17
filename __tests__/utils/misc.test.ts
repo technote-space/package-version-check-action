@@ -17,10 +17,12 @@ import {
 	getCommitMessage,
 	getTagName,
 } from '../../src/utils/misc';
-import { TARGET_EVENTS, DEFAULT_PACKAGE_NAME, DEFAULT_COMMIT_MESSAGE } from '../../src/constant';
+import { TARGET_EVENTS } from '../../src/constant';
+
+const rootDir = path.resolve(__dirname, '..', '..');
 
 describe('isTargetEvent', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should return true 1', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
@@ -136,11 +138,11 @@ describe('isTargetEvent', () => {
 });
 
 describe('getPackageDir', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get package dir', () => {
 		process.env.INPUT_PACKAGE_DIR = 'package-dir';
-		process.env.GITHUB_WORKSPACE = 'test';
+		process.env.GITHUB_WORKSPACE  = 'test';
 
 		expect(getPackageDir()).toBe('package-dir');
 	});
@@ -153,7 +155,7 @@ describe('getPackageDir', () => {
 });
 
 describe('getPackageFileName', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get package file name', () => {
 		process.env.INPUT_PACKAGE_NAME = 'test.json';
@@ -161,12 +163,12 @@ describe('getPackageFileName', () => {
 	});
 
 	it('should get default package file name', () => {
-		expect(getPackageFileName()).toBe(DEFAULT_PACKAGE_NAME);
+		expect(getPackageFileName()).toBe('package.json');
 	});
 });
 
 describe('getPackagePath', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get package path', () => {
 		process.env.GITHUB_WORKSPACE = 'test';
@@ -177,10 +179,10 @@ describe('getPackagePath', () => {
 });
 
 describe('getPackageData', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get package data', () => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 		expect(getPackageData()).toEqual({
 			'name': 'test',
@@ -191,29 +193,29 @@ describe('getPackageData', () => {
 });
 
 describe('getPackageVersion', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get package version 1', () => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 		expect(getPackageVersion()).toBe('0.0.1');
 	});
 
 	it('should get package version 2', () => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test2.json';
 		expect(getPackageVersion()).toBe('0.0.2');
 	});
 
 	it('should get package version 3', () => {
-		process.env.INPUT_PACKAGE_DIR = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test3.json';
 		expect(getPackageVersion()).toBe('v0.0.3');
 	});
 });
 
 describe('isTestTag', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should return true', () => {
 		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
@@ -227,7 +229,7 @@ describe('isTestTag', () => {
 });
 
 describe('getTestTag', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get test tag', () => {
 		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
@@ -236,7 +238,7 @@ describe('getTestTag', () => {
 });
 
 describe('isValidTagName', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should return true 1', () => {
 		expect(isValidTagName('1.2.3')).toBeTruthy();
@@ -281,7 +283,7 @@ describe('isRequiredUpdate', () => {
 });
 
 describe('getPackageVersionToUpdate', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get version', () => {
 		expect(getPackageVersionToUpdate('1.2.3')).toBe('1.2.3');
@@ -320,7 +322,7 @@ describe('getReplaceResultMessages', () => {
 });
 
 describe('getCommitMessage', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get commit message', () => {
 		process.env.INPUT_COMMIT_MESSAGE = 'test message';
@@ -329,12 +331,12 @@ describe('getCommitMessage', () => {
 	});
 
 	it('should get default commit message', () => {
-		expect(getCommitMessage()).toBe(DEFAULT_COMMIT_MESSAGE);
+		expect(getCommitMessage()).toBe('feat: Update package version');
 	});
 });
 
 describe('getTagName', () => {
-	testEnv();
+	testEnv(rootDir);
 
 	it('should get tag name', () => {
 		expect(getTagName(generateContext({
