@@ -27,6 +27,7 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 
 const setExists = testFs(true);
 const rootDir   = path.resolve(__dirname, '..', '..');
+const octokit   = new GitHub('test-token');
 
 beforeEach(() => {
 	Logger.resetForTesting();
@@ -121,7 +122,7 @@ describe('commit', () => {
 		process.env.INPUT_COMMIT_DISABLED = '1';
 		const mockStdout                  = spyOnStdout();
 
-		expect(await commit(new GitHub(''), getContext({
+		expect(await commit(octokit, getContext({
 			ref: 'refs/tags/test',
 			repo: {
 				owner: 'hello',
@@ -139,7 +140,7 @@ describe('commit', () => {
 		process.env.INPUT_COMMIT_DISABLED = '';
 		const mockStdout                  = spyOnStdout();
 
-		expect(await commit(new GitHub(''), getContext({
+		expect(await commit(octokit, getContext({
 			ref: 'refs/tags/test',
 			repo: {
 				owner: 'hello',
@@ -158,7 +159,7 @@ describe('commit', () => {
 		setChildProcessParams({stdout: 'develop\nfeature/test\n'});
 		const mockStdout = spyOnStdout();
 
-		expect(await commit(new GitHub(''), getContext({
+		expect(await commit(octokit, getContext({
 			ref: 'refs/tags/test',
 			repo: {
 				owner: 'hello',
@@ -202,7 +203,7 @@ describe('commit', () => {
 			.patch('/repos/hello/world/git/refs/' + encodeURIComponent('heads/master'))
 			.reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.refs'));
 
-		expect(await commit(new GitHub(''), getContext({
+		expect(await commit(octokit, getContext({
 			ref: 'refs/tags/test',
 			repo: {
 				owner: 'hello',
@@ -228,8 +229,8 @@ describe('commit', () => {
 			'::endgroup::',
 			'::group::Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
 			'::endgroup::',
-			'::group::Updating ref... [heads%2Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
-			'::set-env name=GITHUB_SHA,::7638417db6d59f3c431d3e1f261cc637155684cd',
+			'::group::Updating ref... [heads%252Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
+			'::set-env name=GITHUB_SHA::7638417db6d59f3c431d3e1f261cc637155684cd',
 			'::endgroup::',
 		]);
 	});
