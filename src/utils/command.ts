@@ -1,6 +1,6 @@
 import { Logger, Command } from '@technote-space/github-action-helper';
 
-const command = new Command(new Logger());
+const command     = new Command(new Logger());
 const {execAsync} = command;
 
 export const getBranchesByTag = async(tagName: string): Promise<string[]> => {
