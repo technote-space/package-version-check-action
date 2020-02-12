@@ -11,9 +11,9 @@ import {
 	stdoutCalledWith,
 	setChildProcessParams,
 	testFs,
+	getOctokit,
 } from '@technote-space/github-action-test-helper';
 import { ReplaceResult } from 'replace-in-file';
-import { GitHub } from '@actions/github/lib/github';
 import {
 	updatePackageVersion,
 	getBranch,
@@ -26,8 +26,8 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 ])));
 
 const setExists = testFs(true);
-const octokit   = new GitHub('test-token');
 const rootDir   = path.resolve(__dirname, '../..');
+const octokit   = getOctokit();
 
 beforeEach(() => {
 	Logger.resetForTesting();
