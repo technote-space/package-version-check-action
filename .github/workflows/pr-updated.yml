@@ -18,7 +18,7 @@ jobs:
   assignToProject:
     name: Assign PullRequest to Project
     runs-on: ubuntu-latest
-    if: github.action == 'synchronize'
+    if: github.event.action == 'synchronize'
     steps:
       - uses: actions/checkout@v2
       - uses: technote-space/get-git-comment-action@v1
@@ -34,7 +34,7 @@ jobs:
   assignAuthor:
     name: Assign author to PR
     runs-on: ubuntu-latest
-    if: github.action == 'synchronize'
+    if: github.event.action == 'synchronize'
     steps:
       - uses: actions/checkout@v2
       - uses: technote-space/get-git-comment-action@v1
@@ -48,7 +48,7 @@ jobs:
   addLabelsByBranch:
     name: PR Labeler
     runs-on: ubuntu-latest
-    if: github.action == 'synchronize'
+    if: github.event.action == 'synchronize'
     steps:
       - uses: actions/checkout@v2
       - uses: technote-space/get-git-comment-action@v1
@@ -62,7 +62,7 @@ jobs:
   checkVersion:
     name: Check package version
     runs-on: ubuntu-latest
-    if: github.action == 'synchronize' && startsWith(github.event.pull_request.head.ref, 'release/')
+    if: github.event.action == 'synchronize' && startsWith(github.event.pull_request.head.ref, 'release/')
     steps:
       - name: Set running flag
         run: echo "::set-env name=RUNNING::"
