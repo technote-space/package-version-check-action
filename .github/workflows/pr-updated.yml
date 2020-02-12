@@ -1,4 +1,6 @@
-on: pull_request
+on:
+  pull_request:
+    types: [synchronize]
 
 name: Pull Request updated
 
@@ -53,3 +55,29 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IGNORE_CONTEXT_CHECK: true
+
+  checkVersion:
+    name: Check package version
+    runs-on: ubuntu-latest
+    if: startsWith(github.event.pull_request.head.ref, 'release/')
+    steps:
+      - name: Set running flag
+        run: echo "::set-env name=RUNNING::"
+      - uses: actions/checkout@v2
+      - uses: technote-space/get-git-comment-action@v1
+      - name: Set running flag
+        run: echo "::set-env name=RUNNING::1"
+        if: contains(env.COMMIT_MESSAGE, 'trigger workflow')
+      - name: Set running flag
+        run: |
+          if [[ ! -f package.json ]] || [[ $(< package.json jq -r '.version == null') == 'true' ]]; then
+            echo "::set-env name=RUNNING::"
+          fi
+
+      - name: Check package version
+        uses: technote-space/package-version-check-action@gh-actions
+        with:
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH_PREFIX: release/
+          IGNORE_CONTEXT_CHECK: true
+        if: env.RUNNING
