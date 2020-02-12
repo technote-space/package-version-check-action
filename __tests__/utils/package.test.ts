@@ -26,8 +26,8 @@ jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
 ])));
 
 const setExists = testFs(true);
-const rootDir   = path.resolve(__dirname, '..', '..');
 const octokit   = new GitHub('test-token');
+const rootDir   = path.resolve(__dirname, '../..');
 
 beforeEach(() => {
 	Logger.resetForTesting();

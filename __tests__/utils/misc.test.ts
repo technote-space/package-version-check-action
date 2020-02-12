@@ -19,7 +19,7 @@ import {
 } from '../../src/utils/misc';
 import { TARGET_EVENTS } from '../../src/constant';
 
-const rootDir = path.resolve(__dirname, '..', '..');
+const rootDir = path.resolve(__dirname, '../..');
 
 describe('isTargetEvent', () => {
 	testEnv(rootDir);

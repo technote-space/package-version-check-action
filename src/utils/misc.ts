@@ -5,7 +5,7 @@ import { getInput } from '@actions/core' ;
 import { Utils, ContextHelper } from '@technote-space/github-action-helper';
 import { ReplaceResult } from 'replace-in-file';
 
-const {getWorkspace, escapeRegExp, isSemanticVersioningTagName, getBoolValue} = Utils;
+const {getWorkspace, isSemanticVersioningTagName, getBoolValue, getPrefixRegExp} = Utils;
 
 const normalizeVersion = (version: string): string => version.replace(/^v/, '');
 
@@ -13,7 +13,7 @@ export const getPackageDir = (): string => getInput('PACKAGE_DIR') || getWorkspa
 
 export const getBranchPrefix = (): string => getInput('BRANCH_PREFIX');
 
-const getBranchPrefixRegExp = (): RegExp => new RegExp('^' + escapeRegExp(getBranchPrefix()));
+const getBranchPrefixRegExp = (): RegExp => getPrefixRegExp(getBranchPrefix());
 
 const getVersionFromBranch = (branch: string): string => branch.replace(getBranchPrefixRegExp(), '');
 
@@ -29,7 +29,7 @@ export const getPackageVersion = (): string => getPackageData()['version'];
 
 export const getTestTagPrefix = (): string => getInput('TEST_TAG_PREFIX');
 
-const getTestTagPrefixRegExp = (): RegExp => new RegExp('^' + escapeRegExp(getTestTagPrefix()));
+const getTestTagPrefixRegExp = (): RegExp => getPrefixRegExp(getTestTagPrefix());
 
 export const isTestTag = (tagName: string): boolean => !!getTestTagPrefix() && getTestTagPrefixRegExp().test(tagName);
 
