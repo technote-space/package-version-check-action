@@ -72,11 +72,38 @@ describe('isTargetEvent', () => {
 		}))).toBe(true);
 	});
 
-	it('should return false 1', () => {
+	it('should return true 6', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'pull_request',
+			action: 'opened',
+			ref: 'refs/pull/123/merge',
+		}, {
+			payload: {
+				'pull_request': {
+					head: {
+						ref: 'release/v1.2.3',
+					},
+				},
+			},
+		}))).toBe(true);
+	});
+
+	it('should return false 1', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'pull_request',
+			action: 'opened',
 			ref: 'refs/tags/test',
-		}))).toBeFalsy();
+		}, {
+			payload: {
+				'pull_request': {
+					head: {
+						ref: 'feature/new-feature',
+					},
+				},
+			},
+		}))).toBe(false);
 	});
 
 	it('should return false 2', () => {
@@ -133,6 +160,23 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'create',
 			ref: 'refs/heads/v1.2.3',
+		}))).toBe(false);
+	});
+
+	it('should return false 8', () => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'pull_request',
+			action: 'closed',
+			ref: 'refs/pull/123/merge',
+		}, {
+			payload: {
+				'pull_request': {
+					head: {
+						ref: 'release/v1.2.3',
+					},
+				},
+			},
 		}))).toBe(false);
 	});
 });

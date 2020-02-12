@@ -49,17 +49,19 @@ export const isCommitDisabled = (): boolean => getBoolValue(getInput('COMMIT_DIS
 
 export const getDefaultBranch = (context: Context): string | undefined => context.payload.repository ? context.payload.repository.default_branch : undefined;
 
+export const getBranch = (context: Context): string => ContextHelper.isPr(context) ? Utils.getPrBranch(context) : Utils.getBranch(context);
+
 export const getTagName = (context: Context): string => {
 	const tagName = ContextHelper.getTagName(context);
 	if (tagName) {
 		return tagName;
 	}
 
-	return getVersionFromBranch(Utils.getBranch(context));
+	return getVersionFromBranch(getBranch(context));
 };
 
 export const isValidTagNameContext = (context: Context): boolean => isValidTagName(ContextHelper.getTagName(context));
 
-export const isValidBranchContext = (context: Context): boolean => isValidBranch(Utils.getBranch(context));
+export const isValidBranchContext = (context: Context): boolean => isValidBranch(getBranch(context));
 
 export const isValidContext = (context: Context): boolean => isValidTagNameContext(context) || isValidBranchContext(context);
