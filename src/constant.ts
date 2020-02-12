@@ -5,6 +5,12 @@ export const TARGET_EVENTS = {
 	'create': [
 		(context: Context): boolean => isValidTagNameContext(context),
 	],
+	'pull_request': [
+		[
+			'opened',
+			(context: Context): boolean => isValidContext(context),
+		],
+	],
 	'release': [
 		[
 			'published',

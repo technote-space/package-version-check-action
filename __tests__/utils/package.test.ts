@@ -16,7 +16,7 @@ import {
 import { ReplaceResult } from 'replace-in-file';
 import {
 	updatePackageVersion,
-	getBranch,
+	getUpdateBranch,
 	commit,
 } from '../../src/utils/package';
 
@@ -44,7 +44,7 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 2', async() => {
@@ -54,7 +54,7 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return true', async() => {
@@ -64,24 +64,25 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.2',
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 });
 
-describe('getBranch', () => {
+describe('getUpdateBranch', () => {
+	testEnv(rootDir);
 	const logger = new Logger();
 
 	it('should return false 1', async() => {
-		expect(await getBranch(logger, getContext({
+		expect(await getUpdateBranch(logger, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/test',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 2', async() => {
 		setChildProcessParams({stdout: ''});
 
-		expect(await getBranch(logger, getContext({
+		expect(await getUpdateBranch(logger, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/test',
 			payload: {
@@ -89,13 +90,13 @@ describe('getBranch', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should get default branch', async() => {
 		setChildProcessParams({stdout: 'remotes/origin/master'});
 
-		expect(await getBranch(logger, getContext({
+		expect(await getUpdateBranch(logger, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/test',
 			payload: {
@@ -106,11 +107,31 @@ describe('getBranch', () => {
 		}))).toBe('master');
 	});
 
-	it('should get branch', async() => {
-		expect(await getBranch(logger, getContext({
+	it('should get branch 1', async() => {
+		expect(await getUpdateBranch(logger, getContext({
 			eventName: 'push',
 			ref: 'refs/heads/release/v1.2.3',
 		}))).toBe('release/v1.2.3');
+	});
+
+	it('should get branch 2', async() => {
+		process.env.INPUT_BRANCH_PREFIX = 'release/';
+		setChildProcessParams({stdout: ''});
+
+		expect(await getUpdateBranch(logger, getContext({
+			eventName: 'pull_request',
+			ref: 'refs/pull/123/merge',
+			payload: {
+				repository: {
+					'default_branch': 'master',
+				},
+				'pull_request': {
+					head: {
+						ref: 'feature/new-feature',
+					},
+				},
+			},
+		}))).toBe('feature/new-feature');
 	});
 });
 
@@ -128,7 +149,7 @@ describe('commit', () => {
 				owner: 'hello',
 				repo: 'world',
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -146,7 +167,7 @@ describe('commit', () => {
 				owner: 'hello',
 				repo: 'world',
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -170,7 +191,7 @@ describe('commit', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -215,7 +236,7 @@ describe('commit', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',

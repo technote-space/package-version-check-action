@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
-import { ApiHelper, Logger, Utils, ContextHelper } from '@technote-space/github-action-helper';
+import { ApiHelper, Logger, ContextHelper } from '@technote-space/github-action-helper';
 import replace from 'replace-in-file';
 import {
 	getPackageDir,
@@ -15,6 +15,7 @@ import {
 	getDefaultBranch,
 	isCommitDisabled,
 	getTagName,
+	getBranch,
 } from './misc';
 import { getBranchesByTag } from './command';
 
@@ -46,7 +47,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 	return true;
 };
 
-export const getBranch = async(logger: Logger, context: Context): Promise<string | false> => {
+export const getUpdateBranch = async(logger: Logger, context: Context): Promise<string | false> => {
 	const tagName = ContextHelper.getTagName(context);
 	if (tagName) {
 		const branch = getDefaultBranch(context);
@@ -62,7 +63,7 @@ export const getBranch = async(logger: Logger, context: Context): Promise<string
 		return branch;
 	}
 
-	return Utils.getBranch(context);
+	return getBranch(context);
 };
 
 export const commit = async(octokit: Octokit, context: Context): Promise<boolean> => {
@@ -73,7 +74,7 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
 		return true;
 	}
 
-	const branch = await getBranch(logger, context);
+	const branch = await getUpdateBranch(logger, context);
 	if (false === branch) {
 		return false;
 	}

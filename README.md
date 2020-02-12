@@ -139,7 +139,8 @@ e.g. `'test/'`
 |push: *|[condition1](#condition1)|
 |release: published|[condition1](#condition1)|
 |release: rerequested|[condition1](#condition1)|
-|created: *|[condition2](#condition2)|
+|pull_request: opened|[condition2](#condition2)|
+|created: *|[condition3](#condition3)|
 ### Conditions
 #### condition1
 - tags
@@ -149,6 +150,11 @@ e.g. `'test/'`
     - tag: semantic versioning tag (e.g. `v1.2.3`)
     - e.g. branch: `release/v1.2.3`
 #### condition2
+- branches
+  - `${BRANCH_PREFIX}${tag}`
+    - tag: semantic versioning tag (e.g. `v1.2.3`)
+    - e.g. branch: `release/v1.2.3`
+#### condition3
 - tags
   - semantic versioning tag (e.g. `v1.2.3`)
 
