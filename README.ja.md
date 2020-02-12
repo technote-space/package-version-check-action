@@ -9,9 +9,12 @@
 
 npmパッケージ公開前にパッケージのバージョンをチェックする`GitHub Actions`です。
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Details</summary>
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
 - [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
@@ -27,8 +30,6 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
   - [Conditions](#conditions)
-    - [condition1](#condition1)
-    - [condition2](#condition2)
 - [動機](#%E5%8B%95%E6%A9%9F)
 - [補足](#%E8%A3%9C%E8%B6%B3)
   - [コミット](#%E3%82%B3%E3%83%9F%E3%83%83%E3%83%88)
@@ -36,6 +37,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
 - [このアクションを使用しているリポジトリの例](#%E3%81%93%E3%81%AE%E3%82%A2%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E4%BE%8B)
 - [Author](#author)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## スクリーンショット
@@ -58,9 +60,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -84,9 +84,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
        runs-on: ubuntu-latest
        steps:
          - name: Checkout
-           uses: actions/checkout@master
-           with:
-             fetch-depth: 3
+           uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -199,9 +197,7 @@ GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
