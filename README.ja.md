@@ -9,6 +9,8 @@
 
 npmパッケージ公開前にパッケージのバージョンをチェックする`GitHub Actions`です。
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <details>
@@ -58,9 +60,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -84,9 +84,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
        runs-on: ubuntu-latest
        steps:
          - name: Checkout
-           uses: actions/checkout@master
-           with:
-             fetch-depth: 3
+           uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -199,9 +197,7 @@ GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version

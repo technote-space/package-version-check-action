@@ -9,6 +9,8 @@
 
 This is a `GitHub Actions` to check package version before publish npm.
 
+## Table of Contents
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <details>
@@ -58,9 +60,7 @@ This is a `GitHub Actions` to check package version before publish npm.
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -84,9 +84,7 @@ This is a `GitHub Actions` to check package version before publish npm.
        runs-on: ubuntu-latest
        steps:
          - name: Checkout
-           uses: actions/checkout@master
-           with:
-             fetch-depth: 3
+           uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
@@ -201,9 +199,7 @@ If you want to trigger actions, use a personal access token instead.
        name: Check package version
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v1
-           with:
-             fetch-depth: 3
+         - uses: actions/checkout@v2
 
          # Use this GitHub Action
          - name: Check package version
