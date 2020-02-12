@@ -44,7 +44,7 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 2', async() => {
@@ -54,7 +54,7 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.1',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return true', async() => {
@@ -64,7 +64,7 @@ describe('updatePackageVersion', () => {
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.2',
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 });
 
@@ -75,7 +75,7 @@ describe('getBranch', () => {
 		expect(await getBranch(logger, getContext({
 			eventName: 'push',
 			ref: 'refs/tags/test',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 2', async() => {
@@ -89,7 +89,7 @@ describe('getBranch', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should get default branch', async() => {
@@ -128,7 +128,7 @@ describe('commit', () => {
 				owner: 'hello',
 				repo: 'world',
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -146,7 +146,7 @@ describe('commit', () => {
 				owner: 'hello',
 				repo: 'world',
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -170,7 +170,7 @@ describe('commit', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',
@@ -215,7 +215,7 @@ describe('commit', () => {
 					'default_branch': 'master',
 				},
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 
 		stdoutCalledWith(mockStdout, [
 			'::group::Committing...',

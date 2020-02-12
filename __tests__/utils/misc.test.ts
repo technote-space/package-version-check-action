@@ -28,7 +28,7 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
 			ref: 'refs/tags/v1.2.3',
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 
 	it('should return true 2', () => {
@@ -36,7 +36,7 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
 			ref: 'refs/heads/release/v1.2.3',
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 
 	it('should return true 3', () => {
@@ -49,7 +49,7 @@ describe('isTargetEvent', () => {
 					'tag_name': 'v1.2.3',
 				},
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 
 	it('should return true 4', () => {
@@ -62,14 +62,14 @@ describe('isTargetEvent', () => {
 					'tag_name': 'v1.2.3',
 				},
 			},
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 
 	it('should return true 5', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'create',
 			ref: 'refs/tags/v1.2.3',
-		}))).toBeTruthy();
+		}))).toBe(true);
 	});
 
 	it('should return false 1', () => {
@@ -83,7 +83,7 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
 			ref: 'refs/tags/test',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 3', () => {
@@ -91,7 +91,7 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
 			ref: 'refs/heads/release/v1.2.3',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 4', () => {
@@ -99,7 +99,7 @@ describe('isTargetEvent', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
 			ref: 'refs/heads/release/v1.2.3',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 5', () => {
@@ -112,7 +112,7 @@ describe('isTargetEvent', () => {
 					'tag_name': 'abc',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 6', () => {
@@ -126,14 +126,14 @@ describe('isTargetEvent', () => {
 					'tag_name': 'v1.2.3',
 				},
 			},
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 
 	it('should return false 7', () => {
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'create',
 			ref: 'refs/heads/v1.2.3',
-		}))).toBeFalsy();
+		}))).toBe(false);
 	});
 });
 
@@ -241,44 +241,44 @@ describe('isValidTagName', () => {
 	testEnv(rootDir);
 
 	it('should return true 1', () => {
-		expect(isValidTagName('1.2.3')).toBeTruthy();
-		expect(isValidTagName('v1.2.3')).toBeTruthy();
+		expect(isValidTagName('1.2.3')).toBe(true);
+		expect(isValidTagName('v1.2.3')).toBe(true);
 	});
 
 	it('should return true 2', () => {
 		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
-		expect(isValidTagName('test/1.2.3')).toBeTruthy();
-		expect(isValidTagName('test/v1.2.3')).toBeTruthy();
+		expect(isValidTagName('test/1.2.3')).toBe(true);
+		expect(isValidTagName('test/v1.2.3')).toBe(true);
 	});
 
 	it('should return false 1', () => {
-		expect(isValidTagName('test/1.2.3')).toBeFalsy();
-		expect(isValidTagName('test/v1.2.3')).toBeFalsy();
-		expect(isValidTagName('.2.3')).toBeFalsy();
-		expect(isValidTagName('abc')).toBeFalsy();
-		expect(isValidTagName('')).toBeFalsy();
+		expect(isValidTagName('test/1.2.3')).toBe(false);
+		expect(isValidTagName('test/v1.2.3')).toBe(false);
+		expect(isValidTagName('.2.3')).toBe(false);
+		expect(isValidTagName('abc')).toBe(false);
+		expect(isValidTagName('')).toBe(false);
 	});
 
 	it('should return false 2', () => {
 		process.env.INPUT_TEST_TAG_PREFIX = 'test/';
-		expect(isValidTagName('.2.3')).toBeFalsy();
-		expect(isValidTagName('abc')).toBeFalsy();
-		expect(isValidTagName('')).toBeFalsy();
+		expect(isValidTagName('.2.3')).toBe(false);
+		expect(isValidTagName('abc')).toBe(false);
+		expect(isValidTagName('')).toBe(false);
 	});
 });
 
 describe('isRequiredUpdate', () => {
 	it('should return false', () => {
-		expect(isRequiredUpdate('0.0.1', '0.0.1')).toBeFalsy();
-		expect(isRequiredUpdate('v0.0.1', '0.0.1')).toBeFalsy();
-		expect(isRequiredUpdate('0.0.1', 'v0.0.1')).toBeFalsy();
-		expect(isRequiredUpdate('v0.0.1', 'v0.0.1')).toBeFalsy();
+		expect(isRequiredUpdate('0.0.1', '0.0.1')).toBe(false);
+		expect(isRequiredUpdate('v0.0.1', '0.0.1')).toBe(false);
+		expect(isRequiredUpdate('0.0.1', 'v0.0.1')).toBe(false);
+		expect(isRequiredUpdate('v0.0.1', 'v0.0.1')).toBe(false);
 	});
 
 	it('should return true', () => {
-		expect(isRequiredUpdate('0.0.1', '0.0.2')).toBeTruthy();
-		expect(isRequiredUpdate('0.0.1', 'v0.0.2')).toBeTruthy();
-		expect(isRequiredUpdate('0.0.1', 'v0.1.0')).toBeTruthy();
+		expect(isRequiredUpdate('0.0.1', '0.0.2')).toBe(true);
+		expect(isRequiredUpdate('0.0.1', 'v0.0.2')).toBe(true);
+		expect(isRequiredUpdate('0.0.1', 'v0.1.0')).toBe(true);
 	});
 });
 
