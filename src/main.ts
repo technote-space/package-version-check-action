@@ -1,16 +1,14 @@
 import path from 'path';
 import { setFailed } from '@actions/core';
-import { context, GitHub } from '@actions/github';
+import { Context } from '@actions/github/lib/context';
 import { isTargetEvent } from '@technote-space/filter-github-action';
 import { Logger, ContextHelper, Utils } from '@technote-space/github-action-helper';
 import { updatePackageVersion, commit } from './utils/package';
 import { TARGET_EVENTS } from './constant';
 
-/**
- * run
- */
-async function run(): Promise<void> {
-	const logger = new Logger();
+const run = async(): Promise<void> => {
+	const logger  = new Logger();
+	const context = new Context();
 	ContextHelper.showActionInfo(path.resolve(__dirname, '..'), logger, context);
 
 	if (!isTargetEvent(TARGET_EVENTS, context)) {
@@ -19,8 +17,11 @@ async function run(): Promise<void> {
 	}
 
 	if (await updatePackageVersion(context)) {
-		await commit(new GitHub(Utils.getAccessToken(true)), context);
+		await commit(Utils.getOctokit(), context);
 	}
-}
+};
 
-run().catch(error => setFailed(error.message));
+run().catch(error => {
+	console.log(error);
+	setFailed(error.message);
+});

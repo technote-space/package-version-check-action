@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { GitHub } from '@actions/github/lib/github';
 import { Context } from '@actions/github/lib/context';
+import { Octokit } from '@octokit/rest';
 import { ApiHelper, Logger, Utils, ContextHelper } from '@technote-space/github-action-helper';
 import replace from 'replace-in-file';
 import {
@@ -65,7 +65,7 @@ export const getBranch = async(logger: Logger, context: Context): Promise<string
 	return Utils.getBranch(context);
 };
 
-export const commit = async(octokit: GitHub, context: Context): Promise<boolean> => {
+export const commit = async(octokit: Octokit, context: Context): Promise<boolean> => {
 	logger.startProcess('Committing...');
 
 	if (isCommitDisabled()) {
