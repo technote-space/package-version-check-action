@@ -11,7 +11,8 @@ This is a `GitHub Actions` to check package version before publish npm.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Details</summary>
 
 - [Screenshots](#screenshots)
 - [Installation](#installation)
@@ -27,8 +28,6 @@ This is a `GitHub Actions` to check package version before publish npm.
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
   - [Conditions](#conditions)
-    - [condition1](#condition1)
-    - [condition2](#condition2)
 - [Motivation](#motivation)
 - [Addition](#addition)
   - [Commit](#commit)
@@ -36,6 +35,7 @@ This is a `GitHub Actions` to check package version before publish npm.
 - [Sample repositories using this Action](#sample-repositories-using-this-action)
 - [Author](#author)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Screenshots
