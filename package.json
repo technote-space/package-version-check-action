@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/package-version-check-action",
-  "version": "1.3.12",
+  "version": "1.3.13",
   "description": "GitHub Action to check package version before publish.",
   "author": {
     "name": "Technote",
@@ -28,7 +28,7 @@
     "@actions/core": "^1.2.2",
     "@actions/github": "^2.1.0",
     "@technote-space/filter-github-action": "^0.2.2",
-    "@technote-space/github-action-helper": "^1.1.2",
+    "@technote-space/github-action-helper": "^1.1.3",
     "replace-in-file": "^5.0.2"
   },
   "devDependencies": {
