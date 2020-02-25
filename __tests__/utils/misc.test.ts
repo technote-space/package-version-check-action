@@ -93,7 +93,7 @@ describe('isTargetEvent', () => {
 		process.env.INPUT_NEXT_VERSION = 'v1.2.3';
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
 			event: 'push',
-			ref: 'refs/release/v1.2.3',
+			ref: 'refs/master',
 		}))).toBe(true);
 	});
 
@@ -185,6 +185,14 @@ describe('isTargetEvent', () => {
 					},
 				},
 			},
+		}))).toBe(false);
+	});
+
+	it('should return false 9', () => {
+		process.env.INPUT_NEXT_VERSION = 'abc';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'push',
+			ref: 'refs/master',
 		}))).toBe(false);
 	});
 });
