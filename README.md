@@ -27,6 +27,7 @@ This is a `GitHub Actions` to check package version before publish npm.
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+  - [NEXT_VERSION](#next_version)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
   - [Conditions](#conditions)
