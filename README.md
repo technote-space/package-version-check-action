@@ -27,6 +27,7 @@ This is a `GitHub Actions` to check package version before publish npm.
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+  - [NEXT_VERSION](#next_version)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
   - [Conditions](#conditions)
@@ -131,6 +132,11 @@ default: `''`
 Prefix for test tag.  
 default: `''`  
 e.g. `'test/'`
+
+### NEXT_VERSION
+Specify next version.  
+default: `''`  
+e.g. `'v1.2.3'`
 
 ## Action event details
 ### Target events
