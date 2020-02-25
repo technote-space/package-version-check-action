@@ -117,7 +117,7 @@ default: `''`
 
 ### COMMIT_MESSAGE
 パッケージバージョン更新用コミットのメッセージ  
-default: `'feat: Update package version'`
+default: `'feat: update package version'`
 
 ### PACKAGE_NAME
 パッケージファイル名  
