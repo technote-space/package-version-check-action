@@ -57,13 +57,33 @@ describe('updatePackageVersion', () => {
 		}))).toBe(false);
 	});
 
-	it('should return true', async() => {
+	it('should return false 3', async() => {
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+		process.env.INPUT_NEXT_VERSION = 'v0.0.1';
+
+		expect(await updatePackageVersion(getContext({
+			eventName: 'push',
+		}))).toBe(false);
+	});
+
+	it('should return true 1', async() => {
 		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.2',
+		}))).toBe(true);
+	});
+
+	it('should return true 2', async() => {
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+		process.env.INPUT_NEXT_VERSION = 'v0.0.2';
+
+		expect(await updatePackageVersion(getContext({
+			eventName: 'push',
 		}))).toBe(true);
 	});
 });

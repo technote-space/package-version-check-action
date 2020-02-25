@@ -33,6 +33,10 @@ inputs:
     description: Tag name prefix for test
     default: ''
     required: false
+  NEXT_VERSION:
+    description: Specify next version
+    default: ''
+    required: false
 
 branding:
   icon: 'package'
