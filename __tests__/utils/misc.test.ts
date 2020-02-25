@@ -383,7 +383,7 @@ describe('getCommitMessage', () => {
 	});
 
 	it('should get default commit message', () => {
-		expect(getCommitMessage()).toBe('feat: Update package version');
+		expect(getCommitMessage()).toBe('feat: update package version');
 	});
 });
 
