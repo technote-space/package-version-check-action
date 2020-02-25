@@ -117,7 +117,7 @@ default: `''`
 
 ### COMMIT_MESSAGE
 Commit message of update package version commit.  
-default: `'feat: Update package version'`
+default: `'feat: update package version'`
 
 ### PACKAGE_NAME
 Package file name.  
