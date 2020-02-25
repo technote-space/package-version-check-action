@@ -132,6 +132,11 @@ default: `''`
 default: `''`  
 例：`'test/'`
 
+### NEXT_VERSION
+次のバージョンを指定  
+default: `''`  
+e.g. `'v1.2.3'`
+
 ## Action イベント詳細
 ### 対象イベント
 | eventName: action | condition |

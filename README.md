@@ -132,6 +132,11 @@ Prefix for test tag.
 default: `''`  
 e.g. `'test/'`
 
+### NEXT_VERSION
+Specify next version.  
+default: `''`  
+e.g. `'v1.2.3'`
+
 ## Action event details
 ### Target events
 | eventName: action | condition |
