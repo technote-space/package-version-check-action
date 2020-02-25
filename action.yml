@@ -38,6 +38,10 @@ inputs:
     default: ''
     required: false
 
+outputs:
+  sha:
+    description: commit sha
+
 branding:
   icon: 'package'
   color: 'orange'

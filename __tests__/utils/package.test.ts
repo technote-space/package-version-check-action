@@ -273,6 +273,7 @@ describe('commit', () => {
 			'::group::Updating ref... [heads%252Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
 			'::set-env name=GITHUB_SHA::7638417db6d59f3c431d3e1f261cc637155684cd',
 			'::endgroup::',
+			'::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
 		]);
 	});
 });
