@@ -51,7 +51,23 @@ export const getDefaultBranch = (context: Context): string | undefined => contex
 
 export const getBranch = (context: Context): string => ContextHelper.isPr(context) ? Utils.getPrBranch(context) : Utils.getBranch(context);
 
+export const getNextVersion = (): string => {
+	const version = getInput('NEXT_VERSION');
+	if (isValidTagName(version)) {
+		return version;
+	}
+
+	return '';
+};
+
+export const isSpecifiedNextVersion = (): boolean => !!getNextVersion();
+
 export const getTagName = (context: Context): string => {
+	const nextVersion = getNextVersion();
+	if (nextVersion) {
+		return nextVersion;
+	}
+
 	const tagName = ContextHelper.getTagName(context);
 	if (tagName) {
 		return tagName;
@@ -64,4 +80,4 @@ export const isValidTagNameContext = (context: Context): boolean => isValidTagNa
 
 export const isValidBranchContext = (context: Context): boolean => isValidBranch(getBranch(context));
 
-export const isValidContext = (context: Context): boolean => isValidTagNameContext(context) || isValidBranchContext(context);
+export const isValidContext = (context: Context): boolean => isSpecifiedNextVersion() || isValidTagNameContext(context) || isValidBranchContext(context);

@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { setOutput } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { ApiHelper, Logger, ContextHelper } from '@technote-space/github-action-helper';
@@ -80,5 +81,7 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
 	}
 
 	const helper = new ApiHelper(octokit, context, logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
-	return await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
+	await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
+	setOutput('sha', process.env.GITHUB_SHA + '');
+	return true;
 };

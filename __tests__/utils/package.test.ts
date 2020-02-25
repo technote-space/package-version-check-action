@@ -57,13 +57,33 @@ describe('updatePackageVersion', () => {
 		}))).toBe(false);
 	});
 
-	it('should return true', async() => {
+	it('should return false 3', async() => {
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+		process.env.INPUT_NEXT_VERSION = 'v0.0.1';
+
+		expect(await updatePackageVersion(getContext({
+			eventName: 'push',
+		}))).toBe(false);
+	});
+
+	it('should return true 1', async() => {
 		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
 		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
 
 		expect(await updatePackageVersion(getContext({
 			eventName: 'push',
 			ref: 'refs/tags/v0.0.2',
+		}))).toBe(true);
+	});
+
+	it('should return true 2', async() => {
+		process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+		process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+		process.env.INPUT_NEXT_VERSION = 'v0.0.2';
+
+		expect(await updatePackageVersion(getContext({
+			eventName: 'push',
 		}))).toBe(true);
 	});
 });
@@ -253,6 +273,7 @@ describe('commit', () => {
 			'::group::Updating ref... [heads%252Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
 			'::set-env name=GITHUB_SHA::7638417db6d59f3c431d3e1f261cc637155684cd',
 			'::endgroup::',
+			'::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
 		]);
 	});
 });

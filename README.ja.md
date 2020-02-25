@@ -27,6 +27,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
   - [PACKAGE_NAME](#package_name)
   - [PACKAGE_DIR](#package_dir)
   - [TEST_TAG_PREFIX](#test_tag_prefix)
+  - [NEXT_VERSION](#next_version)
 - [Action イベント詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
   - [対象イベント](#%E5%AF%BE%E8%B1%A1%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88)
   - [Conditions](#conditions)
@@ -117,7 +118,7 @@ default: `''`
 
 ### COMMIT_MESSAGE
 パッケージバージョン更新用コミットのメッセージ  
-default: `'feat: Update package version'`
+default: `'feat: update package version'`
 
 ### PACKAGE_NAME
 パッケージファイル名  
@@ -131,6 +132,11 @@ default: `''`
 テスト用タグのプリフィックス  
 default: `''`  
 例：`'test/'`
+
+### NEXT_VERSION
+次のバージョンを指定  
+default: `''`  
+e.g. `'v1.2.3'`
 
 ## Action イベント詳細
 ### 対象イベント

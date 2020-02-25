@@ -89,6 +89,14 @@ describe('isTargetEvent', () => {
 		}))).toBe(true);
 	});
 
+	it('should return true 7', () => {
+		process.env.INPUT_NEXT_VERSION = 'v1.2.3';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'push',
+			ref: 'refs/master',
+		}))).toBe(true);
+	});
+
 	it('should return false 1', () => {
 		process.env.INPUT_BRANCH_PREFIX = 'release/';
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
@@ -177,6 +185,14 @@ describe('isTargetEvent', () => {
 					},
 				},
 			},
+		}))).toBe(false);
+	});
+
+	it('should return false 9', () => {
+		process.env.INPUT_NEXT_VERSION = 'abc';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'push',
+			ref: 'refs/master',
 		}))).toBe(false);
 	});
 });
@@ -375,7 +391,7 @@ describe('getCommitMessage', () => {
 	});
 
 	it('should get default commit message', () => {
-		expect(getCommitMessage()).toBe('feat: Update package version');
+		expect(getCommitMessage()).toBe('feat: update package version');
 	});
 });
 
