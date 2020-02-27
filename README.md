@@ -92,17 +92,18 @@ This is a `GitHub Actions` to check package version before publish npm.
            uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             COMMIT_DISABLED: 1
 
          - name: Install Package dependencies
            run: yarn install
          - name: Build
            run: yarn build
          - name: Publish
-           uses: actions/npm@master
+           run: |
+             npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+             npm publish
            env:
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-           with:
-             args: publish
    ```
 [More details of target event](#action-event-details)
 
@@ -200,7 +201,7 @@ This can be a problem if you have branch protection configured.
 If you want to trigger actions, use a personal access token instead.  
 1. Generate a [personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) with the public_repo or repo scope.  
 (repo is required for private repositories).  
-1. [Save as ACCESS_TOKEN](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+1. [Save as ACCESS_TOKEN](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
 1. Use `ACCESS_TOKEN` instead of `GITHUB_TOKEN`.  
    e.g. `.github/workflows/check_version.yml`
    ```yaml
