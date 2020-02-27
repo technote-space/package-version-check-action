@@ -92,17 +92,18 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
            uses: technote-space/package-version-check-action@v1
            with:
              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+             COMMIT_DISABLED: 1
 
          - name: Install Package dependencies
            run: yarn install
          - name: Build
            run: yarn build
          - name: Publish
-           uses: actions/npm@master
+           run: |
+             npm config set //registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN
+             npm publish
            env:
              NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-           with:
-             args: publish
    ```
 [対象イベントの詳細](#action-%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88%E8%A9%B3%E7%B4%B0)
 
@@ -196,9 +197,9 @@ GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作
 これはブランチプロテクションを設定していると問題になる場合があります。  
 
 もしアクションをトリガーしたい場合は代わりに`personal access token`を使用してください。  
-1. public_repo または repo の権限で [Personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) を生成  
+1. public_repo または repo の権限で [Personal access token](https://help.github.com/ja/articles/creating-a-personal-access-token-for-the-command-line) を生成  
 (repo はプライベートリポジトリで必要です)  
-1. [ACCESS_TOKENとして保存](https://help.github.com/en/articles/virtual-environments-for-github-actions#creating-and-using-secrets-encrypted-variables)
+1. [ACCESS_TOKENとして保存](https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
 1. `GITHUB_TOKEN`の代わりに`ACCESS_TOKEN`を使用  
    例：`.github/workflows/check_version.yml`
    ```yaml
