@@ -145,8 +145,7 @@ e.g. `'v1.2.3'`
 |:---:|:---:|
 |push: *|[condition1](#condition1)|
 |release: published|[condition1](#condition1)|
-|release: rerequested|[condition1](#condition1)|
-|pull_request: opened|[condition2](#condition2)|
+|pull_request: opened, synchronize|[condition2](#condition2)|
 |created: *|[condition3](#condition3)|
 ### Conditions
 #### condition1
