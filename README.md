@@ -17,9 +17,9 @@ This is a `GitHub Actions` to check package version before publish npm.
 <summary>Details</summary>
 
 - [Screenshots](#screenshots)
-- [Installation](#installation)
-  - [Used when push](#used-when-push)
-  - [Used in the release process](#used-in-the-release-process)
+- [Usage](#usage)
+  - [Use when push](#use-when-push)
+  - [Use in the release process](#use-in-the-release-process)
 - [Options](#options)
   - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
@@ -35,7 +35,7 @@ This is a `GitHub Actions` to check package version before publish npm.
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
-- [Sample repositories using this Action](#sample-repositories-using-this-action)
+- [Example repositories using this Action](#example-repositories-using-this-action)
 - [Author](#author)
 
 </details>
@@ -50,8 +50,8 @@ This is a `GitHub Actions` to check package version before publish npm.
 
    ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
-## Installation
-### Used when push
+## Usage
+### Use when push
    e.g. `.github/workflows/check_version.yml`
    ```yaml
    on: push
@@ -71,7 +71,7 @@ This is a `GitHub Actions` to check package version before publish npm.
              BRANCH_PREFIX: release/
    ```
 
-### Used in the release process
+### Use in the release process
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
@@ -145,8 +145,7 @@ e.g. `'v1.2.3'`
 |:---:|:---:|
 |push: *|[condition1](#condition1)|
 |release: published|[condition1](#condition1)|
-|release: rerequested|[condition1](#condition1)|
-|pull_request: opened|[condition2](#condition2)|
+|pull_request: opened, synchronize|[condition2](#condition2)|
 |created: *|[condition3](#condition3)|
 ### Conditions
 #### condition1
@@ -228,28 +227,28 @@ If you want to trigger actions, use a personal access token instead.
 ### Tags 
 Tag name format must be [Semantic Versioning](https://semver.org/).  
 
-## Sample repositories using this Action
+## Example repositories using this Action
 - [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/ci.yml)
 - [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
-  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/ci.yml)
 - [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
-  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/ci.yml)
 - [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
-  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/ci.yml)
 - [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
-  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/ci.yml)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
