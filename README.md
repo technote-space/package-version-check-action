@@ -17,9 +17,9 @@ This is a `GitHub Actions` to check package version before publish npm.
 <summary>Details</summary>
 
 - [Screenshots](#screenshots)
-- [Installation](#installation)
-  - [Used when push](#used-when-push)
-  - [Used in the release process](#used-in-the-release-process)
+- [Usage](#usage)
+  - [Use when push](#use-when-push)
+  - [Use in the release process](#use-in-the-release-process)
 - [Options](#options)
   - [BRANCH_PREFIX](#branch_prefix)
   - [COMMIT_DISABLED](#commit_disabled)
