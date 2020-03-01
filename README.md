@@ -35,7 +35,7 @@ This is a `GitHub Actions` to check package version before publish npm.
 - [Addition](#addition)
   - [Commit](#commit)
   - [Tags](#tags)
-- [Sample repositories using this Action](#sample-repositories-using-this-action)
+- [Example repositories using this Action](#example-repositories-using-this-action)
 - [Author](#author)
 
 </details>
