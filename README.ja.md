@@ -50,7 +50,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
   
    ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
-## インストール
+## 使用方法
 ### プッシュ時に使用
    例：`.github/workflows/check_version.yml`
    ```yaml

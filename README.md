@@ -50,8 +50,8 @@ This is a `GitHub Actions` to check package version before publish npm.
 
    ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
-## Installation
-### Used when push
+## Usage
+### Use when push
    e.g. `.github/workflows/check_version.yml`
    ```yaml
    on: push
@@ -71,7 +71,7 @@ This is a `GitHub Actions` to check package version before publish npm.
              BRANCH_PREFIX: release/
    ```
 
-### Used in the release process
+### Use in the release process
    e.g. `.github/workflows/release.yml`
    ```yaml
    on:
