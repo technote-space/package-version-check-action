@@ -53,15 +53,12 @@ describe('isTargetEvent', () => {
 	});
 
 	it('should return true 4', () => {
+		process.env.INPUT_NEXT_VERSION = 'v1.2.3';
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
-			event: 'release',
-			action: 'rerequested',
+			event: 'pull_request',
+			action: 'synchronize',
 		}, {
-			payload: {
-				release: {
-					'tag_name': 'v1.2.3',
-				},
-			},
+			payload: {},
 		}))).toBe(true);
 	});
 
