@@ -227,28 +227,28 @@ If you want to trigger actions, use a personal access token instead.
 ### Tags 
 Tag name format must be [Semantic Versioning](https://semver.org/).  
 
-## Sample repositories using this Action
+## Example repositories using this Action
 - [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/ci.yml)
 - [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
-  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/ci.yml)
 - [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
-  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/ci.yml)
 - [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
-  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/ci.yml)
 - [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
-  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/ci.yml)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
