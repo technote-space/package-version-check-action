@@ -17,7 +17,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
 <summary>Details</summary>
 
 - [スクリーンショット](#%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88)
-- [インストール](#%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)
+- [使用方法](#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95)
   - [プッシュ時に使用](#%E3%83%97%E3%83%83%E3%82%B7%E3%83%A5%E6%99%82%E3%81%AB%E4%BD%BF%E7%94%A8)
   - [リリースプロセスで使用](#%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A7%E4%BD%BF%E7%94%A8)
 - [オプション](#%E3%82%AA%E3%83%97%E3%82%B7%E3%83%A7%E3%83%B3)
@@ -50,7 +50,7 @@ npmパッケージ公開前にパッケージのバージョンをチェック�
   
    ![Updated](https://raw.githubusercontent.com/technote-space/package-version-check-action/images/screenshot-2.png)
 
-## インストール
+## 使用方法
 ### プッシュ時に使用
    例：`.github/workflows/check_version.yml`
    ```yaml
@@ -227,26 +227,26 @@ GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作
 
 ## このアクションを使用しているリポジトリの例
 - [GitHub Action Helper](https://github.com/technote-space/github-action-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Config Helper](https://github.com/technote-space/github-action-config-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-config-helper/blob/master/.github/workflows/ci.yml)
 - [GitHub Action Test Helper](https://github.com/technote-space/github-action-test-helper)
-  - [check_version.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/github-action-test-helper/blob/master/.github/workflows/ci.yml)
 - [Filter GitHub Action](https://github.com/technote-space/filter-github-action)
-  - [check_version.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/filter-github-action/blob/master/.github/workflows/ci.yml)
 - [jQuery Marker Animation](https://github.com/technote-space/jquery.marker-animation)
-  - [check_version.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/jquery.marker-animation/blob/master/.github/workflows/ci.yml)
 - [Gutenberg Utils](https://github.com/technote-space/gutenberg-utils)
-  - [check_version.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/gutenberg-utils/blob/master/.github/workflows/ci.yml)
 - [Register Grouped Format Type](https://github.com/technote-space/register-grouped-format-type)
-  - [check_version.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/check_version.yml)
-  - [release.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/release.yml)
+  - [pr-updated.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/pr-updated.yml)
+  - [ci.yml](https://github.com/technote-space/register-grouped-format-type/blob/master/.github/workflows/ci.yml)
 
 ## Author
 [GitHub (Technote)](https://github.com/technote-space)  
