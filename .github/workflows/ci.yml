@@ -199,7 +199,6 @@ jobs:
       - name: Check package version
         uses: technote-space/package-version-check-action@gh-actions
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_DISABLED: 1
         if: env.RUNNING
       - name: Install Package dependencies
