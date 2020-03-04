@@ -67,7 +67,6 @@ This is a `GitHub Actions` to check package version before publish npm.
          - name: Check package version
            uses: technote-space/package-version-check-action@v1
            with:
-             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
              BRANCH_PREFIX: release/
    ```
 
@@ -91,7 +90,6 @@ This is a `GitHub Actions` to check package version before publish npm.
          - name: Check package version
            uses: technote-space/package-version-check-action@v1
            with:
-             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
              COMMIT_DISABLED: 1
 
          - name: Install Package dependencies
@@ -201,7 +199,7 @@ If you want to trigger actions, use a personal access token instead.
 1. Generate a [personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) with the public_repo or repo scope.  
 (repo is required for private repositories).  
 1. [Save as ACCESS_TOKEN](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
-1. Use `ACCESS_TOKEN` instead of `GITHUB_TOKEN`.  
+1. Add input to use `ACCESS_TOKEN` instead of `GITHUB_TOKEN`.  
    e.g. `.github/workflows/check_version.yml`
    ```yaml
    on: push
@@ -217,7 +215,6 @@ If you want to trigger actions, use a personal access token instead.
          - name: Check package version
            uses: technote-space/package-version-check-action@v1
            with:
-             # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
              GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
              BRANCH_PREFIX: release/
    ```
