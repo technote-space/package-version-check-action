@@ -61,6 +61,7 @@ export const getUpdateBranch = async(logger: Logger, context: Context): Promise<
 			logger.info('This is not default branch.');
 			return false;
 		}
+
 		return branch;
 	}
 

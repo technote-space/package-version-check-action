@@ -94,6 +94,16 @@ describe('isTargetEvent', () => {
 		}))).toBe(true);
 	});
 
+	it('should return true 8', () => {
+		process.env.INPUT_NEXT_VERSION = 'v1.2.3';
+		expect(isTargetEvent(TARGET_EVENTS, generateContext({
+			event: 'pull_request',
+			action: 'reopened',
+		}, {
+			payload: {},
+		}))).toBe(true);
+	});
+
 	it('should return false 1', () => {
 		process.env.INPUT_BRANCH_PREFIX = 'release/';
 		expect(isTargetEvent(TARGET_EVENTS, generateContext({
