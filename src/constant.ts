@@ -11,6 +11,10 @@ export const TARGET_EVENTS = {
 			(context: Context): boolean => isValidContext(context),
 		],
 		[
+			'reopened',
+			(context: Context): boolean => isValidContext(context),
+		],
+		[
 			'synchronize',
 			(context: Context): boolean => isValidContext(context),
 		],
