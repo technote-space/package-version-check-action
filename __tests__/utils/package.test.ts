@@ -20,10 +20,12 @@ import {
 	commit,
 } from '../../src/utils/package';
 
-jest.mock('replace-in-file', () => jest.fn((): ReplaceResult[] => ([
-	{file: 'test1', hasChanged: true},
-	{file: 'test2', hasChanged: false},
-])));
+jest.mock('replace-in-file/lib/replace-in-file', () => ({
+	replaceInFile: jest.fn((): ReplaceResult[] => ([
+		{file: 'test1', hasChanged: true},
+		{file: 'test2', hasChanged: false},
+	])),
+}));
 
 const setExists = testFs(true);
 const rootDir   = path.resolve(__dirname, '../..');

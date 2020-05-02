@@ -3,7 +3,7 @@ import { setOutput } from '@actions/core';
 import { Context } from '@actions/github/lib/context';
 import { Octokit } from '@octokit/rest';
 import { ApiHelper, Logger, ContextHelper } from '@technote-space/github-action-helper';
-import replace from 'replace-in-file';
+import { replaceInFile } from 'replace-in-file';
 import {
 	getPackageDir,
 	getPackageFileName,
@@ -39,7 +39,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
 	}
 
 	const version = getPackageVersionToUpdate(tagName);
-	logger.displayStdout(getReplaceResultMessages(await replace({
+	logger.displayStdout(getReplaceResultMessages(await replaceInFile({
 		files: path,
 		from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
 		to: `"version": "$1${version}"$2`,
