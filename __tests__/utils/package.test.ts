@@ -243,7 +243,7 @@ describe('commit', () => {
       .reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.trees'))
       .post('/repos/hello/world/git/commits')
       .reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.commits'))
-      .patch('/repos/hello/world/git/refs/heads%252Fmaster')
+      .patch(`/repos/hello/world/git/refs/${encodeURIComponent('heads/master')}`)
       .reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.refs'));
 
     expect(await commit(octokit, getContext({
@@ -272,7 +272,7 @@ describe('commit', () => {
       '::endgroup::',
       '::group::Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
       '::endgroup::',
-      '::group::Updating ref... [heads%252Fmaster] [7638417db6d59f3c431d3e1f261cc637155684cd]',
+      '::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
       '::set-env name=GITHUB_SHA::7638417db6d59f3c431d3e1f261cc637155684cd',
       '::endgroup::',
       '::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
