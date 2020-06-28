@@ -243,7 +243,7 @@ describe('commit', () => {
       .reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.trees'))
       .post('/repos/hello/world/git/commits')
       .reply(201, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.commits'))
-      .patch('/repos/hello/world/git/refs/' + encodeURIComponent('heads/master'))
+      .patch('/repos/hello/world/git/refs/heads%252Fmaster')
       .reply(200, () => getApiFixture(path.resolve(__dirname, '..', 'fixtures'), 'repos.git.refs'));
 
     expect(await commit(octokit, getContext({
