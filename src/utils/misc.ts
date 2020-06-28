@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import { Context } from '@actions/github/lib/context';
-import { getInput } from '@actions/core' ;
-import { Utils, ContextHelper } from '@technote-space/github-action-helper';
-import { ReplaceResult } from 'replace-in-file';
+import {Context} from '@actions/github/lib/context';
+import {getInput} from '@actions/core' ;
+import {Utils, ContextHelper} from '@technote-space/github-action-helper';
+import {ReplaceResult} from 'replace-in-file';
 
 const {getWorkspace, isSemanticVersioningTagName, getBoolValue, getPrefixRegExp} = Utils;
 
@@ -23,7 +23,8 @@ export const getPackageFileName = (): string => getInput('PACKAGE_NAME', {requir
 
 export const getPackagePath = (): string => path.resolve(getPackageDir(), getPackageFileName());
 
-export const getPackageData = (): object => JSON.parse(fs.readFileSync(getPackagePath(), {encoding: 'utf-8'}));
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getPackageData = (): any => JSON.parse(fs.readFileSync(getPackagePath(), {encoding: 'utf-8'}));
 
 export const getPackageVersion = (): string => getPackageData()['version'];
 
@@ -52,28 +53,28 @@ export const getDefaultBranch = (context: Context): string | undefined => contex
 export const getBranch = (context: Context): string => ContextHelper.isPr(context) ? Utils.getPrBranch(context) : Utils.getBranch(context);
 
 export const getNextVersion = (): string => {
-	const version = getInput('NEXT_VERSION');
-	if (isValidTagName(version)) {
-		return version;
-	}
+  const version = getInput('NEXT_VERSION');
+  if (isValidTagName(version)) {
+    return version;
+  }
 
-	return '';
+  return '';
 };
 
 export const isSpecifiedNextVersion = (): boolean => !!getNextVersion();
 
 export const getTagName = (context: Context): string => {
-	const nextVersion = getNextVersion();
-	if (nextVersion) {
-		return nextVersion;
-	}
+  const nextVersion = getNextVersion();
+  if (nextVersion) {
+    return nextVersion;
+  }
 
-	const tagName = ContextHelper.getTagName(context);
-	if (tagName) {
-		return tagName;
-	}
+  const tagName = ContextHelper.getTagName(context);
+  if (tagName) {
+    return tagName;
+  }
 
-	return getVersionFromBranch(getBranch(context));
+  return getVersionFromBranch(getBranch(context));
 };
 
 export const isValidTagNameContext = (context: Context): boolean => isValidTagName(ContextHelper.getTagName(context));
