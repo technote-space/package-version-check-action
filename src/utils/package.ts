@@ -1,7 +1,7 @@
 import fs from 'fs';
 import {setOutput} from '@actions/core';
 import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@octokit/rest';
+import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {ApiHelper, Logger, ContextHelper} from '@technote-space/github-action-helper';
 import {replaceInFile} from 'replace-in-file';
 import {
