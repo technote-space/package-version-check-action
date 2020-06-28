@@ -780,10 +780,10 @@
     shell-escape "^0.2.0"
     sprintf-js "^1.1.2"
 
-"@technote-space/github-action-helper@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-3.0.2.tgz#be81339e7af6f680e342c59b4d12824e40f715d0"
-  integrity sha512-dcqDj1sH2Kw2Wq2QxGl39CCf/R0PyvUgWZv+AwcDi69CeBFMF/2Jq4QAAh1DiX2+ZVV/UqOgkDrOD6okSaI1Rw==
+"@technote-space/github-action-helper@^3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-3.0.3.tgz#baa19228831e154cbfa0334073f7149d14dd3a97"
+  integrity sha512-ZV6rZ7L9v4i5UmY1O/90MxwyecK92w1rBDvH5qUEe7BVG7eUr9j+389wWhRWrnvM9GfPjcvC0IuoIiy2lGIMTA==
   dependencies:
     "@actions/core" "^1.2.4"
     "@actions/github" "^4.0.0"
