@@ -1,88 +1,88 @@
 import fs from 'fs';
-import { setOutput } from '@actions/core';
-import { Context } from '@actions/github/lib/context';
-import { Octokit } from '@octokit/rest';
-import { ApiHelper, Logger, ContextHelper } from '@technote-space/github-action-helper';
-import { replaceInFile } from 'replace-in-file';
+import {setOutput} from '@actions/core';
+import {Context} from '@actions/github/lib/context';
+import {Octokit} from '@octokit/rest';
+import {ApiHelper, Logger, ContextHelper} from '@technote-space/github-action-helper';
+import {replaceInFile} from 'replace-in-file';
 import {
-	getPackageDir,
-	getPackageFileName,
-	getPackagePath,
-	getPackageVersion,
-	isRequiredUpdate,
-	getPackageVersionToUpdate,
-	getReplaceResultMessages,
-	getCommitMessage,
-	getDefaultBranch,
-	isCommitDisabled,
-	getTagName,
-	getBranch,
+  getPackageDir,
+  getPackageFileName,
+  getPackagePath,
+  getPackageVersion,
+  isRequiredUpdate,
+  getPackageVersionToUpdate,
+  getReplaceResultMessages,
+  getCommitMessage,
+  getDefaultBranch,
+  isCommitDisabled,
+  getTagName,
+  getBranch,
 } from './misc';
-import { getBranchesByTag } from './command';
+import {getBranchesByTag} from './command';
 
 const logger = new Logger();
 
 export const updatePackageVersion = async(context: Context): Promise<boolean> => {
-	logger.startProcess('Updating package version...');
+  logger.startProcess('Updating package version...');
 
-	const path = getPackagePath();
-	if (!fs.existsSync(path)) {
-		logger.warn(`File [${getPackageFileName()}] not found.`);
-		logger.warn('Please checkout before call this GitHub Action.');
-		return false;
-	}
+  const path = getPackagePath();
+  if (!fs.existsSync(path)) {
+    logger.warn(`File [${getPackageFileName()}] not found.`);
+    logger.warn('Please checkout before call this GitHub Action.');
+    return false;
+  }
 
-	const tagName = getTagName(context);
-	if (!isRequiredUpdate(getPackageVersion(), tagName)) {
-		logger.info('No update required.');
-		return false;
-	}
+  const tagName = getTagName(context);
+  if (!isRequiredUpdate(getPackageVersion(), tagName)) {
+    logger.info('No update required.');
+    return false;
+  }
 
-	const version = getPackageVersionToUpdate(tagName);
-	logger.displayStdout(getReplaceResultMessages(await replaceInFile({
-		files: path,
-		from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
-		to: `"version": "$1${version}"$2`,
-	})));
+  const version = getPackageVersionToUpdate(tagName);
+  logger.displayStdout(getReplaceResultMessages(await replaceInFile({
+    files: path,
+    from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+    to: `"version": "$1${version}"$2`,
+  })));
 
-	return true;
+  return true;
 };
 
 export const getUpdateBranch = async(logger: Logger, context: Context): Promise<string | false> => {
-	const tagName = ContextHelper.getTagName(context);
-	if (tagName) {
-		const branch = getDefaultBranch(context);
-		if (undefined === branch) {
-			logger.warn('Failed to get default branch name.');
-			return false;
-		}
+  const tagName = ContextHelper.getTagName(context);
+  if (tagName) {
+    const branch = getDefaultBranch(context);
+    if (undefined === branch) {
+      logger.warn('Failed to get default branch name.');
+      return false;
+    }
 
-		if (!(await getBranchesByTag(tagName)).includes(branch)) {
-			logger.info('This is not default branch.');
-			return false;
-		}
+    if (!(await getBranchesByTag(tagName)).includes(branch)) {
+      logger.info('This is not default branch.');
+      return false;
+    }
 
-		return branch;
-	}
+    return branch;
+  }
 
-	return getBranch(context);
+  return getBranch(context);
 };
 
 export const commit = async(octokit: Octokit, context: Context): Promise<boolean> => {
-	logger.startProcess('Committing...');
+  logger.startProcess('Committing...');
 
-	if (isCommitDisabled()) {
-		logger.info('Commit is disabled.');
-		return true;
-	}
+  if (isCommitDisabled()) {
+    logger.info('Commit is disabled.');
+    return true;
+  }
 
-	const branch = await getUpdateBranch(logger, context);
-	if (false === branch) {
-		return false;
-	}
+  const branch = await getUpdateBranch(logger, context);
+  if (false === branch) {
+    return false;
+  }
 
-	const helper = new ApiHelper(octokit, context, logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
-	await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
-	setOutput('sha', process.env.GITHUB_SHA + '');
-	return true;
+  const helper = new ApiHelper(octokit, context, logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
+  await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
+  setOutput('sha', process.env.GITHUB_SHA + '');
+  return true;
 };
