@@ -9,6 +9,8 @@ import {
   getApiFixture,
   spyOnStdout,
   stdoutCalledWith,
+  spyOnExportVariable,
+  exportVariableCalledWith,
   setChildProcessParams,
   testFs,
   getOctokit,
@@ -230,6 +232,7 @@ describe('commit', () => {
     process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
+    const mockEnv                  = spyOnExportVariable();
 
     nock('https://api.github.com')
       .persist()
@@ -273,9 +276,11 @@ describe('commit', () => {
       '::group::Creating commit... [cd8274d15fa3ae2ab983129fb037999f264ba9a7]',
       '::endgroup::',
       '::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
-      '::set-env name=GITHUB_SHA::7638417db6d59f3c431d3e1f261cc637155684cd',
       '::endgroup::',
       '::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
+    ]);
+    exportVariableCalledWith(mockEnv, [
+      {name: 'GITHUB_SHA', val: '7638417db6d59f3c431d3e1f261cc637155684cd'},
     ]);
   });
 });
