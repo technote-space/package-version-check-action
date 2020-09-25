@@ -82,7 +82,11 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
     return false;
   }
 
-  const helper = new ApiHelper(octokit, context, logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
+  const helper = new ApiHelper(octokit, context, logger, {
+    branch: branch,
+    refForUpdate: `heads/${branch}`,
+    suppressBPError: true,
+  });
   await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
   setOutput('sha', process.env.GITHUB_SHA + '');
   return true;
