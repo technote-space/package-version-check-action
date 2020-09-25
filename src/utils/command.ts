@@ -1,4 +1,5 @@
-import {Logger, Command} from '@technote-space/github-action-helper';
+import {Command} from '@technote-space/github-action-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 
 const command     = new Command(new Logger());
 const {execAsync} = command;

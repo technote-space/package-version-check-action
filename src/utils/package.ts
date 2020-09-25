@@ -2,7 +2,8 @@ import fs from 'fs';
 import {setOutput} from '@actions/core';
 import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {ApiHelper, Logger, ContextHelper} from '@technote-space/github-action-helper';
+import {ApiHelper, ContextHelper} from '@technote-space/github-action-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import {replaceInFile} from 'replace-in-file';
 import {
   getPackageDir,
@@ -81,7 +82,11 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
     return false;
   }
 
-  const helper = new ApiHelper(octokit, context, logger, {branch: branch, refForUpdate: `heads/${branch}`, suppressBPError: true});
+  const helper = new ApiHelper(octokit, context, logger, {
+    branch: branch,
+    refForUpdate: `heads/${branch}`,
+    suppressBPError: true,
+  });
   await helper.commit(getPackageDir(), getCommitMessage(), [getPackageFileName()]);
   setOutput('sha', process.env.GITHUB_SHA + '');
   return true;
