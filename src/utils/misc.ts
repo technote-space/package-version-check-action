@@ -6,9 +6,9 @@ import {Utils, ContextHelper} from '@technote-space/github-action-helper';
 import {Logger} from '@technote-space/github-action-log-helper';
 import {ReplaceResult} from 'replace-in-file';
 
-const {getWorkspace, isSemanticVersioningTagName, getBoolValue, getPrefixRegExp} = Utils;
+const {getWorkspace, isValidSemanticVersioning, getBoolValue, getPrefixRegExp} = Utils;
 
-const normalizeVersion = (version: string): string => version.replace(/^v/, '');
+const normalizeVersion = (version: string): string => Utils.normalizeVersion(version) ?? '';
 
 export const getPackageDir = (): string => getInput('PACKAGE_DIR') || getWorkspace();
 
@@ -18,7 +18,7 @@ const getBranchPrefixRegExp = (): RegExp => getPrefixRegExp(getBranchPrefix());
 
 const getVersionFromBranch = (branch: string): string => branch.replace(getBranchPrefixRegExp(), '');
 
-export const isValidBranch = (branch: string): boolean => !!getBranchPrefix() && getBranchPrefixRegExp().test(branch) && isSemanticVersioningTagName(getVersionFromBranch(branch));
+export const isValidBranch = (branch: string): boolean => !!getBranchPrefix() && getBranchPrefixRegExp().test(branch) && isValidSemanticVersioning(getVersionFromBranch(branch));
 
 export const getPackageFileName = (): string => getInput('PACKAGE_NAME', {required: true});
 
@@ -41,7 +41,7 @@ export const getPackageVersionToUpdate = (tagName: string): string => normalizeV
 
 export const isRequiredUpdate = (packageVersion: string, tagName: string): boolean => normalizeVersion(packageVersion) !== getPackageVersionToUpdate(tagName);
 
-export const isValidTagName = (tagName: string): boolean => isSemanticVersioningTagName(getPackageVersionToUpdate(tagName));
+export const isValidTagName = (tagName: string): boolean => isValidSemanticVersioning(getPackageVersionToUpdate(tagName));
 
 export const getReplaceResultMessages = (results: ReplaceResult[], logger: Logger): string[] => results.map(result => `${result.hasChanged ? logger.c('✔', {color: 'green'}) : logger.c('✖', {color: 'red'})} ${result.file}`);
 

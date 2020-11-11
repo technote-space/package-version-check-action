@@ -95,10 +95,11 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
 
-    replaceInFileMock.mockImplementation(() => ([
+    const fn = jest.fn(() => ([
       {file: 'test1', hasChanged: true},
       {file: 'test2', hasChanged: false},
     ]));
+    replaceInFileMock.mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -112,6 +113,13 @@ describe('updatePackageVersion', () => {
       '  >> \x1b[32;40m✔\x1b[0m test1',
       '  >> \x1b[31;40m✖\x1b[0m test2',
     ]);
+
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith({
+      files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
+      from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+      to: '"version": "$10.0.2"$2',
+    });
   });
 
   it('should return true 2', async() => {
@@ -120,10 +128,8 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_NEXT_VERSION = 'v0.0.3';
     const mockStdout               = spyOnStdout();
 
-    replaceInFileMock.mockImplementation(() => ([
-      {file: 'test1', hasChanged: true},
-      {file: 'test2', hasChanged: false},
-    ]));
+    const fn = jest.fn(() => ([]));
+    replaceInFileMock.mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -134,9 +140,98 @@ describe('updatePackageVersion', () => {
       '::group::Updating package version...',
       '> target version: v0.0.3',
       '> current version: 0.0.1',
-      '  >> \x1b[32;40m✔\x1b[0m test1',
-      '  >> \x1b[31;40m✖\x1b[0m test2',
     ]);
+
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith({
+      files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
+      from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+      to: '"version": "$10.0.3"$2',
+    });
+  });
+
+  it('should return true 3', async() => {
+    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+    process.env.INPUT_NEXT_VERSION = '1.0.0-rc.1';
+    const mockStdout               = spyOnStdout();
+
+    const fn = jest.fn(() => ([]));
+    replaceInFileMock.mockImplementation(fn);
+
+    expect(await updatePackageVersion(getContext({
+      eventName: 'push',
+      ref: 'refs/tags/v0.0.2',
+    }))).toBe(true);
+
+    stdoutCalledWith(mockStdout, [
+      '::group::Updating package version...',
+      '> target version: 1.0.0-rc.1',
+      '> current version: 0.0.1',
+    ]);
+
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith({
+      files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
+      from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+      to: '"version": "$11.0.0-rc.1"$2',
+    });
+  });
+
+  it('should return true 4', async() => {
+    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+    process.env.INPUT_NEXT_VERSION = 'v3.0.0+f2eed76';
+    const mockStdout               = spyOnStdout();
+
+    const fn = jest.fn(() => ([]));
+    replaceInFileMock.mockImplementation(fn);
+
+    expect(await updatePackageVersion(getContext({
+      eventName: 'push',
+      ref: 'refs/tags/v0.0.2',
+    }))).toBe(true);
+
+    stdoutCalledWith(mockStdout, [
+      '::group::Updating package version...',
+      '> target version: v3.0.0+f2eed76',
+      '> current version: 0.0.1',
+    ]);
+
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith({
+      files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
+      from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+      to: '"version": "$13.0.0+f2eed76"$2',
+    });
+  });
+
+  it('should return true 5', async() => {
+    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
+    process.env.INPUT_NEXT_VERSION = 'v1.0-beta+exp.sha.5114f85';
+    const mockStdout               = spyOnStdout();
+
+    const fn = jest.fn(() => ([]));
+    replaceInFileMock.mockImplementation(fn);
+
+    expect(await updatePackageVersion(getContext({
+      eventName: 'push',
+      ref: 'refs/tags/v0.0.2',
+    }))).toBe(true);
+
+    stdoutCalledWith(mockStdout, [
+      '::group::Updating package version...',
+      '> target version: v1.0-beta+exp.sha.5114f85',
+      '> current version: 0.0.1',
+    ]);
+
+    expect(fn).toBeCalledTimes(1);
+    expect(fn).toBeCalledWith({
+      files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
+      from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
+      to: '"version": "$11.0.0-beta+exp.sha.5114f85"$2',
+    });
   });
 });
 
