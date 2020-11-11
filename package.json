@@ -37,7 +37,7 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@technote-space/filter-github-action": "^0.5.7",
-    "@technote-space/github-action-helper": "^4.0.6",
+    "@technote-space/github-action-helper": "^4.2.1",
     "@technote-space/github-action-log-helper": "^0.1.7",
     "replace-in-file": "^6.1.0"
   },

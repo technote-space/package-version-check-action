@@ -772,19 +772,19 @@
     "@actions/core" "^1.2.6"
     "@actions/github" "^4.0.0"
 
-"@technote-space/github-action-helper@^4.0.4", "@technote-space/github-action-helper@^4.0.6":
-  version "4.0.6"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-4.0.6.tgz#c2dc8f0ac99e01b7b9d96fb73e970278bd4fc44a"
-  integrity sha512-O9/E+JE9fQBlRkqcxRMcbt8eEeIoIUdWW8fG8gvrwpxpFqjs+Bs+Jeg/Wd7+/Ixku4T+8T/dc44BXIIpi4e59w==
+"@technote-space/github-action-helper@^4.0.4", "@technote-space/github-action-helper@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-4.2.1.tgz#c5222fb406c16d0232e3f952869aa93eacc14243"
+  integrity sha512-c8X6jy13ay3FHQ6QmnLmziDOrTEUo93ahWIwmOGpi9gIiS213VNM8x8SL+Svx5Z86Siugmer6co5FPyBeAE1Rw==
   dependencies:
     "@actions/core" "^1.2.6"
     "@actions/github" "^4.0.0"
     "@octokit/plugin-rest-endpoint-methods" "^4.2.1"
-    "@technote-space/github-action-log-helper" "^0.1.6"
+    "@technote-space/github-action-log-helper" "^0.1.7"
     shell-escape "^0.2.0"
     sprintf-js "^1.1.2"
 
-"@technote-space/github-action-log-helper@^0.1.0", "@technote-space/github-action-log-helper@^0.1.5", "@technote-space/github-action-log-helper@^0.1.6", "@technote-space/github-action-log-helper@^0.1.7":
+"@technote-space/github-action-log-helper@^0.1.0", "@technote-space/github-action-log-helper@^0.1.5", "@technote-space/github-action-log-helper@^0.1.7":
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/@technote-space/github-action-log-helper/-/github-action-log-helper-0.1.7.tgz#40975d3f89969d6b69119c87e98f716e9cae5497"
   integrity sha512-IzUzp1ooFAfG8Xgwbgnj8ONaSX8oznxqJdhyAfraZZ4W7JFkrbAb4b5Pd7D6bzADjOBIBu22ToZuNq4e7hCl+A==
