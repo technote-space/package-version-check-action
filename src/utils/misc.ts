@@ -3,6 +3,7 @@ import path from 'path';
 import {Context} from '@actions/github/lib/context';
 import {getInput} from '@actions/core' ;
 import {Utils, ContextHelper} from '@technote-space/github-action-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import {ReplaceResult} from 'replace-in-file';
 
 const {getWorkspace, isSemanticVersioningTagName, getBoolValue, getPrefixRegExp} = Utils;
@@ -42,7 +43,7 @@ export const isRequiredUpdate = (packageVersion: string, tagName: string): boole
 
 export const isValidTagName = (tagName: string): boolean => isSemanticVersioningTagName(getPackageVersionToUpdate(tagName));
 
-export const getReplaceResultMessages = (results: ReplaceResult[]): string[] => results.map(result => `${result.hasChanged ? '✔' : '✖'} ${result.file}`);
+export const getReplaceResultMessages = (results: ReplaceResult[], logger: Logger): string[] => results.map(result => `${result.hasChanged ? logger.c('✔', {color: 'green'}) : logger.c('✖', {color: 'red'})} ${result.file}`);
 
 export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE', {required: true});
 

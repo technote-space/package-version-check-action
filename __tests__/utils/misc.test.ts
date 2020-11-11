@@ -2,6 +2,7 @@
 import path from 'path';
 import {isTargetEvent} from '@technote-space/filter-github-action';
 import {generateContext, testEnv} from '@technote-space/github-action-test-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import {
   getPackageDir,
   getPackageFileName,
@@ -20,6 +21,7 @@ import {
 import {TARGET_EVENTS} from '../../src/constant';
 
 const rootDir = path.resolve(__dirname, '../..');
+const logger  = new Logger();
 
 describe('isTargetEvent', () => {
   testEnv(rootDir);
@@ -367,7 +369,7 @@ describe('getPackageVersionToUpdate', () => {
 
 describe('getReplaceResultMessages', () => {
   it('should return empty', () => {
-    expect(getReplaceResultMessages([])).toEqual([]);
+    expect(getReplaceResultMessages([], logger)).toEqual([]);
   });
 
   it('should get messages', () => {
@@ -380,7 +382,7 @@ describe('getReplaceResultMessages', () => {
         file: 'test2',
         hasChanged: false,
       },
-    ]);
+    ], logger);
 
     expect(messages).toHaveLength(2);
     expect(messages[0]).toContain('test1');

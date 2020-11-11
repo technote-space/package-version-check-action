@@ -44,7 +44,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
     files: path,
     from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
     to: `"version": "$1${version}"$2`,
-  })));
+  }), logger));
 
   return true;
 };
