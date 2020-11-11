@@ -139,14 +139,6 @@ describe('isTargetEvent', () => {
   });
 
   it('should return false 4', () => {
-    process.env.INPUT_BRANCH_PREFIX = 'release';
-    expect(isTargetEvent(TARGET_EVENTS, generateContext({
-      event: 'push',
-      ref: 'refs/heads/release/v1.2.3',
-    }))).toBe(false);
-  });
-
-  it('should return false 5', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'release',
       action: 'published',
@@ -159,7 +151,7 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 6', () => {
+  it('should return false 5', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'release',
       action: 'created',
@@ -173,14 +165,14 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 7', () => {
+  it('should return false 6', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'create',
       ref: 'refs/heads/v1.2.3',
     }))).toBe(false);
   });
 
-  it('should return false 8', () => {
+  it('should return false 7', () => {
     process.env.INPUT_BRANCH_PREFIX = 'release/';
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'pull_request',
@@ -197,7 +189,7 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 9', () => {
+  it('should return false 8', () => {
     process.env.INPUT_NEXT_VERSION = 'abc';
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'push',
