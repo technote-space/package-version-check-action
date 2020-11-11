@@ -34,6 +34,10 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
   }
 
   const tagName = getTagName(context);
+  const current = getPackageVersion();
+  logger.info('target version: %s', tagName);
+  logger.info('current version: %s', current);
+
   if (!isRequiredUpdate(getPackageVersion(), tagName)) {
     logger.info('No update required.');
     return false;
