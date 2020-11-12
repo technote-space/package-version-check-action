@@ -764,7 +764,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@technote-space/filter-github-action@^0.5.5", "@technote-space/filter-github-action@^0.5.7":
+"@technote-space/filter-github-action@^0.5.7":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@technote-space/filter-github-action/-/filter-github-action-0.5.7.tgz#6608b1e43347bd49f554d9d928a67482321d06f4"
   integrity sha512-Z+o9LDjlxavShBxVJLSaqjsF4N7FjCrrv6VNaRbmOGOKVxsp+a4n4vTpsekmpomp5h6pIPwt4RbSmG4JdiBL6g==
@@ -772,10 +772,10 @@
     "@actions/core" "^1.2.6"
     "@actions/github" "^4.0.0"
 
-"@technote-space/github-action-helper@^4.0.4", "@technote-space/github-action-helper@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-4.2.1.tgz#c5222fb406c16d0232e3f952869aa93eacc14243"
-  integrity sha512-c8X6jy13ay3FHQ6QmnLmziDOrTEUo93ahWIwmOGpi9gIiS213VNM8x8SL+Svx5Z86Siugmer6co5FPyBeAE1Rw==
+"@technote-space/github-action-helper@^4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@technote-space/github-action-helper/-/github-action-helper-4.2.4.tgz#00ad051c62bba3e1bcb053c2d51891d618aa0f63"
+  integrity sha512-YO5lg/DZjFx1MzdSfqYmxrHDxuktT4RjPs+wFgjuNwGusAVf/qjT92cHZt14Q6d4xRkUpUuaRmD75mpiiLp91w==
   dependencies:
     "@actions/core" "^1.2.6"
     "@actions/github" "^4.0.0"
@@ -784,7 +784,7 @@
     shell-escape "^0.2.0"
     sprintf-js "^1.1.2"
 
-"@technote-space/github-action-log-helper@^0.1.0", "@technote-space/github-action-log-helper@^0.1.5", "@technote-space/github-action-log-helper@^0.1.7":
+"@technote-space/github-action-log-helper@^0.1.7":
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/@technote-space/github-action-log-helper/-/github-action-log-helper-0.1.7.tgz#40975d3f89969d6b69119c87e98f716e9cae5497"
   integrity sha512-IzUzp1ooFAfG8Xgwbgnj8ONaSX8oznxqJdhyAfraZZ4W7JFkrbAb4b5Pd7D6bzADjOBIBu22ToZuNq4e7hCl+A==
@@ -802,28 +802,29 @@
     "@octokit/plugin-rest-endpoint-methods" "^4.2.1"
     js-yaml "^3.14.0"
 
-"@technote-space/release-github-actions-cli@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions-cli/-/release-github-actions-cli-1.7.1.tgz#83608c9bdb43f664182b77bb729510f75f1355d8"
-  integrity sha512-TicP+QHgpnrXh6S8gg/dH+k07t9DLNNPaDlQq9oa4wJTp2r9E5HWxRC1TKsEqrExYj1ntotSiE08PmQp021hsA==
+"@technote-space/release-github-actions-cli@^1.7.2":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions-cli/-/release-github-actions-cli-1.7.2.tgz#0b8fce37a558576ce18bf5551a4c767bfdcf1859"
+  integrity sha512-kMuKl29X/3o2dYHIyn8SBR/6SAc/JR1fi/7ilFLMHBKDZb3XjYcFzWp5ajCDXNq9M2Y7B9xGuAp0gTCvRUQ0vA==
   dependencies:
-    "@technote-space/github-action-log-helper" "^0.1.0"
-    "@technote-space/release-github-actions" "^6.2.0"
-    commander "^6.1.0"
+    "@technote-space/github-action-helper" "^4.2.4"
+    "@technote-space/github-action-log-helper" "^0.1.7"
+    "@technote-space/release-github-actions" "^6.2.3"
+    commander "^6.2.0"
     cosmiconfig "^7.0.0"
     dotenv "^8.2.0"
     js-yaml "^3.14.0"
 
-"@technote-space/release-github-actions@^6.2.0":
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-6.2.2.tgz#862c3089c267a2de71b927bf55fcc71d0ecf5da8"
-  integrity sha512-9oNfsjVY6LfCD82baqppuQGcIDcz/e3dsvrQj6ggJ1f6naG+imJw9+2Go9VNvVFQu+ipABCIPJgD3sqxwgRKRA==
+"@technote-space/release-github-actions@^6.2.3":
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/@technote-space/release-github-actions/-/release-github-actions-6.2.3.tgz#5930bf9c092b7f82789d50cd283a44c27f21bb8c"
+  integrity sha512-imFB3+GIfMo5j75Vhyf0gzu69vZNy6gO7h4kk6dxQt47Quc/KqiBoCp/rCOqv1mjLY762e6nuaXIO6dMj9mX8w==
   dependencies:
     "@actions/core" "^1.2.6"
     "@actions/github" "^4.0.0"
-    "@technote-space/filter-github-action" "^0.5.5"
-    "@technote-space/github-action-helper" "^4.0.4"
-    "@technote-space/github-action-log-helper" "^0.1.5"
+    "@technote-space/filter-github-action" "^0.5.7"
+    "@technote-space/github-action-helper" "^4.2.4"
+    "@technote-space/github-action-log-helper" "^0.1.7"
     memize "^1.1.0"
 
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.7":
@@ -1527,7 +1528,7 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^6.1.0, commander@^6.2.0:
+commander@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.0.tgz#b990bfb8ac030aedc6d11bc04d1488ffef56db75"
   integrity sha512-zP4jEKbe8SHzKJYQmq8Y9gYjtO/POJLgIdKgV7B9qNmABVFVc+ctqSX6iXh4mCpJfRBOabiZ2YKPg8ciDw6C+Q==
