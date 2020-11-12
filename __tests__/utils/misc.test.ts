@@ -2,6 +2,7 @@
 import path from 'path';
 import {isTargetEvent} from '@technote-space/filter-github-action';
 import {generateContext, testEnv} from '@technote-space/github-action-test-helper';
+import {Logger} from '@technote-space/github-action-log-helper';
 import {
   getPackageDir,
   getPackageFileName,
@@ -20,6 +21,7 @@ import {
 import {TARGET_EVENTS} from '../../src/constant';
 
 const rootDir = path.resolve(__dirname, '../..');
+const logger  = new Logger();
 
 describe('isTargetEvent', () => {
   testEnv(rootDir);
@@ -137,14 +139,6 @@ describe('isTargetEvent', () => {
   });
 
   it('should return false 4', () => {
-    process.env.INPUT_BRANCH_PREFIX = 'release';
-    expect(isTargetEvent(TARGET_EVENTS, generateContext({
-      event: 'push',
-      ref: 'refs/heads/release/v1.2.3',
-    }))).toBe(false);
-  });
-
-  it('should return false 5', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'release',
       action: 'published',
@@ -157,7 +151,7 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 6', () => {
+  it('should return false 5', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'release',
       action: 'created',
@@ -171,14 +165,14 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 7', () => {
+  it('should return false 6', () => {
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'create',
       ref: 'refs/heads/v1.2.3',
     }))).toBe(false);
   });
 
-  it('should return false 8', () => {
+  it('should return false 7', () => {
     process.env.INPUT_BRANCH_PREFIX = 'release/';
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'pull_request',
@@ -195,7 +189,7 @@ describe('isTargetEvent', () => {
     }))).toBe(false);
   });
 
-  it('should return false 9', () => {
+  it('should return false 8', () => {
     process.env.INPUT_NEXT_VERSION = 'abc';
     expect(isTargetEvent(TARGET_EVENTS, generateContext({
       event: 'push',
@@ -367,7 +361,7 @@ describe('getPackageVersionToUpdate', () => {
 
 describe('getReplaceResultMessages', () => {
   it('should return empty', () => {
-    expect(getReplaceResultMessages([])).toEqual([]);
+    expect(getReplaceResultMessages([], logger)).toEqual([]);
   });
 
   it('should get messages', () => {
@@ -380,7 +374,7 @@ describe('getReplaceResultMessages', () => {
         file: 'test2',
         hasChanged: false,
       },
-    ]);
+    ], logger);
 
     expect(messages).toHaveLength(2);
     expect(messages[0]).toContain('test1');
