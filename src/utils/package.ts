@@ -39,7 +39,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
   logger.info('current version: %s', current);
 
   if (!isRequiredUpdate(getPackageVersion(), tagName)) {
-    logger.info('No update required.');
+    logger.info('No need to update.');
     return false;
   }
 

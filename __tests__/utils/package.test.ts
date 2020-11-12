@@ -68,7 +68,7 @@ describe('updatePackageVersion', () => {
       '::group::Updating package version...',
       '> target version: v0.0.1',
       '> current version: 0.0.1',
-      '> No update required.',
+      '> No need to update.',
     ]);
   });
 
@@ -86,7 +86,7 @@ describe('updatePackageVersion', () => {
       '::group::Updating package version...',
       '> target version: v0.0.1',
       '> current version: 0.0.1',
-      '> No update required.',
+      '> No need to update.',
     ]);
   });
 
