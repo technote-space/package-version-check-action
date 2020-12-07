@@ -114,8 +114,8 @@ describe('updatePackageVersion', () => {
       '  >> \x1b[31;40m✖\x1b[0m test2',
     ]);
 
-    expect(fn).toBeCalledTimes(1);
-    expect(fn).toBeCalledWith({
+    expect(replaceInFileMock).toBeCalledTimes(1);
+    expect(replaceInFileMock).toBeCalledWith({
       files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
       from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
       to: '"version": "$10.0.2"$2',
@@ -142,8 +142,8 @@ describe('updatePackageVersion', () => {
       '> current version: 0.0.1',
     ]);
 
-    expect(fn).toBeCalledTimes(1);
-    expect(fn).toBeCalledWith({
+    expect(replaceInFileMock).toBeCalledTimes(1);
+    expect(replaceInFileMock).toBeCalledWith({
       files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
       from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
       to: '"version": "$10.0.3"$2',
@@ -170,8 +170,8 @@ describe('updatePackageVersion', () => {
       '> current version: 0.0.1',
     ]);
 
-    expect(fn).toBeCalledTimes(1);
-    expect(fn).toBeCalledWith({
+    expect(replaceInFileMock).toBeCalledTimes(1);
+    expect(replaceInFileMock).toBeCalledWith({
       files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
       from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
       to: '"version": "$11.0.0-rc.1"$2',
@@ -198,8 +198,8 @@ describe('updatePackageVersion', () => {
       '> current version: 0.0.1',
     ]);
 
-    expect(fn).toBeCalledTimes(1);
-    expect(fn).toBeCalledWith({
+    expect(replaceInFileMock).toBeCalledTimes(1);
+    expect(replaceInFileMock).toBeCalledWith({
       files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
       from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
       to: '"version": "$13.0.0+f2eed76"$2',
@@ -226,8 +226,8 @@ describe('updatePackageVersion', () => {
       '> current version: 0.0.1',
     ]);
 
-    expect(fn).toBeCalledTimes(1);
-    expect(fn).toBeCalledWith({
+    expect(replaceInFileMock).toBeCalledTimes(1);
+    expect(replaceInFileMock).toBeCalledWith({
       files: path.resolve(__dirname, '..', 'fixtures', 'package-test1.json'),
       from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
       to: '"version": "$11.0.0-beta+exp.sha.5114f85"$2',
