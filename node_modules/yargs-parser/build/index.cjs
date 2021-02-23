@@ -249,6 +249,10 @@ class YargsParser {
             if (arg !== '--' && isUnknownOptionAsArg(arg)) {
                 pushPositional(arg);
             }
+            else if (arg.match(/---+(=|$)/)) {
+                pushPositional(arg);
+                continue;
+            }
             else if (arg.match(/^--.+=/) || (!configuration['short-option-groups'] && arg.match(/^-.+=/))) {
                 m = arg.match(/^--?([^=]+)=([\s\S]*)$/);
                 if (m !== null && Array.isArray(m) && m.length >= 3) {
