@@ -420,6 +420,7 @@ describe('commit', () => {
       '::endgroup::',
       '::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
       '::endgroup::',
+      '',
       '::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
     ]);
     exportVariableCalledWith(mockEnv, [
