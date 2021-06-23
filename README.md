@@ -30,7 +30,6 @@ This is a `GitHub Actions` to check package version before publish npm.
   - [NEXT_VERSION](#next_version)
 - [Action event details](#action-event-details)
   - [Target events](#target-events)
-  - [Conditions](#conditions)
 - [Motivation](#motivation)
 - [Addition](#addition)
   - [Commit](#commit)
