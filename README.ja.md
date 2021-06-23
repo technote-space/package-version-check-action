@@ -145,6 +145,7 @@ e.g. `'v1.2.3'`
 |release: published|[condition1](#condition1)|
 |pull_request, pull_request_target: opened, reopened, synchronize|[condition2](#condition2)|
 |created: *|[condition3](#condition3)|
+
 ### Conditions
 #### condition1
 - tags
