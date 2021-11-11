@@ -1,1 +1,1 @@
-{"owner":"technote-space","repo":"package-version-check-action","sha":"395655e5068b4647378c39f52c29e381d4f37e69","ref":"refs/tags/test/v1.8.11.1437760806","tagName":"test/v1.8.11.1437760806","branch":"gh-actions","tags":["test/v1.8.11.1437760806","test/v1.8.11","test/v1.8","test/v1"],"updated_at":"2021-11-09T03:08:29.128Z"}
+{"owner":"technote-space","repo":"package-version-check-action","sha":"FETCH_HEAD","ref":"refs/heads/master","tagName":"test/v1.8.11","branch":"gh-actions","tags":["test/v1.8.11","test/v1.8","test/v1"],"updated_at":"2021-11-11T16:12:51.001Z"}
