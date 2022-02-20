@@ -197,9 +197,9 @@ So it won't spawn actions which triggered by push.
 This can be a problem if you have branch protection configured.  
 
 If you want to trigger actions, use a personal access token instead.  
-1. Generate a [personal access token](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) with the public_repo or repo scope.  
+1. Generate a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with the public_repo or repo scope.  
 (repo is required for private repositories).  
-1. [Save as ACCESS_TOKEN](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+1. [Save as ACCESS_TOKEN](https://docs.github.com/en/actions/security-guides/encrypted-secrets)
 1. Add input to use `ACCESS_TOKEN` instead of `GITHUB_TOKEN`.  
    e.g. `.github/workflows/check_version.yml`
    ```yaml
