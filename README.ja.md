@@ -195,9 +195,9 @@ GitHub Actions で提供される`GITHUB_TOKEN`は連続するイベントを作
 これはブランチプロテクションを設定していると問題になる場合があります。  
 
 もしアクションをトリガーしたい場合は代わりに`personal access token`を使用してください。  
-1. public_repo または repo の権限で [Personal access token](https://help.github.com/ja/articles/creating-a-personal-access-token-for-the-command-line) を生成  
+1. public_repo または repo の権限で [Personal access token](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) を生成  
 (repo はプライベートリポジトリで必要です)  
-1. [ACCESS_TOKENとして保存](https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+1. [ACCESS_TOKENとして保存](https://docs.github.com/ja/actions/security-guides/encrypted-secrets)
 1. `GITHUB_TOKEN`の代わりに`ACCESS_TOKEN`を使用するように設定  
    例：`.github/workflows/check_version.yml`
    ```yaml
