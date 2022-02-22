@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/package-version-check-action",
-  "version": "1.8.15",
+  "version": "1.8.16",
   "description": "GitHub Action to check package version before publish.",
   "keywords": [
     "github",
