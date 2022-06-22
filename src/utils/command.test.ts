@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
-import { setChildProcessParams } from '@technote-space/github-action-test-helper';
 import { Logger } from '@technote-space/github-action-log-helper';
+import { setChildProcessParams } from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
 import { getBranchesByTag } from './command';
 
 const logger = new Logger();

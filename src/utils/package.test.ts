@@ -1,6 +1,4 @@
 /* eslint-disable no-magic-numbers */
-import { beforeEach, describe, expect, it, vi } from 'vitest';
-import nock from 'nock';
 import path from 'path';
 import { Logger } from '@technote-space/github-action-log-helper';
 import {
@@ -16,7 +14,9 @@ import {
   testFs,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
+import nock from 'nock';
 import replaceInFile from 'replace-in-file';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   updatePackageVersion,
   getUpdateBranch,

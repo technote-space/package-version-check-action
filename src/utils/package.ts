@@ -1,10 +1,11 @@
-import fs from 'fs';
-import { setOutput } from '@actions/core';
 import type { Context } from '@actions/github/lib/context';
 import type { Octokit } from '@technote-space/github-action-helper/dist/types';
-import { ApiHelper, ContextHelper } from '@technote-space/github-action-helper';
 import type { Logger } from '@technote-space/github-action-log-helper';
+import fs from 'fs';
+import { setOutput } from '@actions/core';
+import { ApiHelper, ContextHelper } from '@technote-space/github-action-helper';
 import replaceInFile from 'replace-in-file';
+import { getBranchesByTag } from './command';
 import {
   getPackageDir,
   getPackageFileName,
@@ -19,7 +20,6 @@ import {
   getTagName,
   getBranch,
 } from './misc';
-import { getBranchesByTag } from './command';
 
 export const updatePackageVersion = async(context: Context, logger: Logger): Promise<boolean> => {
   logger.startProcess('Updating package version...');

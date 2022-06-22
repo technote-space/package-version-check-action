@@ -1,9 +1,10 @@
 /* eslint-disable no-magic-numbers */
-import { describe, expect, it } from 'vitest';
 import path from 'path';
 import { isTargetEvent } from '@technote-space/filter-github-action';
-import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
 import { Logger } from '@technote-space/github-action-log-helper';
+import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
+import { describe, expect, it } from 'vitest';
+import { TARGET_EVENTS } from '../constant';
 import {
   getPackageDir,
   getPackageFileName,
@@ -19,7 +20,6 @@ import {
   getCommitMessage,
   getTagName,
 } from './misc';
-import { TARGET_EVENTS } from '../constant';
 
 const rootDir = path.resolve(__dirname, '../..');
 const logger  = new Logger();
