@@ -1,4 +1,5 @@
 /* eslint-disable no-magic-numbers */
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import nock from 'nock';
 import path from 'path';
 import {Logger} from '@technote-space/github-action-log-helper';
@@ -15,15 +16,12 @@ import {
   testFs,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
-import {replaceInFile} from 'replace-in-file';
+import replaceInFile from 'replace-in-file';
 import {
   updatePackageVersion,
   getUpdateBranch,
   commit,
 } from '../../src/utils/package';
-
-jest.mock('replace-in-file');
-const replaceInFileMock = replaceInFile as jest.Mock;
 
 const setExists = testFs(true);
 const rootDir   = path.resolve(__dirname, '../..');
@@ -95,11 +93,11 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([
+    const fn = vi.fn(() => ([
       {file: 'test1', hasChanged: true},
       {file: 'test2', hasChanged: false},
     ]));
-    replaceInFileMock.mockImplementation(fn);
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -128,8 +126,8 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_NEXT_VERSION = 'v0.0.3';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -156,8 +154,8 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_NEXT_VERSION = '1.0.0-rc.1';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -184,8 +182,8 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_NEXT_VERSION = 'v3.0.0+f2eed76';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
@@ -212,8 +210,8 @@ describe('updatePackageVersion', () => {
     process.env.INPUT_NEXT_VERSION = 'v1.0-beta+exp.sha.5114f85';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',

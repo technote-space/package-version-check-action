@@ -4,7 +4,7 @@ import {Context} from '@actions/github/lib/context';
 import {Octokit} from '@technote-space/github-action-helper/dist/types';
 import {ApiHelper, ContextHelper} from '@technote-space/github-action-helper';
 import {Logger} from '@technote-space/github-action-log-helper';
-import {replaceInFile} from 'replace-in-file';
+import replaceInFile from 'replace-in-file';
 import {
   getPackageDir,
   getPackageFileName,
@@ -44,7 +44,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
   }
 
   const version = getPackageVersionToUpdate(tagName);
-  logger.displayStdout(getReplaceResultMessages(await replaceInFile({
+  logger.displayStdout(getReplaceResultMessages(await replaceInFile.replaceInFile({
     files: path,
     from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
     to: `"version": "$1${version}"$2`,
@@ -87,7 +87,6 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
   }
 
   const helper = new ApiHelper(octokit, context, logger, {
-    branch: branch,
     refForUpdate: `heads/${branch}`,
     suppressBPError: true,
   });

@@ -1,4 +1,5 @@
 /* eslint-disable no-magic-numbers */
+import { describe, expect, it } from 'vitest';
 import path from 'path';
 import {isTargetEvent} from '@technote-space/filter-github-action';
 import {generateContext, testEnv} from '@technote-space/github-action-test-helper';

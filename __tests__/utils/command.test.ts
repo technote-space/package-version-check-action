@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import {setChildProcessParams} from '@technote-space/github-action-test-helper';
 import {getBranchesByTag} from '../../src/utils/command';
 
