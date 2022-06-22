@@ -17,8 +17,8 @@ const run = async(): Promise<void> => {
     return;
   }
 
-  if (await updatePackageVersion(context)) {
-    await commit(Utils.getOctokit(), context);
+  if (await updatePackageVersion(context, logger)) {
+    await commit(Utils.getOctokit(), context, logger);
   }
 };
 

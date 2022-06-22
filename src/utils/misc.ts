@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { Context } from '@actions/github/lib/context';
+import type { Context } from '@actions/github/lib/context';
 import { getInput } from '@actions/core' ;
 import { Utils, ContextHelper } from '@technote-space/github-action-helper';
-import { Logger } from '@technote-space/github-action-log-helper';
-import { ReplaceResult } from 'replace-in-file';
+import type { Logger } from '@technote-space/github-action-log-helper';
+import type { ReplaceResult } from 'replace-in-file';
 
 const { getWorkspace, isValidSemanticVersioning, getBoolValue, getPrefixRegExp } = Utils;
 

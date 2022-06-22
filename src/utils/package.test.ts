@@ -25,6 +25,7 @@ import {
 
 const setExists = testFs(true);
 const rootDir   = path.resolve(__dirname, '../..');
+const logger    = new Logger();
 const octokit   = getOctokit();
 
 beforeEach(() => {
@@ -43,7 +44,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.1',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -60,7 +61,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.1',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -78,7 +79,7 @@ describe('updatePackageVersion', () => {
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -102,7 +103,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -132,7 +133,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -160,7 +161,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -188,7 +189,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -216,7 +217,7 @@ describe('updatePackageVersion', () => {
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -314,7 +315,7 @@ describe('commit', () => {
         owner: 'hello',
         repo: 'world',
       },
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -332,7 +333,7 @@ describe('commit', () => {
         owner: 'hello',
         repo: 'world',
       },
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -356,7 +357,7 @@ describe('commit', () => {
           'default_branch': 'master',
         },
       },
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -402,7 +403,7 @@ describe('commit', () => {
           'default_branch': 'master',
         },
       },
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
