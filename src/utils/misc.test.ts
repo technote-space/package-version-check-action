@@ -1,9 +1,9 @@
 /* eslint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 import path from 'path';
-import {isTargetEvent} from '@technote-space/filter-github-action';
-import {generateContext, testEnv} from '@technote-space/github-action-test-helper';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { isTargetEvent } from '@technote-space/filter-github-action';
+import { generateContext, testEnv } from '@technote-space/github-action-test-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   getPackageDir,
   getPackageFileName,
@@ -18,8 +18,8 @@ import {
   getReplaceResultMessages,
   getCommitMessage,
   getTagName,
-} from '../../src/utils/misc';
-import {TARGET_EVENTS} from '../../src/constant';
+} from './misc';
+import { TARGET_EVENTS } from '../constant';
 
 const rootDir = path.resolve(__dirname, '../..');
 const logger  = new Logger();
@@ -244,7 +244,7 @@ describe('getPackageData', () => {
   testEnv(rootDir);
 
   it('should get package data', () => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     expect(getPackageData()).toEqual({
       'name': 'test',
@@ -258,19 +258,19 @@ describe('getPackageVersion', () => {
   testEnv(rootDir);
 
   it('should get package version 1', () => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     expect(getPackageVersion()).toBe('0.0.1');
   });
 
   it('should get package version 2', () => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test2.json';
     expect(getPackageVersion()).toBe('0.0.2');
   });
 
   it('should get package version 3', () => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test3.json';
     expect(getPackageVersion()).toBe('v0.0.3');
   });

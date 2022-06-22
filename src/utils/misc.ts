@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import {Context} from '@actions/github/lib/context';
-import {getInput} from '@actions/core' ;
-import {Utils, ContextHelper} from '@technote-space/github-action-helper';
-import {Logger} from '@technote-space/github-action-log-helper';
-import {ReplaceResult} from 'replace-in-file';
+import { Context } from '@actions/github/lib/context';
+import { getInput } from '@actions/core' ;
+import { Utils, ContextHelper } from '@technote-space/github-action-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
+import { ReplaceResult } from 'replace-in-file';
 
-const {getWorkspace, isValidSemanticVersioning, getBoolValue, getPrefixRegExp} = Utils;
+const { getWorkspace, isValidSemanticVersioning, getBoolValue, getPrefixRegExp } = Utils;
 
 const normalizeVersion = (version: string): string => Utils.normalizeVersion(version) ?? '';
 
@@ -20,12 +20,12 @@ const getVersionFromBranch = (branch: string): string => branch.replace(getBranc
 
 export const isValidBranch = (branch: string): boolean => !!getBranchPrefix() && getBranchPrefixRegExp().test(branch) && isValidSemanticVersioning(getVersionFromBranch(branch));
 
-export const getPackageFileName = (): string => getInput('PACKAGE_NAME', {required: true});
+export const getPackageFileName = (): string => getInput('PACKAGE_NAME', { required: true });
 
 export const getPackagePath = (): string => path.resolve(getPackageDir(), getPackageFileName());
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getPackageData = (): any => JSON.parse(fs.readFileSync(getPackagePath(), {encoding: 'utf-8'}));
+export const getPackageData = (): any => JSON.parse(fs.readFileSync(getPackagePath(), { encoding: 'utf-8' }));
 
 export const getPackageVersion = (): string => getPackageData()['version'];
 
@@ -43,9 +43,9 @@ export const isRequiredUpdate = (packageVersion: string, tagName: string): boole
 
 export const isValidTagName = (tagName: string): boolean => isValidSemanticVersioning(getPackageVersionToUpdate(tagName));
 
-export const getReplaceResultMessages = (results: ReplaceResult[], logger: Logger): string[] => results.map(result => `${result.hasChanged ? logger.c('✔', {color: 'green'}) : logger.c('✖', {color: 'red'})} ${result.file}`);
+export const getReplaceResultMessages = (results: ReplaceResult[], logger: Logger): string[] => results.map(result => `${result.hasChanged ? logger.c('✔', { color: 'green' }) : logger.c('✖', { color: 'red' })} ${result.file}`);
 
-export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE', {required: true});
+export const getCommitMessage = (): string => getInput('COMMIT_MESSAGE', { required: true });
 
 export const isCommitDisabled = (): boolean => getBoolValue(getInput('COMMIT_DISABLED'));
 

@@ -1,5 +1,5 @@
-import {Context} from '@actions/github/lib/context';
-import {isValidContext, isValidTagNameContext} from './utils/misc';
+import { Context } from '@actions/github/lib/context';
+import { isValidContext, isValidTagNameContext } from './utils/misc';
 
 export const TARGET_EVENTS = {
   'create': [

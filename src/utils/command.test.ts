@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import {setChildProcessParams} from '@technote-space/github-action-test-helper';
-import {getBranchesByTag} from '../../src/utils/command';
+import { setChildProcessParams } from '@technote-space/github-action-test-helper';
+import { getBranchesByTag } from './command';
 
 describe('getBranchesByTag', () => {
   it('should empty', async() => {
-    setChildProcessParams({stdout: ''});
+    setChildProcessParams({ stdout: '' });
     expect(await getBranchesByTag('')).toEqual([]);
   });
 
   it('should get branches', async() => {
-    setChildProcessParams({stdout: 'develop\nfeature/test\nremotes/origin/master\n'});
+    setChildProcessParams({ stdout: 'develop\nfeature/test\nremotes/origin/master\n' });
     expect(await getBranchesByTag('')).toEqual([
       'develop',
       'feature/test',
