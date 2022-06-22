@@ -9,7 +9,7 @@ inputs:
   GITHUB_TOKEN:
     description: Secret GitHub API token to use for making API requests.
     default: ${{ github.token }}
-    required: true
+    required: false
   BRANCH_PREFIX:
     description: Branch name prefix.
     default: ''
@@ -21,11 +21,11 @@ inputs:
   COMMIT_MESSAGE:
     description: Commit message of update package version commit.
     default: 'feat: update package version'
-    required: true
+    required: false
   PACKAGE_NAME:
     description: Package file name.
     default: 'package.json'
-    required: true
+    required: false
   PACKAGE_DIR:
     description: Package directory.
     default: ''
@@ -48,5 +48,5 @@ branding:
   color: 'orange'
 
 runs:
-  using: node12
+  using: node16
   main: lib/main.js
