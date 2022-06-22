@@ -1,10 +1,11 @@
+import type { Context } from '@actions/github/lib/context';
+import type { Octokit } from '@technote-space/github-action-helper/dist/types';
+import type { Logger } from '@technote-space/github-action-log-helper';
 import fs from 'fs';
-import {setOutput} from '@actions/core';
-import {Context} from '@actions/github/lib/context';
-import {Octokit} from '@technote-space/github-action-helper/dist/types';
-import {ApiHelper, ContextHelper} from '@technote-space/github-action-helper';
-import {Logger} from '@technote-space/github-action-log-helper';
-import {replaceInFile} from 'replace-in-file';
+import { setOutput } from '@actions/core';
+import { ApiHelper, ContextHelper } from '@technote-space/github-action-helper';
+import replaceInFile from 'replace-in-file';
+import { getBranchesByTag } from './command';
 import {
   getPackageDir,
   getPackageFileName,
@@ -19,11 +20,8 @@ import {
   getTagName,
   getBranch,
 } from './misc';
-import {getBranchesByTag} from './command';
 
-const logger = new Logger();
-
-export const updatePackageVersion = async(context: Context): Promise<boolean> => {
+export const updatePackageVersion = async(context: Context, logger: Logger): Promise<boolean> => {
   logger.startProcess('Updating package version...');
 
   const path = getPackagePath();
@@ -44,7 +42,7 @@ export const updatePackageVersion = async(context: Context): Promise<boolean> =>
   }
 
   const version = getPackageVersionToUpdate(tagName);
-  logger.displayStdout(getReplaceResultMessages(await replaceInFile({
+  logger.displayStdout(getReplaceResultMessages(await replaceInFile.replaceInFile({
     files: path,
     from: /"version"\s*:\s*"(v?).+?"\s*(,?)$/gm,
     to: `"version": "$1${version}"$2`,
@@ -62,7 +60,7 @@ export const getUpdateBranch = async(logger: Logger, context: Context): Promise<
       return false;
     }
 
-    if (!(await getBranchesByTag(tagName)).includes(branch)) {
+    if (!(await getBranchesByTag(tagName, logger)).includes(branch)) {
       logger.info('This is not default branch.');
       return false;
     }
@@ -73,7 +71,7 @@ export const getUpdateBranch = async(logger: Logger, context: Context): Promise<
   return getBranch(context);
 };
 
-export const commit = async(octokit: Octokit, context: Context): Promise<boolean> => {
+export const commit = async(octokit: Octokit, context: Context, logger: Logger): Promise<boolean> => {
   logger.startProcess('Committing...');
 
   if (isCommitDisabled()) {
@@ -87,7 +85,6 @@ export const commit = async(octokit: Octokit, context: Context): Promise<boolean
   }
 
   const helper = new ApiHelper(octokit, context, logger, {
-    branch: branch,
     refForUpdate: `heads/${branch}`,
     suppressBPError: true,
   });

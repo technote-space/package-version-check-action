@@ -1,7 +1,6 @@
 /* eslint-disable no-magic-numbers */
-import nock from 'nock';
 import path from 'path';
-import {Logger} from '@technote-space/github-action-log-helper';
+import { Logger } from '@technote-space/github-action-log-helper';
 import {
   getContext,
   testEnv,
@@ -15,18 +14,18 @@ import {
   testFs,
   getOctokit,
 } from '@technote-space/github-action-test-helper';
-import {replaceInFile} from 'replace-in-file';
+import nock from 'nock';
+import replaceInFile from 'replace-in-file';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   updatePackageVersion,
   getUpdateBranch,
   commit,
-} from '../../src/utils/package';
-
-jest.mock('replace-in-file');
-const replaceInFileMock = replaceInFile as jest.Mock;
+} from './package';
 
 const setExists = testFs(true);
 const rootDir   = path.resolve(__dirname, '../..');
+const logger    = new Logger();
 const octokit   = getOctokit();
 
 beforeEach(() => {
@@ -38,14 +37,14 @@ describe('updatePackageVersion', () => {
 
   it('should return false 1', async() => {
     setExists(false);
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.1',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -55,14 +54,14 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return false 2', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.1',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -73,14 +72,14 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return false 3', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     process.env.INPUT_NEXT_VERSION = 'v0.0.1';
     const mockStdout               = spyOnStdout();
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -91,20 +90,20 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return true 1', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([
-      {file: 'test1', hasChanged: true},
-      {file: 'test2', hasChanged: false},
+    const fn                = vi.fn(() => ([
+      { file: 'test1', hasChanged: true },
+      { file: 'test2', hasChanged: false },
     ]));
-    replaceInFileMock.mockImplementation(fn);
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -123,18 +122,18 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return true 2', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     process.env.INPUT_NEXT_VERSION = 'v0.0.3';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn                = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -151,18 +150,18 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return true 3', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     process.env.INPUT_NEXT_VERSION = '1.0.0-rc.1';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn                = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -179,18 +178,18 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return true 4', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     process.env.INPUT_NEXT_VERSION = 'v3.0.0+f2eed76';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn                = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -207,18 +206,18 @@ describe('updatePackageVersion', () => {
   });
 
   it('should return true 5', async() => {
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     process.env.INPUT_NEXT_VERSION = 'v1.0-beta+exp.sha.5114f85';
     const mockStdout               = spyOnStdout();
 
-    const fn = jest.fn(() => ([]));
-    replaceInFileMock.mockImplementation(fn);
+    const fn                = vi.fn(() => ([]));
+    const replaceInFileMock = vi.spyOn(replaceInFile, 'replaceInFile').mockImplementation(fn);
 
     expect(await updatePackageVersion(getContext({
       eventName: 'push',
       ref: 'refs/tags/v0.0.2',
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Updating package version...',
@@ -247,7 +246,7 @@ describe('getUpdateBranch', () => {
   });
 
   it('should return false 2', async() => {
-    setChildProcessParams({stdout: ''});
+    setChildProcessParams({ stdout: '' });
 
     expect(await getUpdateBranch(logger, getContext({
       eventName: 'push',
@@ -261,7 +260,7 @@ describe('getUpdateBranch', () => {
   });
 
   it('should get default branch', async() => {
-    setChildProcessParams({stdout: 'remotes/origin/master'});
+    setChildProcessParams({ stdout: 'remotes/origin/master' });
 
     expect(await getUpdateBranch(logger, getContext({
       eventName: 'push',
@@ -283,7 +282,7 @@ describe('getUpdateBranch', () => {
 
   it('should get branch 2', async() => {
     process.env.INPUT_BRANCH_PREFIX = 'release/';
-    setChildProcessParams({stdout: ''});
+    setChildProcessParams({ stdout: '' });
 
     expect(await getUpdateBranch(logger, getContext({
       eventName: 'pull_request',
@@ -316,7 +315,7 @@ describe('commit', () => {
         owner: 'hello',
         repo: 'world',
       },
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -334,7 +333,7 @@ describe('commit', () => {
         owner: 'hello',
         repo: 'world',
       },
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -344,7 +343,7 @@ describe('commit', () => {
 
   it('should return false 2', async() => {
     process.env.INPUT_COMMIT_DISABLED = '0';
-    setChildProcessParams({stdout: 'develop\nfeature/test\n'});
+    setChildProcessParams({ stdout: 'develop\nfeature/test\n' });
     const mockStdout = spyOnStdout();
 
     expect(await commit(octokit, getContext({
@@ -358,7 +357,7 @@ describe('commit', () => {
           'default_branch': 'master',
         },
       },
-    }))).toBe(false);
+    }), logger)).toBe(false);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -371,8 +370,8 @@ describe('commit', () => {
 
   it('should call helper commit', async() => {
     process.env.INPUT_COMMIT_DISABLED = 'false';
-    setChildProcessParams({stdout: 'master\nfeature/test\n'});
-    process.env.INPUT_PACKAGE_DIR  = '__tests__/fixtures';
+    setChildProcessParams({ stdout: 'master\nfeature/test\n' });
+    process.env.INPUT_PACKAGE_DIR  = 'src/fixtures';
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
     const mockEnv                  = spyOnExportVariable();
@@ -404,7 +403,7 @@ describe('commit', () => {
           'default_branch': 'master',
         },
       },
-    }))).toBe(true);
+    }), logger)).toBe(true);
 
     stdoutCalledWith(mockStdout, [
       '::group::Committing...',
@@ -424,7 +423,7 @@ describe('commit', () => {
       '::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
     ]);
     exportVariableCalledWith(mockEnv, [
-      {name: 'GITHUB_SHA', val: '7638417db6d59f3c431d3e1f261cc637155684cd'},
+      { name: 'GITHUB_SHA', val: '7638417db6d59f3c431d3e1f261cc637155684cd' },
     ]);
   });
 });
