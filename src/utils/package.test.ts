@@ -10,6 +10,8 @@ import {
   stdoutCalledWith,
   spyOnExportVariable,
   exportVariableCalledWith,
+  spyOnSetOutput,
+  setOutputCalledWith,
   setChildProcessParams,
   testFs,
   getOctokit,
@@ -375,6 +377,7 @@ describe('commit', () => {
     process.env.INPUT_PACKAGE_NAME = 'package-test1.json';
     const mockStdout               = spyOnStdout();
     const mockEnv                  = spyOnExportVariable();
+    const mockOutput               = spyOnSetOutput();
 
     nock('https://api.github.com')
       .persist()
@@ -419,11 +422,10 @@ describe('commit', () => {
       '::endgroup::',
       '::group::Updating ref... [heads/master] [7638417db6d59f3c431d3e1f261cc637155684cd]',
       '::endgroup::',
-      '',
-      '::set-output name=sha::7638417db6d59f3c431d3e1f261cc637155684cd',
     ]);
     exportVariableCalledWith(mockEnv, [
       { name: 'GITHUB_SHA', val: '7638417db6d59f3c431d3e1f261cc637155684cd' },
     ]);
+    setOutputCalledWith(mockOutput, [{ name: 'sha', value: '7638417db6d59f3c431d3e1f261cc637155684cd' }]);
   });
 });
